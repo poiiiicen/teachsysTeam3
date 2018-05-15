@@ -1,4 +1,4 @@
-package com.se.tss.CourseArrange.Service;
+package com.se.tss.forum.Service;
 
 import com.se.tss.Public.Users;
 import org.springframework.data.jpa.repository.JpaRepository;

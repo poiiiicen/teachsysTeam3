@@ -1,6 +1,6 @@
-package com.se.tss.CourseArrange.Controller;
+package com.se.tss.forum.Controller;
 
-import com.se.tss.CourseArrange.Service.UserService;
+import com.se.tss.forum.Service.UserService;
 import com.se.tss.Public.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ public class UserController {
         if(u.getPassword().equals(pwd))
             return "hello, welcome "+name;
         else
-            return "oh sorry user name or password is wrong "+u.getId() + " " + u.getPassword();
+            return "oh sorry user name or password is wrong ";
     }
 }
 
