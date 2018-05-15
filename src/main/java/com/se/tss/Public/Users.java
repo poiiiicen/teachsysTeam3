@@ -3,8 +3,8 @@ package com.se.tss.Public;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Adm")
-public class Adm {
+@Table(name="Users")
+public class Users {
 
     @Id
     @Column(name="id")
@@ -26,4 +26,5 @@ public class Adm {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

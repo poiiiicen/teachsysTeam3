@@ -14,12 +14,12 @@ public class AdminController {
     AdminService adminService;
 
     @RequestMapping(value = "/")
-    public String test(){
-        return "hello world!";
-    }
+        public String test(){
+            return "hello world!";
+        }
 
-    @RequestMapping(value = "/testdbconnection")
-    public List<Adm> dbconnect(){
+        @RequestMapping(value = "/testdbconnection")
+        public List<Adm> dbconnect(){
         return adminService.findAll();
     }
 }

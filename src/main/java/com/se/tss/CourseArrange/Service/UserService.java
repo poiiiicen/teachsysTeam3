@@ -1,9 +1,8 @@
 package com.se.tss.CourseArrange.Service;
 
-import com.se.tss.Public.Adm;
+import com.se.tss.Public.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdminService extends JpaRepository<Adm, String> {
 
+public interface UserService extends JpaRepository<Users, String>{
 }
-
