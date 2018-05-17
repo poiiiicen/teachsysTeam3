@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 
-@Controller  //注意这里必须为Controller
-public class initial {
+@Controller
+public class PageController {
     @RequestMapping("/index")
     public String helloHtml(HashMap<String, Object> map) {
         map.put("hello", "欢迎进入HTML页面");
         return "/index";
     }
-
 }
