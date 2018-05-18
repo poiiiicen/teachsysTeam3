@@ -18,7 +18,7 @@ public class UserController {
     @RequestMapping(value = "/login/{name}&{pwd}")
     public String login(@PathVariable String name, @PathVariable String pwd) {
         BBSUser u = userService.getOne(name);
-        if(u.getUPwd().equals(pwd))
+        if(u.getUpwd().equals(pwd))
             return "hello, welcome "+name;
         else
             return "oh sorry user name or password is wrong ";
@@ -28,12 +28,13 @@ public class UserController {
     public String regist(HttpServletRequest request )
     {
         BBSUser u = new BBSUser();
+        /*;
         u.setUName(request.getParameter("uname"));
         u.setUPwd(request.getParameter("upassword"));
         u.setUEmail(request.getParameter("uemail"));
         u.setUBirthday(request.getParameter("ubirthday"));
         u.setUSex(request.getParameter("usex"));
-        u.setURegdata("2018/1/1");
+        u.setURegdata("2018/1/1");*/
         userService.save(u);
         return "regist successfully";
     }
@@ -41,10 +42,10 @@ public class UserController {
     @RequestMapping(value = "/changepwd/{uid}&{pwd}&{newpwd}")
     public String change_pwd(@PathVariable String uid, @PathVariable String pwd, @PathVariable String newpwd) {
         BBSUser u = userService.getOne(uid);
-        if(u.getUPwd().equals(pwd))
+        if(u.getUpwd().equals(pwd))
         {
             userService.delete(u);
-            u.setUPwd(newpwd);
+            u.setUpwd(newpwd);
             userService.save(u);
             return "password changed successfully";
         }

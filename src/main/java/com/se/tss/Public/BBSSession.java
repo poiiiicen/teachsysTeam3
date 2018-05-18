@@ -4,48 +4,57 @@ package com.se.tss.Public;
 import javax.persistence.*;
 
 @Entity
-@Table(name="BBSSession")
+@Table(name="bbs_session")
 public class BBSSession{
     @Id
-    @Column(name="SID")
-    private String SID;
-    @Column(name = "SName")
-    private  String SName;
-    @Column(name = "SProfile")
-    private  String SProfile;
-    @Column(name="STopicCount")
-    private String STopicCount;
-    @Column(name = "SClickCount")
-    private  String SClickCount;
+    @Column(name="sid")
+    private String sid;
+    @Column(name = "sname")
+    private  String sname;
+    @Column(name = "sprofile")
+    private  String sprofile;
+    @Column(name="stopic_count")
+    private String stopic_count;
+    @Column(name = "sclick_count")
+    private  String sclick_count;
 
-    public String getSID() {
-        return SID;
+    public String getSid() {
+        return sid;
     }
-    public void setSID(String SID) {
-        this.SID = SID;
+
+    public String getSname() {
+        return sname;
     }
-    public String getSName() {
-        return SName;
+
+    public String getSprofile() {
+        return sprofile;
     }
-    public void setSName(String SName) {
-        this.SName = SName;
+
+    public String getSclick_count() {
+        return sclick_count;
     }
-    public String getSProfile() {
-        return SProfile;
+
+    public String getStopic_count() {
+        return stopic_count;
     }
-    public void setSProfile(String SProfile) {
-        this.SProfile = SProfile;
+
+    public void setSid(String sid) {
+        this.sid = sid;
     }
-    public String getSTopicCount() {
-        return STopicCount;
+
+    public void setSname(String sname) {
+        this.sname = sname;
     }
-    public void setSTopicCount(String STopicCount) {
-        this.STopicCount = STopicCount;
+
+    public void setSprofile(String sprofile) {
+        this.sprofile = sprofile;
     }
-    public String getSClickCount() {
-        return SClickCount;
+
+    public void setStopic_count(String stopic_count) {
+        this.stopic_count = stopic_count;
     }
-    public void setSClickCount(String SClickCount) {
-        this.SClickCount= SClickCount;
+
+    public void setSclick_count(String sclick_count) {
+        this.sclick_count = sclick_count;
     }
 }

@@ -3,57 +3,60 @@ package com.se.tss.Public;
 import javax.persistence.*;
 
 @Entity
-@Table(name="BBSUser")
+@Table(name="bbs_user")
 public class BBSUser{
     @Id
-    @Column(name = "UName")
-    private  String UName;
-    @Column(name = "UPassword")
-    private  String UPwd;
-    @Column(name="UEmail")
-    private String UEmail;
-    @Column(name = "UBirthday")
-    private  String UBirthday;
-    @Column(name = "USex")
-    private  String USex;
-    @Column(name="URegdata")
-    private String URegdata;
-
-    public String getUName() {
-        return UName;
+    @Column(name = "uid")
+    private String uid;
+    @Column(name = "uname")
+    private  String uname;
+    @Column(name = "upassword")
+    private  String upwd;
+    @Column(name="uemail")
+    private String uemail;
+    @Column(name = "ubirthday")
+    private  String ubirthday;
+    @Column(name = "usex")
+    private  String usex;
+    @Column(name="uregdata")
+    private String uregdata;
+    public String getUid(){return  uid;}
+    public void setUid(String UID){this.uid = UID;}
+    public String getUname() {
+        return uname;
     }
-    public void setUName(String UName) {
-        this.UName = UName;
+    public void setUname(String UName) {
+        this.uname = UName;
     }
-    public String getUPwd() {
-        return UPwd;
+    public String getUpwd() {
+        return upwd;
     }
-    public void setUPwd(String UPwd) {
-        this.UPwd = UPwd;
+    public void setUpwd(String UPwd) {
+        this.upwd = UPwd;
     }
-    public String getUEmail() {
-        return UEmail;
+    public String getUemail() {
+        return uemail;
     }
-    public void setUEmail(String UEmail) {
-        this.UEmail = UEmail;
+    public void setUemail(String UEmail) {
+        this.uemail = UEmail;
     }
-    public String getUBirthday() {
-        return UBirthday;
+    public String getUbirthday() {
+        return ubirthday;
     }
-    public void setUBirthday(String uBirthday) {
-        this.UBirthday = uBirthday;
+    public void setUbirthday(String uBirthday) {
+        this.ubirthday = uBirthday;
     }
-    public String getUSex() {
-        return UBirthday;
+    public String getUsex() {
+        return usex;
     }
-    public void setUSex(String uSex) {
-        this.USex= uSex;
+    public void setUsex(String uSex) {
+        this.usex = uSex;
     }
-    public String getURegdata() {
-        return URegdata;
+    public String getUregdata() {
+        return uregdata;
     }
-    public void setURegdata(String uRegData) {
-        this.URegdata = uRegData;
+    public void setUregdata(String uRegData) {
+        this.uregdata = uRegData;
     }
 
 }

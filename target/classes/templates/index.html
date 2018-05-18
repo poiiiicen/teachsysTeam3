@@ -12,9 +12,14 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <script type="text/javascript">
-
     window.onload = function() { /*设置在页面加载完后执行以下js代码*/
-        var url = "/testdbconnection"/*将连接赋到变量url中*/
+        get_topic_list("/topic/20001", "topic_list1");
+        get_topic_list("/topic/20002", "topic_list2");
+        get_topic_list("/topic/20003", "topic_list3");
+    }
+
+    function get_topic_list(url, id)
+    {
         var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
         request.open("GET",url);/*设置XHR对象的请求方法与路径*/
         request.send(null);/*设置XHR对象不发送数据到服务器*/
@@ -23,22 +28,23 @@
                 var myObj, i, x = "";
                 myObj = eval('('+ request.responseText +')');
                 for (i in myObj) {
-                    x += "<li>"+ myObj[i].id + " " + myObj[i].password + "</li>";
+                    x += "<li>"+ myObj[i].ttopic + " " + myObj[i].ttime + "</li>";
                 }
-                document.getElementById("demo").innerHTML = x;
+                document.getElementById(id).innerHTML = x;
             }
-        }
 
+        }
     }
 </script>
 </head>
 <body>
 	<!-- <div id="demo"></div> -->
     <!--top-->
+
     <div class="header">
         <h1 class="logo"><a href="index.html"><img src="images/Forlogo.png" /></a></h1>
         <div class="frCont">
-               <a href="#">教务管理系统</a>
+               <a href="#">教务管理系统</a><div id = "S1"></div>
         </div>
         <div class="search"><input name="" type="text" class="text" value="请输入关键字"/><a href="#" class="btn"></a></div>
         <div class="mainnav">
@@ -49,8 +55,7 @@
                     <li id="nav4"><span><a href="index1.html">版块4</a></span></li>
                     <li id="nav5"><span><a href="index1.html">版块5</a></span></li>
                     <li id="nav6"><span><a href="index1.html">版块6</a></span></li>
-                    <li id="nav7"><
-                        span><a href="index1.html">版块7</a></span></li>
+                    <li id="nav7"><span><a href="index1.html">版块7</a></span></li>
                     <li id="nav8"><span><a href="index1.html">版块8</a></span></li>
                     <li id="nav9"><span><a href="index.html">版块9</a></span></li>
                     <li id="nav10"><span><a href="index.html">版块10</a></span></li>
@@ -113,42 +118,25 @@
               <div class="space10"></div>
               <!--健康知识-->
               <div class="H_health">
-                    <h4 class="H_title"><a href="#" class="more"></a><b>版块1</b></h4>
+                    <h4 class="H_title"><a href="#" class="more"></a><b id> 学习天地 </b></h4>
 					<!--dl><a href="#"><img src="images/temp/Pic01.jpg" /></a></dl-->
-					<ul id = "demo"> </ul>
-                    <ul>
-							<li>帖子1</li>
-                             <li>帖子2</li>
-                             <li>帖子3</li>
-                             <li>帖子4</li>
-                             <li>帖子5</li>
-                    </ul>
+					<ul id = "topic_list1"> </ul>
+
               </div>
               <!--健康知识 End-->
               <!--患者来信-->
               <div class="H_patient">
-                    <h4 class="H_title"><a href="#" class="more"></a><b>版块2</b></h4>
+                    <h4 class="H_title"><a href="#" class="more"></a><b> 心灵之约 </b></h4>
                     <!--dl><a href="#"><img src="images/temp/Pic02.jpg" /></a></dl-->
-                    <ul>
-                             <li>帖子1</li>
-                             <li>帖子2</li>
-                             <li>帖子3</li>
-                             <li>帖子4</li>
-                             <li>帖子5</li>
-                    </ul>
+                    <ul id = "topic_list2"> </ul>
+
               </div>
               <!--患者来信 End-->
               <!--医患互动-->
               <div class="H_interact">
-                    <h4 class="H_title02"><a href="#" class="more"></a><b>版块3</b></h4>
+                    <h4 class="H_title02"><a href="#" class="more"></a><b>游戏世界</b></h4>
                     <!--dl><a href="#"><img src="images/temp/Pic03.jpg" /></a></dl-->
-                    <ul>
-                             <li>帖子1</li>
-                             <li>帖子2</li>
-                             <li>帖子3</li>
-                             <li>帖子4</li>
-                             <li>帖子5</li>
-                    </ul>
+                    <ul id = "topic_list3"> </ul>
               </div>
               <!--医患互动 End-->
               
