@@ -13,9 +13,9 @@
 <![endif]-->
 <script type="text/javascript">
     window.onload = function() { /*设置在页面加载完后执行以下js代码*/
-        get_topic_list("/topic/20001", "topic_list1");
-        get_topic_list("/topic/20002", "topic_list2");
-        get_topic_list("/topic/20003", "topic_list3");
+        get_topic_list("/session/教师答疑", "topic_list1");
+        get_topic_list("/session/心灵之约", "topic_list2");
+        get_topic_list("/session/开怀一笑", "topic_list3");
     }
 
     function get_topic_list(url, id)
@@ -28,7 +28,7 @@
                 var myObj, i, x = "";
                 myObj = eval('('+ request.responseText +')');
                 for (i in myObj) {
-                    x += "<li>"+ myObj[i].ttopic + " " + myObj[i].ttime + "</li>";
+                    x += "<li>"+ myObj[i].topic + " " + myObj[i].createTime + "</li>";
                 }
                 document.getElementById(id).innerHTML = x;
             }
@@ -118,7 +118,7 @@
               <div class="space10"></div>
               <!--健康知识-->
               <div class="H_health">
-                    <h4 class="H_title"><a href="#" class="more"></a><b id> 学习天地 </b></h4>
+                    <h4 class="H_title"><a href="#" class="more"></a><b id> 教师答疑 </b></h4>
 					<!--dl><a href="#"><img src="images/temp/Pic01.jpg" /></a></dl-->
 					<ul id = "topic_list1"> </ul>
 
@@ -134,7 +134,7 @@
               <!--患者来信 End-->
               <!--医患互动-->
               <div class="H_interact">
-                    <h4 class="H_title02"><a href="#" class="more"></a><b>游戏世界</b></h4>
+                    <h4 class="H_title02"><a href="#" class="more"></a><b> 开怀一笑 </b></h4>
                     <!--dl><a href="#"><img src="images/temp/Pic03.jpg" /></a></dl-->
                     <ul id = "topic_list3"> </ul>
               </div>

@@ -1,6 +1,5 @@
 package com.se.tss.forum.Controller;
 
-import com.se.tss.Public.BBSUser;
 import com.se.tss.forum.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     @Autowired
     UserService userService;
-
+/*
     @RequestMapping(value = "/login/{name}&{pwd}")
     public String login(@PathVariable String name, @PathVariable String pwd) {
         BBSUser u = userService.getOne(name);
@@ -34,7 +33,7 @@ public class UserController {
         u.setUEmail(request.getParameter("uemail"));
         u.setUBirthday(request.getParameter("ubirthday"));
         u.setUSex(request.getParameter("usex"));
-        u.setURegdata("2018/1/1");*/
+        u.setURegdata("2018/1/1");*
         userService.save(u);
         return "regist successfully";
     }
@@ -51,6 +50,6 @@ public class UserController {
         }
         else
             return "oh sorry user name or old password is wrong ";
-    }
+    }*/
 }
 

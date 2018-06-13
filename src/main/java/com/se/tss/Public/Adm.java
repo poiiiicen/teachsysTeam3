@@ -7,16 +7,35 @@ import javax.persistence.*;
 public class Adm {
 
     @Id
-    @Column(name="id")
-    private String id;
-    @Column(name = "password")
-    private  String password;
-    public String getId() {
-        return id;
+    @GeneratedValue
+    private Integer aid;
+
+    @Column(length = 32, unique = true, nullable = false)
+    private String name;
+
+    @Column(length = 64, nullable = false)
+    private String password;
+    public Adm() {
+    }
+    public Adm(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
