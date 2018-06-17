@@ -1,6 +1,6 @@
-package com.se.tss.forum.Service;
+package com.se.tss.CourseArrangeMgr.Service;
 
-import com.se.tss.Public.SelectClass.ClassRoomInfo;
+import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

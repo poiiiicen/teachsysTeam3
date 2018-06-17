@@ -1,6 +1,4 @@
-package com.se.tss.Public.SelectClass;
-
-import sun.security.util.Length;
+package com.se.tss.CourseArrangeMgr.Dao;
 
 import javax.persistence.*;
 

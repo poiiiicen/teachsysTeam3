@@ -1,4 +1,4 @@
-package com.se.tss.CourseArrange.Dao.UniqueKey;
+package com.se.tss.CourseArrangeMgr.Dao.UniqueKey;
 
 import java.io.Serializable;
 
