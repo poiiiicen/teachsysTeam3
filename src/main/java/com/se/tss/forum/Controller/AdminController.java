@@ -21,6 +21,7 @@ public class AdminController {
 
         @RequestMapping(value = "/testdbconnection")
         public  List<Adm> dbconnect(){
+        System.out.print(adminService.findAll());
         return adminService.findAll();
     }
 }
