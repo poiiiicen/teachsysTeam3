@@ -9,8 +9,7 @@ import javax.persistence.*;
 public class ClassRoomInfo {
 
     @Id
-    @GeneratedValue
-    private Integer cid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(length=64, nullable = false)
     private String place;
@@ -21,17 +20,11 @@ public class ClassRoomInfo {
     @Column()
     private int capacity;
 
+
+
     @Column(length=64, nullable = true)
     private String  equipment;
 
-
-    public Integer getCid() {
-        return cid;
-    }
-
-    public void setCid(Integer cid) {
-        this.cid = cid;
-    }
 
     public String getPlace() {
         return place;
@@ -57,5 +50,11 @@ public class ClassRoomInfo {
         this.capacity = capacity;
     }
 
+    public String getEquipment() {
+        return equipment;
+    }
 
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
 }

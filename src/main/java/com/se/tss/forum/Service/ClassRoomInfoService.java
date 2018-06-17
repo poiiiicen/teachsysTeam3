@@ -10,16 +10,16 @@ import java.util.List;
 
 public interface ClassRoomInfoService extends JpaRepository<ClassRoomInfo, String> {
 
-    List<ClassRoomInfo> findByPlaceAndRoomNumber(String place, String roomNumber);
+    List<ClassRoomInfo> findALLByPlaceAndRoomNumber(String place, String roomNumber);
 
 
     @Transactional
-    @Query(value = "insert into classroom values(?1, ?2, ?3, ?4)",nativeQuery=true)
+    @Query(value = "insert into classroom(place,roomNumber,capacity,equipment,room_number) values(?1, ?2, ?3, ?4,0)",nativeQuery=true)
     @Modifying
     void doInsert(String place, String roomNumber, int capacity,String equipment);
 
     @Transactional
-    @Query(value = "delete classroom where place=?1 and roomNumber=?2",nativeQuery=true)
+    @Query(value = "delete from classroom where place=?1 and roomNumber=?2",nativeQuery=true)
     @Modifying
     void doDelete(String place, String roomNumber);
 
