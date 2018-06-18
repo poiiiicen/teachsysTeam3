@@ -4,4 +4,5 @@ import com.se.tss.CourseArrangeMgr.Dao.TeacherInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeacherInfoService extends JpaRepository<TeacherInfo, String> {
+    TeacherInfo findTeacherInfoById(String id);
 }

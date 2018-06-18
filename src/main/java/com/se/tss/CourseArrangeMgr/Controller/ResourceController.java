@@ -17,7 +17,7 @@ public class ResourceController {
     @RequestMapping(value = "/ResourseAdd", method = RequestMethod.POST)
     public String doInsert(String place, String roomNumber, int capacity,String equipment){
         try{
-            classRoomInfoService.doInsert(place,roomNumber,capacity,equipment);
+            classRoomInfoService.doInsert(place+roomNumber,place,roomNumber,capacity,equipment);
             return "success";
         } catch (Exception e){
             return "fail";
@@ -38,7 +38,7 @@ public class ResourceController {
     public String doUpdate(String place, String roomNumber, int capacity,String equipment){
         try{
             classRoomInfoService.doDelete(place,roomNumber);
-            classRoomInfoService.doInsert(place,roomNumber,capacity,equipment);
+            classRoomInfoService.doInsert(place+roomNumber,place,roomNumber,capacity,equipment);
             return "success!";
         }catch(Exception e){
             return "failed!";
