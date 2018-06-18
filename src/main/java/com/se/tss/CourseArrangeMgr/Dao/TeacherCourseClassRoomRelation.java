@@ -1,6 +1,6 @@
-package com.se.tss.CourseArrange.Dao;
+package com.se.tss.CourseArrangeMgr.Dao;
 
-import com.se.tss.CourseArrange.Dao.UniqueKey.TeacherCourseClassRoomRelationKey;
+import com.se.tss.CourseArrangeMgr.Dao.UniqueKey.TeacherCourseClassRoomRelationKey;
 
 import javax.persistence.*;
 import java.io.Serializable;
