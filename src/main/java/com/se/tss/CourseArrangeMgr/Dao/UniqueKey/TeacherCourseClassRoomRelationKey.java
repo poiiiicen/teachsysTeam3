@@ -7,13 +7,21 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
     private String teacherId;
     private String courseId;
     private String classRoomId;
+    private Integer weekday;
+    private Integer timePeriod;
 
     public TeacherCourseClassRoomRelationKey(){}
 
-    public TeacherCourseClassRoomRelationKey(String teacherId, String courseId, String classRoomId){
+    public TeacherCourseClassRoomRelationKey(String teacherId,
+                                             String courseId,
+                                             String classRoomId,
+                                             Integer weekday,
+                                             Integer timePeriod){
         this.teacherId = teacherId;
         this.classRoomId = classRoomId;
         this.courseId = courseId;
+        this.weekday = weekday;
+        this.timePeriod = timePeriod;
     }
 
     public void setTeacherId(String teacherId) {
@@ -44,6 +52,22 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
         return serialVersionUID;
     }
 
+    public Integer getTimePeriod() {
+        return timePeriod;
+    }
+
+    public Integer getWeekday() {
+        return weekday;
+    }
+
+    public void setTimePeriod(Integer timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
+    public void setWeekday(Integer weekday) {
+        this.weekday = weekday;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj){
@@ -54,7 +78,11 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
         }
 
         TeacherCourseClassRoomRelationKey other = (TeacherCourseClassRoomRelationKey)obj;
-        if (other.classRoomId.equals(classRoomId) && other.courseId.equals(courseId) && other.teacherId.equals(teacherId)){
+        if (other.classRoomId.equals(classRoomId)
+                && other.courseId.equals(courseId)
+                && other.teacherId.equals(teacherId)
+                && other.timePeriod.equals(timePeriod)
+                && other.weekday.equals(weekday)){
            return true;
         } else {
             return false;
@@ -68,6 +96,8 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
         result = PRIME * result + (teacherId == null ? 0 : teacherId.hashCode());
         result = PRIME * result + (courseId == null ? 0 : courseId.hashCode());
         result = PRIME * result + (classRoomId ==null ? 0 : classRoomId.hashCode());
+        result = PRIME * result + (timePeriod == null ? 0 : timePeriod.hashCode());
+        result = PRIME * result + (weekday == null ? 0 : weekday.hashCode());
         return result;
     }
 }

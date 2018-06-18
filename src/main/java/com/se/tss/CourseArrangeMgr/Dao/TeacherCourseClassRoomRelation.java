@@ -18,8 +18,12 @@ public class TeacherCourseClassRoomRelation implements Serializable {
     @Id
     @Column(name = "classRoomId")
     private String classRoomId;
-    @Column(name = "time")
-    private String time;
+    @Id
+    @Column(name = "weekday")
+    private Integer weekday;
+    @Id
+    @Column(name = "timePeriod")
+    private Integer timePeriod;
 
     public String getClassRoomId() {
         return classRoomId;
@@ -31,10 +35,6 @@ public class TeacherCourseClassRoomRelation implements Serializable {
 
     public String getTeacherId() {
         return teacherId;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     public void setClassRoomId(String classRoomId) {
@@ -49,8 +49,19 @@ public class TeacherCourseClassRoomRelation implements Serializable {
         this.teacherId = teacherId;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setWeekday(Integer weekday) {
+        this.weekday = weekday;
     }
 
+    public void setTimePeriod(Integer timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
+    public Integer getWeekday() {
+        return weekday;
+    }
+
+    public Integer getTimePeriod() {
+        return timePeriod;
+    }
 }
