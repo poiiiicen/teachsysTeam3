@@ -1,5 +1,10 @@
 package com.se.tss.CourseArrangeMgr.logic;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+@Component
+@Configuration
 public class FeasibilityLogic {
     //在某一个教室的某一个时间段插入一门课程是否可行逻辑检验
     public String Feasibility(String teacherId, String courseId, String classRoomId,

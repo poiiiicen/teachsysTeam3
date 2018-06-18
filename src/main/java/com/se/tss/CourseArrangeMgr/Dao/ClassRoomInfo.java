@@ -5,9 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name="classroom")
 public class ClassRoomInfo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(length=20,nullable  =false)
+    private String id;
 
     @Column(length=64, nullable = false)
     private String place;
@@ -21,6 +23,14 @@ public class ClassRoomInfo {
     @Column(length=64, nullable = true)
     private String  equipment;
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPlace() {
         return place;

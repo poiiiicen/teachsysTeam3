@@ -13,7 +13,7 @@ public class ClassInfo {
     private String id;
 
     @Column(length=20, nullable = false)
-    private String teacherId;
+    private String teacherid;
 
     @Column(length=20, nullable = false)
     private String name;
@@ -35,12 +35,12 @@ public class ClassInfo {
         this.id = id;
     }
 
-    public String getTeacherId() {
-        return teacherId;
+    public String getTeacherid() {
+        return teacherid;
     }
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherud(String teacherid) {
+        this.teacherid = teacherid;
     }
 
     public String getName() {

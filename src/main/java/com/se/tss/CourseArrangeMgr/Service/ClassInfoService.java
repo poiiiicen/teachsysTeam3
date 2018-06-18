@@ -1,8 +1,12 @@
 package com.se.tss.CourseArrangeMgr.Service;
 
-import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
+import com.se.tss.CourseArrangeMgr.Dao.ClassInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClassInfoService extends JpaRepository<ClassRoomInfo, String> {
+import java.util.List;
+
+public interface ClassInfoService extends JpaRepository<ClassInfo, String> {
+
+     List<ClassInfo>  findAllByEquipment(String equipment);
 
 }

@@ -12,11 +12,14 @@ public interface ClassRoomInfoService extends JpaRepository<ClassRoomInfo, Strin
 
     List<ClassRoomInfo> findALLByPlaceAndRoomNumber(String place, String roomNumber);
 
+    List<ClassRoomInfo> findByPlace(String place);
+
+    List<ClassRoomInfo> findByPlaceNot(String place);
 
     @Transactional
-    @Query(value = "insert into classroom(place,roomNumber,capacity,equipment) values(?1, ?2, ?3, ?4)",nativeQuery=true)
+    @Query(value = "insert into classroom(id,place,roomNumber,capacity,equipment) values(?1, ?2, ?3, ?4,?5)",nativeQuery=true)
     @Modifying
-    void doInsert(String place, String roomNumber, int capacity, String equipment);
+    void doInsert(String id,String place, String roomNumber, int capacity, String equipment);
 
     @Transactional
     @Query(value = "delete from classroom where place=?1 and roomNumber=?2",nativeQuery=true)
