@@ -15,7 +15,7 @@ public class ClassRoomInfo {
     private String place;
 
     @Column(length=64, nullable = false)
-    private String roomNumber;
+    private String roomnumber;
 
     @Column()
     private int capacity;
@@ -40,12 +40,12 @@ public class ClassRoomInfo {
         this.place = place;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getRoomnumber() {
+        return roomnumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setRoomnumber(String roomnumber) {
+        this.roomnumber = roomnumber;
     }
 
     public int getCapacity() {

@@ -10,9 +10,9 @@ create table adm(
 insert into adm(id, password) values ("admin","admin");
 
 create  table classroom(
-  id varchar(id),
+  id varchar(20),
   place varchar(20),
-  roomNumber varchar(20),
+  roomnumber varchar(20),
   capacity int,
   equipment varchar(20)
 );
@@ -37,5 +37,12 @@ insert into class values("654321","3210","计算机进阶",2,"processor","easy c
 
 
 
+insert into teacher values("0123","陈毅","玉泉");
+insert into teacher values("3210","陈毅","玉泉");
 
+
+insert into classroom values("123","玉泉","曹西11",100,null);
+insert into classroom values("123","紫金港","曹西11",100,null);
+
+truncate table teacherCourseClassRoomRelation
 

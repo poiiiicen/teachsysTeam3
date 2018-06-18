@@ -53,9 +53,9 @@ public class ArrangeClassLogic {
             //遍历
             for(ClassRoomInfo classRoomInfo: classRoomInfos){
                 //从周一到周五 每天六个时间段遍历
-                for(int i=0;i<4;i++)
+                for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
-                    //试图插入课程
+                        //试图插入课程
                         String result=addLogic.Add(teacherId,classInfo.getId(),classRoomInfo.getId(),i,j);
                         if(result==""){  //插入成功退出循环
                             flag=true;
@@ -68,6 +68,10 @@ public class ArrangeClassLogic {
                     if(flag){  //插入成功退出循环
                         break;
                     }
+                }
+                if(flag){  //插入成功退出循环
+                    break;
+                }
             }
         }
     }
