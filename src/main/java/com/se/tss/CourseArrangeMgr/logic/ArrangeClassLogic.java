@@ -56,7 +56,7 @@ public class ArrangeClassLogic {
                 for(int i=0;i<4;i++)
                     for(int j=0;j<4;j++){
                     //试图插入课程
-                        String result=addLogic.AddClass(teacherId,classInfo.getId(),classRoomInfo.getId(),i,j);
+                        String result=addLogic.Add(teacherId,classInfo.getId(),classRoomInfo.getId(),i,j);
                         if(result==""){  //插入成功退出循环
                             flag=true;
                             break;

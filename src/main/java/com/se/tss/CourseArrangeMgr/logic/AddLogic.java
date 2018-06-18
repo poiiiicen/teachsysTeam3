@@ -1,5 +1,6 @@
 package com.se.tss.CourseArrangeMgr.logic;
 
+import com.se.tss.CourseArrangeMgr.Service.TeacherCourseClassRoomRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -12,15 +13,17 @@ public class AddLogic {
     //为主逻辑提供方法
     @Autowired
     FeasibilityLogic feasibilityLogic;
+    @Autowired
+    TeacherCourseClassRoomRelationService teacherCourseClassRoomRelationService;
 
-    public String AddClass(String teacherId,String courseId,String classRoomId,int weekday,int timePeriod){
+    public String Add(String teacherId,String courseId,String classRoomId,int weekday,int timePeriod){
         String result=feasibilityLogic.Feasibility(teacherId,courseId, classRoomId, weekday, timePeriod);
         if(result==""){   //可以插入课程  持久化处理
-
+            teacherCourseClassRoomRelationService.doInsert(teacherId,courseId,classRoomId,weekday,timePeriod);
+            return  result;
         }
         else{
-
+            return result;
         }
-        return  result;
     }
 }

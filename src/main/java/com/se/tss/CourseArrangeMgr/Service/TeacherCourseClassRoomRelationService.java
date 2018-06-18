@@ -13,4 +13,9 @@ public interface TeacherCourseClassRoomRelationService extends JpaRepository<Tea
     @Query(value = "insert into teacherCourseClassRoomRelation(teacherId,courseId,classRoomId,weekday, timePeriod) values(?1, ?2, ?3, ?4, ?5)",nativeQuery=true)
     @Modifying
     void doInsert(String teacherId, String courseId, String classRoomId, Integer weekday, Integer timePeriod);
+
+    @Transactional
+    @Query(value="delete from teacherCourseClassRoomRelation where teacherId=?1, courseId=?2, classRoomId=?3,weekday=?4 and timePeriod=?5",nativeQuery=true)
+    @Modifying
+    void doDelete(String teacherId, String courseId, String classRoomId, Integer weekday, Integer timePeriod);
 }
