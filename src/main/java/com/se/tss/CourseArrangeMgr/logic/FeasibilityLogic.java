@@ -33,8 +33,9 @@ public class FeasibilityLogic {
         //course 要求和 classRoom 是否冲突
         ClassRoomInfo classRoomInfo = classRoomInfoService.findOneById(classRoomId);
         ClassInfo classInfo = classInfoService.findOneById(courseId);
-        if(!(classInfo.getEquipment() != null && classInfo.getEquipment().equals(classRoomInfo.getEquipment()))){
-            return "教室的设备无法满足课程需求";
+        if(classInfo.getEquipment() != null){
+            if(!classInfo.getEquipment().equals(classRoomInfo.getEquipment()))
+                return "教室的设备无法满足课程需求";
         }
 
         //教师时间是否冲突
