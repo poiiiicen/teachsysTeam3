@@ -1,6 +1,7 @@
 package com.se.tss.CourseArrangeMgr.Controller;
 
 
+import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,11 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Controller
 @RestController
 public class ResourceController {
     @Autowired
     ClassRoomInfoService  classRoomInfoService;
+
+
+    @RequestMapping(value = "/Resourse", method = RequestMethod.GET)
+    public List<ClassRoomInfo> listAll(){
+        return classRoomInfoService.findAll();
+    }
 
     @RequestMapping(value = "/ResourseAdd", method = RequestMethod.POST)
     public String doInsert(String place, String roomNumber, int capacity,String equipment){
