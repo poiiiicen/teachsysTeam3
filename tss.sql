@@ -42,7 +42,7 @@ insert into teacher values("3210","陈毅","玉泉");
 
 
 insert into classroom values("123","玉泉","曹西11",100,null);
-insert into classroom values("123","紫金港","曹西11",100,null);
+insert into classroom values("124","紫金港","曹西11",100,null);
 
 truncate table teacherCourseClassRoomRelation;
 

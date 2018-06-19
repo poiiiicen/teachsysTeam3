@@ -10,5 +10,8 @@ public interface ClassInfoService extends JpaRepository<ClassInfo, String> {
 
      List<ClassInfo>  findAllByEquipment(String equipment);
 
-     public ClassInfo findOneById(final String id);
+     ClassInfo findOneById(final String id);
+
+     @Query(value = "select name from class where  id= ?1 limit 1",nativeQuery=true)
+     String getNameById(String classId);
 }

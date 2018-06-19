@@ -66,6 +66,7 @@ public class ArrangeClassLogic {
                         }
                     }
                     if(flag){  //插入成功退出循环
+                        i--;
                         break;
                     }
                 }
