@@ -3,6 +3,7 @@ package com.se.tss.CourseArrangeMgr.Controller;
 import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
 import com.se.tss.CourseArrangeMgr.Dao.TeacherCourseClassRoomRelation;
+import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherCourseClassRoomRelationService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
@@ -26,6 +27,8 @@ public class AutoArrange {
     TeacherInfoService teacherInfoService;
     @Autowired
     ClassRoomInfoService classRoomInfoService;
+    @Autowired
+    ClassInfoService classInfoService;
 
     @RequestMapping(value = "/CourseArrangeList", method = RequestMethod.POST)
     public List<CourseForList> CourseArrangeList(String name){
@@ -34,6 +37,7 @@ public class AutoArrange {
         List<TeacherCourseClassRoomRelation> teacherCourseClassRoomRelations = teacherCourseClassRoomRelationService.findAllByTeacherid(teacherId);
         for(TeacherCourseClassRoomRelation teacherCourseClassRoomRelation:teacherCourseClassRoomRelations){
             String classId=teacherCourseClassRoomRelation.getCourseid();
+            String className = classInfoService.getNameById(classId);
             String classRoomId=teacherCourseClassRoomRelation.getClassroomid();
             int timePerid=teacherCourseClassRoomRelation.getTimeperiod();
             int weekday=teacherCourseClassRoomRelation.getWeekday();
@@ -41,7 +45,7 @@ public class AutoArrange {
             ClassRoomInfo classRoomInfo=classRoomInfoService.findOneById(classRoomId);
             String place=classRoomInfo.getPlace();
             String roomNumber=classRoomInfo.getRoomnumber();
-            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber);
+            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className);
             courseList.add(courseForList);
         }
         return courseList;

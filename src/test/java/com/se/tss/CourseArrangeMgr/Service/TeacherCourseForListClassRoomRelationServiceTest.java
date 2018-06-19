@@ -21,6 +21,8 @@ public class TeacherCourseForListClassRoomRelationServiceTest {
     TeacherInfoService teacherInfoService;
     @Autowired
     ClassRoomInfoService classRoomInfoService;
+    @Autowired
+    ClassInfoService classInfoService;
 
     @Test
     public void test(){
@@ -29,6 +31,7 @@ public class TeacherCourseForListClassRoomRelationServiceTest {
         for(TeacherCourseClassRoomRelation teacherCourseClassRoomRelation:list){
             String classId=teacherCourseClassRoomRelation.getCourseid();
             System.out.println(classId);
+            String className = classInfoService.getNameById(classId);
             String classRoomId=teacherCourseClassRoomRelation.getClassroomid();
             System.out.println(classRoomId);
             int timePerid=teacherCourseClassRoomRelation.getTimeperiod();
@@ -41,7 +44,7 @@ public class TeacherCourseForListClassRoomRelationServiceTest {
             System.out.println(place);
             String roomNumber=classRoomInfo.getRoomnumber();
             System.out.println(roomNumber);
-            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber);
+            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className);
            System.out.println(teacherId+classId+classRoomId+weekday+timePerid+teacherName+place+roomNumber);
         }
     }

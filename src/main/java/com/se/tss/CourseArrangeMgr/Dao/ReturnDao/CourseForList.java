@@ -18,10 +18,16 @@ public class CourseForList {
 
     String roomNumber;
 
+    String className;
+
+
+
+    String time;
+
     CourseForList(){}
 
     public CourseForList(String teacherId, String classId, String classRoomId, int weekday,
-                         int timeperiod, String teacherName, String place, String roomNumber) {
+                         int timeperiod, String teacherName, String place, String roomNumber,String className) {
         this.teacherId = teacherId;
         this.classId = classId;
         this.classRoomId = classRoomId;
@@ -30,6 +36,8 @@ public class CourseForList {
         this.teacherName = teacherName;
         this.place = place;
         this.roomNumber = roomNumber;
+        this.className=className;
+        this.time=format();
     }
 
 
@@ -96,6 +104,42 @@ public class CourseForList {
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String format() {
+        String day="";
+        String segment="";
+        switch(weekday){
+            case 0: day="周一" ; break;
+            case 1: day="周二" ; break;
+            case 2: day="周三" ; break;
+            case 3: day="周四" ; break;
+            case 4: day="周五" ; break;
+        }
+        switch(timeperiod){
+            case 0: segment="1，2节" ; break;
+            case 1: segment="3，4，5节" ; break;
+            case 2: segment="6，7，8节" ; break;
+            case 3: segment="9，10节" ; break;
+            case 4: segment="11，12，13节" ; break;
+        }
+        return day+segment;
     }
 
 }
