@@ -6,16 +6,21 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface TeacherCourseClassRoomRelationService extends JpaRepository<TeacherCourseClassRoomRelation, String> {
 
     @Transactional
-    @Query(value = "insert into teacherCourseClassRoomRelation(teacherId,courseId,classRoomId,weekday, timePeriod) values(?1, ?2, ?3, ?4, ?5)",nativeQuery=true)
+    @Query(value = "insert into teacher_course_class_room_relation(teacherid,courseid,classroomid,weekday, timeperiod) values(?1, ?2, ?3, ?4, ?5)",nativeQuery=true)
     @Modifying
-    void doInsert(String teacherId, String courseId, String classRoomId, Integer weekday, Integer timePeriod);
+    void doInsert(String teacherid, String courseid, String classroomid, Integer weekday, Integer timeperiod);
 
     @Transactional
-    @Query(value="delete from teacherCourseClassRoomRelation where teacherId=?1, courseId=?2, classRoomId=?3,weekday=?4 and timePeriod=?5",nativeQuery=true)
+    @Query(value="delete from teacher_course_class_room_relation where teacherid=?1, courseid=?2, classRoomid=?3,weekday=?4 and timeperiod=?5",nativeQuery=true)
     @Modifying
-    void doDelete(String teacherId, String courseId, String classRoomId, Integer weekday, Integer timePeriod);
+    void doDelete(String teacherid, String courseid, String classroomid, Integer weekday, Integer timeperiod);
+
+    public List<TeacherCourseClassRoomRelation> findAllByTeacherid(String teacherId);
+
+    public List<TeacherCourseClassRoomRelation> findAllByCourseid(String courseid);
 }

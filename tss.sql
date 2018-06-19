@@ -44,5 +44,16 @@ insert into teacher values("3210","陈毅","玉泉");
 insert into classroom values("123","玉泉","曹西11",100,null);
 insert into classroom values("123","紫金港","曹西11",100,null);
 
-truncate table teacherCourseClassRoomRelation
+truncate table teacherCourseClassRoomRelation;
+
+CREATE TABLE `teacher_course_class_room_relation` (
+  `teacherId` varchar(20) NOT NULL,
+  `courseId` varchar(20) NOT NULL,
+  `classRoomId` varchar(20) NOT NULL,
+  `weekday` int(11) NOT NULL,
+  `timePeriod` int(11) NOT NULL,
+  UNIQUE KEY `idx` (`teacherId`,`courseId`,`classRoomId`,`weekday`,`timePeriod`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `se2018`.`teacher_course_class_room_relation` (`teacherid`, `courseid`, `classroomid`, `weekday`, `timeperiod`) VALUES ('01234', '123456', '123', '0', '0');
+INSERT INTO `se2018`.`teacher_course_class_room_relation` (`teacherid`, `courseid`, `classroomid`, `weekday`, `timeperiod`) VALUES ('01234', '654321', '123', '1', '1');
 

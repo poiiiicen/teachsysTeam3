@@ -4,68 +4,64 @@ import java.io.Serializable;
 
 public class TeacherCourseClassRoomRelationKey implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String teacherId;
-    private String courseId;
-    private String classRoomId;
+    private String teacherid;
+    private String courseid;
+    private String classroomid;
     private Integer weekday;
-    private Integer timePeriod;
+    private Integer timeperiod;
 
     public TeacherCourseClassRoomRelationKey(){}
 
-    public TeacherCourseClassRoomRelationKey(String teacherId,
-                                             String courseId,
-                                             String classRoomId,
+    public TeacherCourseClassRoomRelationKey(String teacherid,
+                                             String courseid,
+                                             String classroomid,
                                              Integer weekday,
-                                             Integer timePeriod){
-        this.teacherId = teacherId;
-        this.classRoomId = classRoomId;
-        this.courseId = courseId;
+                                             Integer timeperiod){
+        this.teacherid = teacherid;
+        this.classroomid = classroomid;
+        this.courseid = courseid;
         this.weekday = weekday;
-        this.timePeriod = timePeriod;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public void setClassRoomId(String classRoomId) {
-        this.classRoomId = classRoomId;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public String getClassRoomId() {
-        return classRoomId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Integer getTimePeriod() {
-        return timePeriod;
+        this.timeperiod = timeperiod;
     }
 
     public Integer getWeekday() {
         return weekday;
     }
 
-    public void setTimePeriod(Integer timePeriod) {
-        this.timePeriod = timePeriod;
-    }
-
     public void setWeekday(Integer weekday) {
         this.weekday = weekday;
+    }
+
+    public Integer getTimeperiod() {
+        return timeperiod;
+    }
+
+    public String getClassroomid() {
+        return classroomid;
+    }
+
+    public String getCourseid() {
+        return courseid;
+    }
+
+    public String getTeacherid() {
+        return teacherid;
+    }
+
+    public void setClassroomid(String classroomid) {
+        this.classroomid = classroomid;
+    }
+
+    public void setCourseid(String courseid) {
+        this.courseid = courseid;
+    }
+
+    public void setTeacherid(String teacherid) {
+        this.teacherid = teacherid;
+    }
+
+    public void setTimeperiod(Integer timeperiod) {
+        this.timeperiod = timeperiod;
     }
 
     @Override
@@ -78,10 +74,10 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
         }
 
         TeacherCourseClassRoomRelationKey other = (TeacherCourseClassRoomRelationKey)obj;
-        if (other.classRoomId.equals(classRoomId)
-                && other.courseId.equals(courseId)
-                && other.teacherId.equals(teacherId)
-                && other.timePeriod.equals(timePeriod)
+        if (other.classroomid.equals(classroomid)
+                && other.courseid.equals(courseid)
+                && other.teacherid.equals(teacherid)
+                && other.timeperiod.equals(timeperiod)
                 && other.weekday.equals(weekday)){
            return true;
         } else {
@@ -93,10 +89,10 @@ public class TeacherCourseClassRoomRelationKey implements Serializable {
     public int hashCode() {
         final int PRIME = 31;
         int result = 1;
-        result = PRIME * result + (teacherId == null ? 0 : teacherId.hashCode());
-        result = PRIME * result + (courseId == null ? 0 : courseId.hashCode());
-        result = PRIME * result + (classRoomId ==null ? 0 : classRoomId.hashCode());
-        result = PRIME * result + (timePeriod == null ? 0 : timePeriod.hashCode());
+        result = PRIME * result + (teacherid == null ? 0 : teacherid.hashCode());
+        result = PRIME * result + (courseid == null ? 0 : courseid.hashCode());
+        result = PRIME * result + (classroomid ==null ? 0 : classroomid.hashCode());
+        result = PRIME * result + (timeperiod == null ? 0 : timeperiod.hashCode());
         result = PRIME * result + (weekday == null ? 0 : weekday.hashCode());
         return result;
     }

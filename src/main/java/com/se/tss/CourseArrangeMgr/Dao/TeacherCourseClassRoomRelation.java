@@ -6,62 +6,62 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "teacherCourseClassRoomRelation")
+@Table(name = "teacher_course_class_room_relation")
 @IdClass(TeacherCourseClassRoomRelationKey.class)
 public class TeacherCourseClassRoomRelation implements Serializable {
     @Id
-    @Column(name = "teacherId")
-    private String teacherId;
+    @Column(name = "teacherid")
+    private String teacherid;
     @Id
-    @Column(name = "courseId")
-    private String courseId;
+    @Column(name = "courseid")
+    private String courseid;
     @Id
-    @Column(name = "classRoomId")
-    private String classRoomId;
+    @Column(name = "classroomid")
+    private String classroomid;
     @Id
     @Column(name = "weekday")
     private Integer weekday;
     @Id
-    @Column(name = "timePeriod")
-    private Integer timePeriod;
+    @Column(name = "timeperiod")
+    private Integer timeperiod;
 
-    public String getClassRoomId() {
-        return classRoomId;
+    public void setTimeperiod(Integer timeperiod) {
+        this.timeperiod = timeperiod;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public void setTeacherid(String teacherid) {
+        this.teacherid = teacherid;
     }
 
-    public String getTeacherId() {
-        return teacherId;
+    public void setCourseid(String courseid) {
+        this.courseid = courseid;
     }
 
-    public void setClassRoomId(String classRoomId) {
-        this.classRoomId = classRoomId;
+    public void setClassroomid(String classroomid) {
+        this.classroomid = classroomid;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public String getTeacherid() {
+        return teacherid;
     }
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
+    public String getCourseid() {
+        return courseid;
     }
 
-    public void setWeekday(Integer weekday) {
-        this.weekday = weekday;
+    public String getClassroomid() {
+        return classroomid;
     }
 
-    public void setTimePeriod(Integer timePeriod) {
-        this.timePeriod = timePeriod;
+    public Integer getTimeperiod() {
+        return timeperiod;
     }
 
     public Integer getWeekday() {
         return weekday;
     }
 
-    public Integer getTimePeriod() {
-        return timePeriod;
+    public void setWeekday(Integer weekday) {
+        this.weekday = weekday;
     }
 }

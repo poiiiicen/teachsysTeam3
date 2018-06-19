@@ -14,6 +14,10 @@ public interface ClassRoomInfoService extends JpaRepository<ClassRoomInfo, Strin
 
     List<ClassRoomInfo> findByPlaceNot(String place);
 
+    List<ClassRoomInfo> findAllById(String id);
+
+    public ClassRoomInfo findOneById(String id);
+
     @Transactional
     @Query(value = "insert into classroom(id,place,roomnumber,capacity,equipment) values(?1, ?2, ?3, ?4,?5)",nativeQuery=true)
     @Modifying
