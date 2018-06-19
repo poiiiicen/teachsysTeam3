@@ -18,15 +18,16 @@ public class ResourceController {
     ClassRoomInfoService  classRoomInfoService;
 
 
-    @RequestMapping(value = "/Resourse", method = RequestMethod.GET)
+    @RequestMapping(value = "/ResourseGet", method = RequestMethod.GET)
     public List<ClassRoomInfo> listAll(){
         return classRoomInfoService.findAll();
     }
 
     @RequestMapping(value = "/ResourseAdd", method = RequestMethod.POST)
-    public String doInsert(String place, String roomNumber, int capacity,String equipment){
+    public String doInsert(String place, String roomnumber, Integer capacity,String equipment){
         try{
-            classRoomInfoService.doInsert(place+roomNumber,place,roomNumber,capacity,equipment);
+            System.out.print(capacity);
+            classRoomInfoService.doInsert(place+roomnumber,place,roomnumber,capacity,equipment);
             return "success";
         } catch (Exception e){
             return "fail";
@@ -34,9 +35,10 @@ public class ResourceController {
     }
 
     @RequestMapping(value = "/ResourseDelete", method = RequestMethod.POST)
-    public String doDelete(String place, String roomNumber){
+    public String doDelete(String place, String roomnumber){
         try{
-            classRoomInfoService.doDelete(place,roomNumber);
+            System.out.print(roomnumber);
+            classRoomInfoService.doDelete(place,roomnumber);
             return "success!";
         }catch(Exception e){
             return "failed!";
@@ -44,10 +46,10 @@ public class ResourceController {
 
     }
     @RequestMapping(value = "/ResourseUpdate", method = RequestMethod.POST)
-    public String doUpdate(String place, String roomNumber, int capacity,String equipment){
+    public String doUpdate(String place, String roomnumber, int capacity,String equipment){
         try{
-            classRoomInfoService.doDelete(place,roomNumber);
-            classRoomInfoService.doInsert(place+roomNumber,place,roomNumber,capacity,equipment);
+            classRoomInfoService.doDelete(place,roomnumber);
+            classRoomInfoService.doInsert(place+roomnumber,place,roomnumber,capacity,equipment);
             return "success!";
         }catch(Exception e){
             return "failed!";
