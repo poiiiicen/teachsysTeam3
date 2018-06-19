@@ -46,7 +46,7 @@ public class ResourceController {
 
     }
     @RequestMapping(value = "/ResourseUpdate", method = RequestMethod.POST)
-    public String doUpdate(String place, String roomnumber, int capacity,String equipment){
+    public String doUpdate(String place, String roomnumber, Integer capacity,String equipment){
         try{
             classRoomInfoService.doDelete(place,roomnumber);
             classRoomInfoService.doInsert(place+roomnumber,place,roomnumber,capacity,equipment);
