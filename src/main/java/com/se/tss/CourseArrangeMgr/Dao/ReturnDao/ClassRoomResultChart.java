@@ -1,4 +1,4 @@
-package com.se.tss.CourseArrangeMgr.Dao;
+package com.se.tss.CourseArrangeMgr.Dao.ReturnDao;
 
 public class ClassRoomResultChart {
     private String place;

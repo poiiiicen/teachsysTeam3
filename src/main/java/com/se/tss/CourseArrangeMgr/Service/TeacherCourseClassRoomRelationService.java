@@ -20,9 +20,9 @@ public interface TeacherCourseClassRoomRelationService extends JpaRepository<Tea
     @Modifying
     void doDelete(String teacherid, String courseid, String classroomid, Integer weekday, Integer timeperiod);
 
-    public List<TeacherCourseClassRoomRelation> findAllByTeacherid(String teacherId);
+    List<TeacherCourseClassRoomRelation> findAllByTeacherid(String teacherId);
 
-    public List<TeacherCourseClassRoomRelation> findAllByCourseid(String courseid);
+    List<TeacherCourseClassRoomRelation> findAllByCourseid(String courseid);
 
-    public List<TeacherCourseClassRoomRelation> findAllByClassroomid(String classroomid);
+    List<TeacherCourseClassRoomRelation> findAllByClassroomid(String classroomid);
 }

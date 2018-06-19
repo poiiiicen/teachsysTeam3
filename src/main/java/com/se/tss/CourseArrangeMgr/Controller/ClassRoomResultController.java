@@ -2,7 +2,6 @@ package com.se.tss.CourseArrangeMgr.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.se.tss.CourseArrangeMgr.Dao.ClassRoomResultChart;
 import com.se.tss.CourseArrangeMgr.logic.ClassRoomResultChartLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
