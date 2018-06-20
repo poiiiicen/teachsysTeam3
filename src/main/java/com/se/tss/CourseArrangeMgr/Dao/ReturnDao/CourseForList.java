@@ -20,11 +20,11 @@ public class CourseForList {
 
     String className;
 
-
+    String status;
 
     String time;
 
-    CourseForList(){}
+    public CourseForList(){}
 
     public CourseForList(String teacherId, String classId, String classRoomId, int weekday,
                          int timeperiod, String teacherName, String place, String roomNumber,String className) {
@@ -37,6 +37,7 @@ public class CourseForList {
         this.place = place;
         this.roomNumber = roomNumber;
         this.className=className;
+        this.status="";
         this.time=format();
     }
 
@@ -120,6 +121,14 @@ public class CourseForList {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String format() {

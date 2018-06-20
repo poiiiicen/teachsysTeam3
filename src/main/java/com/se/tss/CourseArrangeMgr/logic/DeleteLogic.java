@@ -15,7 +15,9 @@ public class DeleteLogic {
     @Autowired
     TeacherCourseClassRoomRelationService teacherCourseClassRoomRelationService;
 
-    public void Delete(String teacherId,String courseId,String classRoomId,int weekday,int timePeriod){
-        teacherCourseClassRoomRelationService.doDelete(teacherId,courseId,classRoomId,weekday,timePeriod);
+    public void Delete(String teacherId,String courseId,String classRoomId){
+        teacherCourseClassRoomRelationService.doDelete(teacherId,courseId,classRoomId);
     }
+
+
 }

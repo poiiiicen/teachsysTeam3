@@ -16,9 +16,9 @@ public interface ClassRoomInfoService extends JpaRepository<ClassRoomInfo, Strin
 
     List<ClassRoomInfo> findAllById(String id);
 
-    public ClassRoomInfo findOneById(String id);
+    ClassRoomInfo findOneById(String id);
 
-    public ClassRoomInfo findOneByPlaceAndRoomnumber(String place, String roomNumber);
+    ClassRoomInfo findOneByPlaceAndRoomnumber(String place, String roomNumber);
 
     @Transactional
     @Query(value = "insert into classroom(id,place,roomnumber,capacity,equipment) values(?1, ?2, ?3, ?4,?5)",nativeQuery=true)
@@ -29,5 +29,8 @@ public interface ClassRoomInfoService extends JpaRepository<ClassRoomInfo, Strin
     @Query(value = "delete from classroom where place=?1 and roomnumber=?2",nativeQuery=true)
     @Modifying
     void doDelete(String place, String roomNumber);
+
+    @Query(value = "select id from classroom where  place= ?1 and roomnumber=?2 limit 1",nativeQuery=true)
+    String getIdByPlaceAndRoomNumber(String place,String roomnumber);
 
 }

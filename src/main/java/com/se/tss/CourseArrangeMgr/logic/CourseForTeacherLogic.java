@@ -31,6 +31,7 @@ public class CourseForTeacherLogic {
     public List<CourseForList> CourseArrangeList(String name){
         List<CourseForList> courseList = new ArrayList<CourseForList>();
         String teacherId=teacherInfoService.findIdByName(name);
+        if(teacherId==null) return null;
         List<TeacherCourseClassRoomRelation> teacherCourseClassRoomRelations = teacherCourseClassRoomRelationService.findAllByTeacherid(teacherId);
         for(TeacherCourseClassRoomRelation teacherCourseClassRoomRelation:teacherCourseClassRoomRelations){
             String classId=teacherCourseClassRoomRelation.getCourseid();
