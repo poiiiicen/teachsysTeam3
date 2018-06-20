@@ -41,12 +41,8 @@ public class ArrangeForTeacher {
         Map<String, Integer> timeMap=timeTransformLogic.transformTime(time);
         int weekday=timeMap.get("weekday");
         int period=timeMap.get("timeperiod");
-        System.out.println(weekday);
-        System.out.println(period);
         String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
-        System.out.println(classRoomId);
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
-        System.out.println(result);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(name);
             CourseForList courseForList=new CourseForList();
@@ -62,8 +58,6 @@ public class ArrangeForTeacher {
     @RequestMapping(value = "/CourseForTeacherDelete", method = RequestMethod.POST)
     public List<CourseForList> TeacherDelete(String teacherId,String courseId, String place,
                                              String roomNumber,String time,String name){
-        int weekday=0;
-        int period=0;
         String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
         deleteLogic.Delete(teacherId,courseId,classRoomId);
         return courseForTeacherLogic.CourseArrangeList(name);
