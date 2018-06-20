@@ -8,9 +8,18 @@ public class ClassRoomResultChart {
     private Integer weekday;
     private Integer timePeriod;
     private String teacherName;
-    String teacherId;
-    String classId;
-    String classRoomId;
+    private String teacherId;
+    private String classId;
+    private String classRoomId;
+    private String time;
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
 
     public String getClassRoomId() {
         return classRoomId;

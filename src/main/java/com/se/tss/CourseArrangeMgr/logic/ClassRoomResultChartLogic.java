@@ -53,6 +53,7 @@ public class ClassRoomResultChartLogic {
             cell.setClassId(classInfo.getId());
             cell.setTeacherId(teacherInfo.getId());
             cell.setClassRoomId(classRoomInfo.getId());
+            cell.setTime(cell.format());
             classRoomResultChartList.add(cell);
         }
         return classRoomResultChartList;
