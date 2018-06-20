@@ -1,7 +1,9 @@
 package com.se.tss.CourseArrangeMgr.Controller;
 
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
+import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
+import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import com.se.tss.CourseArrangeMgr.logic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,10 @@ public class ArrangeForTeacher {
     FeasibilityLogic feasibilityLogic;
     @Autowired
     TimeTransformLogic timeTransformLogic;
+    @Autowired
+    TeacherInfoService teacherInfoService;
+    @Autowired
+    ClassInfoService classInfoService;
 
     @RequestMapping(value = "/CourseForTeacherList", method = RequestMethod.GET)
     public List<CourseForList> CourseArrangeList(String name){
@@ -61,5 +67,27 @@ public class ArrangeForTeacher {
         deleteLogic.Delete(teacherId,courseId,roomId);
         return courseForTeacherLogic.CourseArrangeList(name);
     }
+
+    @RequestMapping(value = "/CourseForTeacherAdd", method = RequestMethod.POST)
+    public List<CourseForList> TeacherAdd(String teacherName,String courseName, String place,
+                                             String roomNumber,String time){
+        String teacherId=teacherInfoService.findIdByName(teacherName);
+        String courseId=classInfoService.getIdByTeacherIdAndName(teacherId,courseName);
+        String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
+        Map<String, Integer> timeMap=timeTransformLogic.transformTime(time);
+        int weekday=timeMap.get("weekday");
+        int period=timeMap.get("timeperiod");
+        String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
+        if(!result.equals("")){
+            List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(teacherName);
+            CourseForList courseForList=new CourseForList();
+            courseForList.setStatus(result);
+            list.add(courseForList);
+            return  list;
+        }
+        addLogic.Add(teacherId,courseId,classRoomId,weekday,period);
+        return courseForTeacherLogic.CourseArrangeList(teacherName);
+    }
+
 
 }
