@@ -37,7 +37,7 @@ public class ArrangeForTeacher {
 
     @RequestMapping(value = "/CourseForTeacherUpdate", method = RequestMethod.POST)
     public List<CourseForList> TeacherUpdate(String teacherId,String courseId, String place,
-                                             String roomNumber,String time,String name){
+                                             String roomNumber,String time,String name,String roomId){
         Map<String, Integer> timeMap=timeTransformLogic.transformTime(time);
         int weekday=timeMap.get("weekday");
         int period=timeMap.get("timeperiod");
@@ -50,16 +50,15 @@ public class ArrangeForTeacher {
             list.add(courseForList);
             return  list;
         }
-        deleteLogic.Delete(teacherId,courseId,classRoomId);
+        deleteLogic.Delete(teacherId,courseId,roomId);
         addLogic.Add(teacherId,courseId,classRoomId,weekday,period);
         return courseForTeacherLogic.CourseArrangeList(name);
     }
 
     @RequestMapping(value = "/CourseForTeacherDelete", method = RequestMethod.POST)
     public List<CourseForList> TeacherDelete(String teacherId,String courseId, String place,
-                                             String roomNumber,String time,String name){
-        String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
-        deleteLogic.Delete(teacherId,courseId,classRoomId);
+                                             String roomNumber,String time,String name,String roomId){
+        deleteLogic.Delete(teacherId,courseId,roomId);
         return courseForTeacherLogic.CourseArrangeList(name);
     }
 
