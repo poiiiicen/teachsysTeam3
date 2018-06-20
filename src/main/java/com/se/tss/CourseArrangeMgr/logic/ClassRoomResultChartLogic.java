@@ -50,6 +50,9 @@ public class ClassRoomResultChartLogic {
             cell.setTimePeriod(relation.getTimeperiod());
             cell.setWeekday(relation.getWeekday());
             cell.setClassName(classInfo.getName());
+            cell.setClassId(classInfo.getId());
+            cell.setTeacherId(teacherInfo.getId());
+            cell.setClassRoomId(classRoomInfo.getId());
             classRoomResultChartList.add(cell);
         }
         return classRoomResultChartList;

@@ -8,6 +8,33 @@ public class ClassRoomResultChart {
     private Integer weekday;
     private Integer timePeriod;
     private String teacherName;
+    String teacherId;
+    String classId;
+    String classRoomId;
+
+    public String getClassRoomId() {
+        return classRoomId;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setClassRoomId(String classRoomId) {
+        this.classRoomId = classRoomId;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
@@ -63,5 +90,25 @@ public class ClassRoomResultChart {
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public String format() {
+        String day="";
+        String segment="";
+        switch(weekday){
+            case 0: day="周一" ; break;
+            case 1: day="周二" ; break;
+            case 2: day="周三" ; break;
+            case 3: day="周四" ; break;
+            case 4: day="周五" ; break;
+        }
+        switch(timePeriod){
+            case 0: segment="1，2节" ; break;
+            case 1: segment="3，4，5节" ; break;
+            case 2: segment="6，7，8节" ; break;
+            case 3: segment="9，10节" ; break;
+            case 4: segment="11，12，13节" ; break;
+        }
+        return day+segment;
     }
 }
