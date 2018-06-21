@@ -125,7 +125,7 @@
 					  <option value="11，12，13节">11，12，13节</option>
 					</select>
 				  <!-- <div class="checkbox"><label><input type="checkbox"> Remember me</label></div>  -->
-				  <button class="btn btn-outline-info" onclick="add();">新增</button>
+				  <button type="button" class="btn btn-outline-info" onclick="add();">新增</button>
 				</form>		
 				
 				<!-- 切换显示方式和打印 -->
@@ -300,16 +300,22 @@
 		feather.replace()
 	</script>
 	<script>
-	function getclassList() {
+	function getclassList(name) {
+		var param = {
+			name: name
+		};
         $.ajax({
-            url: "/AllCourse",
+            url: "/AllCourseByTeacherName",
             type: "get",
+			data: param,
             dataType: "json",
             success: function (data) {
 				console.log(data);
+				var cla='<option style="color: #b6b6b6" disabled selected>课程</option>';
                 $.each(data, function (i) {
-                    $('#newclass.selectpicker').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
-                });         
+                   cla+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#newclass.selectpicker').html(cla);					
                 $('#newclass').selectpicker('refresh');
             },
         })
@@ -325,7 +331,7 @@
 			data : param,
             success: function (data) {
 				console.log(data);
-				var place="";
+				var place='<option style="color: #b6b6b6" disabled selected>教室</option>';
                 $.each(data, function (i) {
                     place+="<option value=" + data[i].roomnumber + ">" + data[i].roomnumber + "</option>";
                 });       
@@ -405,6 +411,8 @@
 			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 			onEditableSave: function (field, row, oldValue, $el) {
 				alert('保存地点=' + row.classRoomId +'时间='+ row.time);
+				//添加格式验证！！
+				//重要！！
 				var param = {
 					teacherId : row.teacherId,
 					courseId : row.classId,
@@ -479,7 +487,7 @@
 			 data: param,
 			 dataType:"json",
 			 success : function(data) {
-				getclassList(name);
+				getclassList(document.getElementById("name").innerHTML);
 				//更新列表
 				$("#listtable").bootstrapTable('load', data);
 				//更新表格
@@ -518,11 +526,11 @@
             data: param,
             success: function(data){
             	console.log(data);
-				if( data == "success"){
-					$('#listtable').bootstrapTable("refresh");
+				if( data[data.length-1].status == ""){
+					$('#listtable').bootstrapTable("load",data);
 					alert("增加教师课程成功");
-				}else if( data == "fail"){
-					alert("增加教师课程失败");
+				}else{
+					alert(data[data.length-1].status);
 				}
             },
 			error: function () {

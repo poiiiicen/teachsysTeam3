@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="css/bootstrap-table.css">
 	<link href="css/bootstrap-editable.css" rel="stylesheet">
 	<link href="css/dashboard.css" rel="stylesheet">
+	<link href="css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="css/sweetalert.min.css" rel="stylesheet">
 </head>
 
@@ -96,26 +97,13 @@
 				
 				
 				<form class="form-inline">
-				  <select id="newclass" class="form-control">
-					  <option style="color: #b6b6b6" disabled selected>课程名称</option>
-					  <option value="计算机网络">计算机网络</option>
-					  <option value="编译原理">编译原理</option>
-					  <option value="计算机游戏程序设计">计算机游戏程序设计</option>
-					  <option value="程序设计基础">程序设计基础</option>
-					  <option value="职业生涯规划">职业生涯规划</option>
-					  <option value="户外拓展">户外拓展</option>
+					<select id="newclass" name="newclass" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>课程</option>
 					</select>
-					<select id="newteacher" class="form-control">
+					<select id="newteacher" name="newteacher" class="selectpicker" >
 					  <option style="color: #b6b6b6" disabled selected>任课教师</option>
-					  <option value="董玮">董玮</option>
-					  <option value="李玺">李玺</option>
-					  <option value="鲁东明">鲁东明</option>
-					  <option value="刘玉生">刘玉生</option>
-					  <option value="黄劲">黄劲</option>
-					  <option value="陈越">陈越</option>
 					</select>
-				  <!-- <div class="form-group"><input id="newroomnumber" class="form-control" type="text" placeholder="教师"></div> -->
-				  	<select id="newday" class="form-control">
+				  	<select id="newday" name="newday" class="selectpicker" >
 					  <option style="color: #b6b6b6" disabled selected>日</option>
 					  <option value="周一">周一</option>
 					  <option value="周二">周二</option>
@@ -123,7 +111,7 @@
 					  <option value="周四">周四</option>
 					  <option value="周五">周五</option>
 					</select>
-					<select id="newtime" class="form-control">
+					<select id="newtime" name="newtime" class="selectpicker" >
 					  <option style="color: #b6b6b6" disabled selected>节次</option>
 					  <option value="1，2节">1，2节</option>
 					  <option value="3，4，5节">3，4，5节</option>
@@ -157,7 +145,7 @@
 
 				<!-- startprint1 -->
 				<div align="center" class="mb-4">
-					<h1>2017-2018学年 春夏 学期<span id="name"></span>教室的课表</h1>
+					<h1>2017-2018学年 春夏 学期<span id="aaplace"></span><span id="aaroomNumber"></span>的课表</h1>
 				</div>
 				<div id="class">
 					<!-- 课表表格显示模块 -->
@@ -299,10 +287,47 @@
 	<script src="js/tableExport.min.js"></script>
 	<script src="js/bootstrap-table-export.js"></script>
 	<script src="js/bootstrap-table-editable.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
 	<!-- Icons -->
 	<script src="js/feather.min.js"></script>
 	<script>
 		feather.replace()
+	</script>
+	<script>
+	getclassList();
+	function getclassList() {
+        $.ajax({
+            url: "/AllCourse",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+				var cla='<option style="color: "#b6b6b6" disabled selected>课程</option>';
+                $.each(data, function (i) {
+                   cla+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#newclass.selectpicker').html(cla);					
+                $('#newclass').selectpicker('refresh');
+            },
+        })
+    }
+	getteacherList();
+	function getteacherList() {
+        $.ajax({
+            url: "/AllTeacher",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+				var tea='<option style="color: #b6b6b6" disabled selected>任课教师</option>';
+                $.each(data, function (i) {
+                   tea+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#newteacher.selectpicker').html(tea);					
+                $('#newteacher').selectpicker('refresh');
+            },
+        })
+    }
 	</script>
 	<script type="text/javascript">
 		//页面初始化
@@ -374,9 +399,11 @@
 			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 			onEditableSave: function (field, row, oldValue, $el) {
 				alert('保存教师=' + row.teacherName +'时间='+ row.time);
+				//添加格式验证！！
+				//重要！！
 				var param = {
-					place : row.place,
-					roomNumber : roomNumber,
+					teacherName : row.teacherName,
+					time : row.time
 				};
 				console.log(param);
 				$.ajax({
@@ -435,15 +462,9 @@
 	function searchclass(){
 		var roomNumber = $("#searchclassroom").val();
 		var place = $("#searchplace").val();
-		$("#name").html(place+roomNumber);
-		/*
-		var weekday = 1;
-		var timePerid = 1;
-		var tplace = "#c"+weekday+timePerid;
-		var classdata="<p>职业生涯规划</p><p>玉泉教7-302</p><p>周一3，4，5</p>";
-		$(tplace).html(classdata);
-		
-		*/
+		$("#aaplace").html(place);
+		$("#aaroomNumber").html(roomNumber);
+
 		$.ajax({
 			 type: "get",
 			 url: "/ClassRoomChart",
@@ -469,6 +490,33 @@
 		});
     }
 
+	function add(){
+		var param = {
+			place : document.getElementById("aaplace").innerHTML,
+			roomNumber : document.getElementById("aaroomNumber").innerHTML,
+    		courseName : $("#newclass").val().toString(),
+			teacher : $("#newteacher").val().toString(),
+			time : $("#newday").val().toString()+$("#newtime").val().toString()
+    	};
+		console.log(param);
+		$.ajax({
+            url: "",
+            type: "POST",
+            data: param,
+            success: function(data){
+            	console.log(data);
+				if( data == "success"){
+					$('#listtable').bootstrapTable("refresh");
+					alert("增加教室的课程成功");
+				}else if( data == "fail"){
+					alert("增加教室的课程失败");
+				}
+            },
+			error: function () {
+				alert("增加教师课程失败zaa");
+			},
+    	});
+	}	
 	
 
 	function remove() {

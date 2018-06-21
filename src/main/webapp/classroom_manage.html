@@ -181,6 +181,8 @@
 				exportTypes: ['csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 				onEditableSave: function (field, row, oldValue, $el) {
 					alert('保存校区=' + row.place +'教室='+ row.roomnumber+ ' 容量=' + row.capacity+' 设备=' + row.equipment);
+					//添加格式验证！！
+					//重要！！
 					var param = {
 						place : row.place,
 						roomnumber : row.roomnumber,

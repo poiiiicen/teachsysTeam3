@@ -74,7 +74,7 @@
 			</nav>
 
 			<div class="col-md-offset-2 main">
-				<button type="button" class="btn btn-light" onclick="">开始排课</button>
+				<button type="button" class="btn btn-light" onclick="arrange();">开始排课</button>
 			</div>
 		</div>
 	</div>
@@ -98,6 +98,28 @@
 	<script>
 		feather.replace()
 	</script>
+	<script>
+	function arrange(){
+		console.log("aaa");
+		$.ajax({
+            url: "/ArrangeCourse",
+            type: "get",
+            success: function(data){
+            	console.log(data);
+				if( data == "success!"){
+					alert("排课成功");
+				}else if( data == "fail!"){
+					alert("排课失败");
+				}
+            },
+			error: function () {
+				alert("排课zaa");
+			},
+    	});
+	}	
+	</script>
+	
+	
 </body>
 
 </html>
