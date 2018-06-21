@@ -17,6 +17,7 @@
 	<!-- Custom styles for this template -->
 	<link rel="stylesheet" href="css/bootstrap-table.css">
 	<link href="css/bootstrap-editable.css" rel="stylesheet">
+	<link href="css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="css/dashboard.css" rel="stylesheet">
 	<link href="css/sweetalert.min.css" rel="stylesheet">
 </head>
@@ -72,28 +73,61 @@
 							<a class="nav-link" href="index.html"><span data-feather="home"></span> 首页</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="show_class_schedule.html"><span data-feather="file"></span> 查看课表</a>
+							<a class="nav-link" href="show_classroom_schedule.html"><span data-feather="file"></span> 查看教室课表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="show_teacher_schedule.html"><span data-feather="file"></span> 查看教师课表</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="classroom_manage.html"><span data-feather="layers"></span> 教室资源管理</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="show_all_classes.html"><span data-feather="plus-circle"></span> 查看所有课程</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="auto_arrange_wait.html"><span data-feather="users"></span> 自动排课</a>
+							<a class="nav-link  active" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
 
-			<div class="col-md-offset-2 main">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-1 border-bottom">
-					<form action="" class="form-inline" method="post">
-						 <input type="text" class="form-control" placeholder="查找教师或学生">
-						<button class="btn btn-outline-info my-2 my-sm-0" type="submit">搜索</button>
-					</form>
-				</div>
+			<div class="col-md-offset-2 main">	
+				<form class="form-inline">
+				  <div class="form-group"><input id="searchteacher" class="form-control" type="text" placeholder="教师姓名"></div>
+				  <button type="button" class="btn btn-outline-info" onclick="searchtea();">搜索</button>
+				</form>
+				
+				
+				<form class="form-inline">
+					<select id="newclass" name="newclass" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>课程</option>
+					</select>
+					<select id="newplace" name="newplace" class="selectpicker" onChange="set_building(this);">
+					  <option style="color: #b6b6b6" disabled selected>校区</option>
+					  <option value="紫金港">紫金港</option>
+					  <option value="玉泉">玉泉</option>
+					  <option value="西溪">西溪</option>
+					</select>
+					<select id="newbuilding" name="newbuilding" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>教室</option>
+					</select>
+					<select id="newday" name="newday" class="selectpicker">
+					  <option style="color: #b6b6b6" disabled selected>日</option>
+					  <option value="周一">周一</option>
+					  <option value="周二">周二</option>
+					  <option value="周三">周三</option>
+					  <option value="周四">周四</option>
+					  <option value="周五">周五</option>
+					</select>
+					<select id="newtime" name="newtime" class="selectpicker">
+					  <option style="color: #b6b6b6" disabled selected>节次</option>
+					  <option value="1，2节">1，2节</option>
+					  <option value="3，4，5节">3，4，5节</option>
+					  <option value="6，7，8节">6，7，8节</option>
+					  <option value="9，10节">9，10节</option>
+					  <option value="11，12，13节">11，12，13节</option>
+					</select>
+				  <!-- <div class="checkbox"><label><input type="checkbox"> Remember me</label></div>  -->
+				  <button class="btn btn-outline-info" onclick="add();">新增</button>
+				</form>		
+				
 				<!-- 切换显示方式和打印 -->
 				<div class="container-fluid">
 					<div class="row">
@@ -116,16 +150,13 @@
 
 				<!-- startprint1 -->
 				<div align="center" class="mb-4">
-					<h1><span id="year">2017-2018</span> 学年 <span id="term">春</span> 学期<span id="name">王阳明</span>的课表</h1>
+					<h1>2017-2018学年 春夏 学期<span id="name"></span>教师的课表</h1>
 				</div>
 				<div id="class">
 					<!-- 课表表格显示模块 -->
 					<!-- 列表  -->
 					<div id="list" class="container-fluid mb-5">
 					        <div id="toolbar" class="btn-group">
-								<button id="btn_add" type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-								</button>
 								<button id="btn_delete" type="button" class="btn btn-default" onclick="remove();">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 								</button>
@@ -163,108 +194,88 @@
 								<tr>
 									<th scope="row" rowspan="5" class="align-middle">上午</th>
 									<th scope="row" class="align-middle">1</th>
-									<td rowspan="2" id="c11">微观经济学<p>玉泉教7-308 黎明</p></td>
-									<td rowspan="2" id="c21"></td>
-									<td rowspan="2" id="c31"></td>
-									<td rowspan="2" id="c41"></td>
-									<td rowspan="2" id="c51"></td>
-									<td rowspan="2" id="c61"></td>
-									<td rowspan="2" id="c71"></td>
+									<td rowspan="2" id="c00"></td>
+									<td rowspan="2" id="c10"></td>
+									<td rowspan="2" id="c20"></td>
+									<td rowspan="2" id="c30"></td>
+									<td rowspan="2" id="c40"></td>
+									<td rowspan="2" id="c50"></td>
+									<td rowspan="2" id="c60"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">2</th>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">3</th>
-									<td rowspan="2" id="c12"></td>
-									<td rowspan="2" id="c22"></td>
-									<td rowspan="2" id="c32"></td>
-									<td rowspan="2" id="c42">软件工程<p>玉泉教7-201 吴宓 </p></td>
-									<td rowspan="2" id="c52"></td>
-									<td rowspan="2" id="c62"></td>
-									<td rowspan="2" id="c72">编译原理<p>玉泉教西-201 王思</p></td>
+									<td rowspan="3" id="c01"></td>
+									<td rowspan="3" id="c11"></td>
+									<td rowspan="3" id="c21"></td>
+									<td rowspan="3" id="c31"></td>
+									<td rowspan="3" id="c41"></td>
+									<td rowspan="3" id="c51"></td>
+									<td rowspan="3" id="c61"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">4</th>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">5</th>
-									<td id="c13"></td>
-									<td id="c23"></td>
-									<td id="c33"></td>
-									<td id="c43">软件工程<p>玉泉教7-201 吴宓 </p></td>
-									<td id="c53"></td>
-									<td id="c63"></td>
-									<td id="c73"></td>
 								</tr>
 								<!-- <tr><th colspan="9"></th></tr>  -->
 								<tr>
 									<th scope="row" rowspan="5" class="align-middle">下午</th>
 									<th scope="row" class="align-middle">6</th>
-									<td id="c14"></td>
-									<td id="c24"></td>
-									<td id="c34">计算机网络<p>玉泉教7-321  李四</p></td>
-									<td id="c44"></td>
-									<td id="c54"></td>
-									<td id="c64"></td>
-									<td id="c74"></td>
+									<td rowspan="3" id="c02"></td>
+									<td rowspan="3" id="c12"></td>
+									<td rowspan="3" id="c22"></td>
+									<td rowspan="3" id="c32"></td>
+									<td rowspan="3" id="c42"></td>
+									<td rowspan="3" id="c52"></td>
+									<td rowspan="3" id="c62"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">7</th>
-									<td rowspan="2" id="c15"></td>
-									<td rowspan="2" id="c25"></td>
-									<td rowspan="2" id="c35">计算机网络<p>玉泉教7-321  李四</p></td>
-									<td rowspan="2" id="c45"></td>
-									<td rowspan="2" id="c55"></td>
-									<td rowspan="2" id="c65"></td>
-									<td rowspan="2" id="c75"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">8</th>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">9</th>
-									<td rowspan="2" id="c16"></td>
-									<td rowspan="2" id="c26"></td>
-									<td rowspan="2" id="c36"></td>
-									<td rowspan="2" id="c46"></td>
-									<td rowspan="2" id="c56"></td>
-									<td rowspan="2" id="c66"></td>
-									<td rowspan="2" id="c76">职业生涯规划<p>玉泉教7-308 张三</p></td>
+									<td rowspan="2" id="c03"></td>
+									<td rowspan="2" id="c13"></td>
+									<td rowspan="2" id="c23"></td>
+									<td rowspan="2" id="c33"></td>
+									<td rowspan="2" id="c43"></td>
+									<td rowspan="2" id="c53"></td>
+									<td rowspan="2" id="c63"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">10</th>
 								</tr>
 								<!-- <tr><th colspan="9"></th></tr>  -->
 								<tr>
-									<th scope="row" rowspan="5" valign="middle" class="align-middle">晚上</th>
+									<th scope="row" rowspan="3" valign="middle" class="align-middle">晚上</th>
 									<th scope="row" class="align-middle">11</th>
-									<td rowspan="2" id="c17"></td>
-									<td rowspan="2" id="c27"></td>
-									<td rowspan="2" id="c37"></td>
-									<td rowspan="2" id="c47"></td>
-									<td rowspan="2" id="c57"></td>
-									<td rowspan="2" id="c67"></td>
-									<td rowspan="2" id="c77">排球<p>玉泉田径场 李明</p></td>
+									<td rowspan="3" id="c04"></td>
+									<td rowspan="3" id="c14"></td>
+									<td rowspan="3" id="c24"></td>
+									<td rowspan="3" id="c34"></td>
+									<td rowspan="3" id="c44"></td>
+									<td rowspan="3" id="c54"></td>
+									<td rowspan="3" id="c64"></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">12</th>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle">13</th>
-									<td id="c18"></td>
-									<td id="c28"></td>
-									<td id="c38"></td>
-									<td id="c48"></td>
-									<td id="c58"></td>
-									<td id="c68"></td>
-									<td id="c78"></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<!-- endprint1 -->
 				</div>
+
 				
 			</div>
 		</div>
@@ -274,30 +285,55 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-
 	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap3.min.js"></script>
 	<script src="js/bootstrap-editable.min.js"></script>
 	<script src="js/bootstrap-table.min.js"></script>
 	<script src="js/tableExport.min.js"></script>
 	<script src="js/bootstrap-table-export.js"></script>
-	
 	<script src="js/bootstrap-table-editable.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
 	
-	
-	<script src="js/holder.min.js"></script>
-	<script>
-		Holder.addTheme('thumb', {
-			bg: '#55595c',
-			fg: '#eceeef',
-			text: 'Thumbnail'
-		});
-	</script>
 	<!-- Icons -->
 	<script src="js/feather.min.js"></script>
 	<script>
 		feather.replace()
+	</script>
+	<script>
+	function getclassList() {
+        $.ajax({
+            url: "/AllCourse",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+                $.each(data, function (i) {
+                    $('#newclass.selectpicker').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
+                });         
+                $('#newclass').selectpicker('refresh');
+            },
+        })
+    }
+	function set_building(newplace){
+		var param = {
+			place : newplace.value,
+		};		
+        $.ajax({
+            url: "/AllClassRoom",
+            type: "get",
+            dataType: "json",
+			data : param,
+            success: function (data) {
+				console.log(data);
+				var place="";
+                $.each(data, function (i) {
+                    place+="<option value=" + data[i].roomnumber + ">" + data[i].roomnumber + "</option>";
+                });       
+				$('#newbuilding.selectpicker').html(place);			
+                $('#newbuilding').selectpicker('refresh');
+            },
+        })
+	}
 	</script>
 	<script type="text/javascript">
 		//页面初始化
@@ -342,19 +378,11 @@
 	</script>
 	
 	<script>
-	var classes = [];  
-	/*
-    for(var i=0;i<30;i++){  
-        classes[i]={"id":(1000*i).toString(),"name":"陈"+i,"teacher":"男"+i,"term":"春夏","time":"周一6,7,8节","place":"紫金港西一-202"}  
-    } */
-	 classes[0]={"id":"011A012","name":"编译原理","teacher":"王阳明","term":"春夏","time":"周一6,7,8节","place":"玉泉教7-202"};
-      classes[1]={"id":"011A012","name":"软件工程","teacher":"王阳明","term":"春夏","time":"周二3,4,5节","place":"玉泉教7-201"};
-	  classes[2]={"id":"011A012","name":"计算机网络","teacher":"王阳明","term":"春夏","time":"周五3,4,5节","place":"玉泉曹西-202"};
-	  classes[3]={"id":"011A012","name":"职业生涯规划","teacher":"王阳明","term":"春夏","time":"周四7,8节","place":"玉泉教7-602"};
-	  
+
+	
     $(function () {  
         $('#listtable').bootstrapTable({  
-	
+			url: '/CourseArrangeList?name=',
             method: 'get',  
             cache: false, 
 			dataType:'json',	
@@ -369,41 +397,57 @@
 			sidePagination:'client',  
             search: true,  
             showColumns: true,  
-            showRefresh: true,  
+            showRefresh: false,  
             search: true,  
             clickToSelect: false,  
 			showExport: true,                    
 			exportDataType: 'all',
 			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 			onEditableSave: function (field, row, oldValue, $el) {
-				//可进行异步操作
-
+				alert('保存地点=' + row.classRoomId +'时间='+ row.time);
+				var param = {
+					teacherId : row.teacherId,
+					courseId : row.classId,
+					place : row.place,
+					roomNumber : row.roomNumber,
+					time : row.time,
+					name : row.teacherName,
+					roomId : row.classRoomId
+				};
+				//console.log(oldValue);
 				$.ajax({
 					type: "post",
-					url: "",
-					data: row,
-					dataType: 'JSON',
-					success: function (data, status) {
-						if (status == "success") {
-							alert('提交数据成功');
-						}
+					url: "/CourseForTeacherUpdate",
+					data: param,
+					success: function (data) {
+						$("#listtable").bootstrapTable('load', data);
 					},
 					error: function () {
-						alert('编辑失败');
+						alert("更新教师失败");
 					},
 					complete: function () {
 
 					}
-
 				});
 			},
             columns:   
             [  
                 {field:"checked",checkbox:true},  
-                {field:"id",title:"课程代号",align:"center",valign:"middle",sortable:"true"},  
-                {field:"name",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
-                {field:"teacher",title:"教师姓名",align:"center",valign:"middle",sortable:"true"}, 
-				{field:"term",title:"学期",align:"center",valign:"middle",sortable:"true"}, 
+                {field:"className",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
+				{field:"place",title:"校区",align:"center",valign:"middle",sortable:"true"}, 
+				{field:"roomNumber",title:"上课地点",align:"center",valign:"middle",sortable:"true", editable: {
+																								type: 'text',
+																								title: '上课地点',
+																								validate: function (value) {
+																									value = $.trim(value);
+																									if (!value) {
+																										return 'This field is required';
+																									}
+																									var data = $('#listtable').bootstrapTable('getData'),
+																										index = $(this).parents('tr').data('index');
+																									console.log(data[index]);
+																									return '';
+																								}}}, 
 				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true", editable: {
 																								type: 'text',
 																								title: '上课时间',
@@ -417,44 +461,107 @@
 																									console.log(data[index]);
 																									return '';
 																								}}},
-				{field:"place",title:"上课地点",align:"center",valign:"middle",sortable:"true", editable: {
-																								type: 'text',
-																								title: '上课地点',
-																								validate: function (value) {
-																									value = $.trim(value);
-																									if (!value) {
-																										return 'This field is required';
-																									}
-																									var data = $('#listtable').bootstrapTable('getData'),
-																										index = $(this).parents('tr').data('index');
-																									console.log(data[index]);
-																									return '';
-																								}}}, 
             ],  
-            data:classes,  
         });                                       
     }); 
+	
+	
+	function searchtea(){
+		var name = $("#searchteacher").val().toString();
+		$("#name").html(name);
+		var param = {
+			name: name
+		};
+		console.log(param);
+		$.ajax({
+			 type: "get",
+			 url: "/CourseForTeacherList",
+			 data: param,
+			 dataType:"json",
+			 success : function(data) {
+				getclassList(name);
+				//更新列表
+				$("#listtable").bootstrapTable('load', data);
+				//更新表格
+				//var data= result.datas;		
+				//在JS中将JSON的字符串解析成JSON数据格式，使用eval()函数
+				for (var i = 0; i < data.length; i++) {
+					//result[i]表示获得第i个json对象即JSONObject
+					//result[i]通过.字段名称即可获得指定字段的值
+					var weekday = data[i].weekday;
+					var timeperiod = data[i].timeperiod;
+					var tplace = "#c"+weekday+timeperiod;
+					var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+					console.log(tplace);
+					$(tplace).html(classdata);
+				}
+			},
+			error: function(status){
+				console.log(status);
+			}
+		});
+    }
+
+											 
+	function add(){
+		var param = {
+			teacherName : document.getElementById("name").innerHTML,
+    		courseName : $("#newclass").val().toString(),
+			place : $("#newplace").val().toString(),
+			roomNumber : $("#newbuilding").val().toString(),
+			time : $("#newday").val().toString()+$("#newtime").val().toString()
+    	};
+		console.log(param);
+		$.ajax({
+            url: "/CourseForTeacherAdd",
+            type: "POST",
+            data: param,
+            success: function(data){
+            	console.log(data);
+				if( data == "success"){
+					$('#listtable').bootstrapTable("refresh");
+					alert("增加教师课程成功");
+				}else if( data == "fail"){
+					alert("增加教师课程失败");
+				}
+            },
+			error: function () {
+				alert("增加教师课程失败zaa");
+			},
+    	});
+	}	
 
 	function remove() {
 		var arrselectedData = $("#listtable").bootstrapTable('getSelections');
-		if (arrselectedData.length <= 0) {
+		if (arrselectedData.length <= 0 || arrselectedData.length >= 2 ){
 			alert("请选中一行");
 		} else {
-			var b = JSON.stringify(arrselectedData);
-			console.log(b);
+			//var b = JSON.stringify(arrselectedData);
+			var param = {
+				teacherId : arrselectedData[0].teacherId,
+				courseId : arrselectedData[0].classId,
+				place : arrselectedData[0].place,
+				roomNumber : arrselectedData[0].roomNumber,
+				time : arrselectedData[0].time,
+				name : arrselectedData[0].teacherName,
+				roomId : arrselectedData[0].classRoomId
+			};
+			
+			console.log(param);
 			$.ajax({
-				url : "",
+				url : "/CourseForTeacherDelete",
 				type : "post",
-				data : {
-					"name" : b  //传输到后台的是 json对象 后台接收后需要转换成list  然后循环获取id删除
+				data : param,	
+				success : function(data) {
+					$("#listtable").bootstrapTable('load', data);
+					alert("删除该教师的课程成功");
 				},
-				success : function(status) {
-					alert(status);
-					$("#listtable").bootstrapTable('refresh');
+				error: function(status) {
+					alert("删除该教师的课程失败");
 				}
 			});
 		}
-    }
+    }		
 
 
 	</script>
