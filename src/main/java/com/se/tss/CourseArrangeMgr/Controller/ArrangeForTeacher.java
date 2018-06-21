@@ -51,9 +51,7 @@ public class ArrangeForTeacher {
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(name);
-            CourseForList courseForList=new CourseForList();
-            courseForList.setStatus(result);
-            list.add(courseForList);
+            list.get(list.size()-1).setStatus(result);
             return  list;
         }
         deleteLogic.Delete(teacherId,courseId,roomId);
@@ -80,9 +78,7 @@ public class ArrangeForTeacher {
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(teacherName);
-            CourseForList courseForList=new CourseForList();
-            courseForList.setStatus(result);
-            list.add(courseForList);
+            list.get(list.size()-1).setStatus(result);
             return  list;
         }
         addLogic.Add(teacherId,courseId,classRoomId,weekday,period);
