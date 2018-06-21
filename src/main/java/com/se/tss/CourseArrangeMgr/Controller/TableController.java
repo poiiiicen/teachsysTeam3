@@ -40,4 +40,9 @@ public class TableController {
     public List<ClassInfo> AllCourse(){
         return classInfoService.findAll();
     }
+
+    @RequestMapping(value = "/AllCourseByTeacherId", method = RequestMethod.GET)
+    public List<ClassInfo> AllCourseByTeacherId(String teacherId){
+        return classInfoService.findAllByTeacherId(teacherId);
+    }
 }
