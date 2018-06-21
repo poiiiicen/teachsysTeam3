@@ -27,8 +27,8 @@ public class TableController {
     ClassInfoService classInfoService;
 
     @RequestMapping(value = "/AllClassRoom", method = RequestMethod.GET)
-    public List<ClassRoomInfo> AllClassRoom(){
-        return classRoomInfoService.findAll();
+    public List<ClassRoomInfo> AllClassRoom(String place){
+        return classRoomInfoService.findByPlace(place);
     }
 
     @RequestMapping(value = "/AllTeacher", method = RequestMethod.GET)

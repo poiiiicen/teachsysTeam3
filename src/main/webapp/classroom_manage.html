@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="css/bootstrap-table.css">
 	<link href="css/bootstrap-editable.css" rel="stylesheet">
 	<link href="css/dashboard.css" rel="stylesheet">
+	<link href="css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="css/sweetalert.min.css" rel="stylesheet">
 </head>
 
@@ -77,38 +78,42 @@
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="index.html">
-								<span data-feather="home"></span> 首页</a>
+							<a class="nav-link" href="index.html"><span data-feather="home"></span> 首页</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="show_class_schedule.html">
-								<span data-feather="file"></span> 查看课表</a>
+							<a class="nav-link" href="show_classroom_schedule.html"><span data-feather="file"></span> 查看教室课表</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link   active" href="classroom_manage.html">
-								<span data-feather="layers"></span> 教室资源管理</a>
+							<a class="nav-link" href="show_teacher_schedule.html"><span data-feather="file"></span> 查看教师课表</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="show_all_classes.html">
-								<span data-feather="plus-circle"></span> 查看所有课程</a>
+							<a class="nav-link" href="classroom_manage.html"><span data-feather="layers"></span> 教室资源管理</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="auto_arrange_wait.html">
-								<span data-feather="users"></span> 自动排课</a>
+							<a class="nav-link  active" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
 			<div class="col-md-offset-2 main">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-1 border-bottom">
-					<div>
-						<div class=" col-lg-2"><input id="newplace" class="form-control" type="text" placeholder="校区"></div>
-						<div class=" col-lg-2"><input id="newroomnumber" class="form-control col-lg-2" type="text" placeholder="教室"></div>
-						<div class=" col-lg-2"><input id="newcapacity" class="form-control col-lg-2" placeholder="容量"></div>
-						<div class=" col-lg-2"><input id="newequipment" class="form-control col-lg-2" type="text" placeholder="设备"></div>
-						<button class="btn btn-outline-info" onclick="add();">新增</button>
-					</div>
-				</div>
+				<form class="form-inline">
+					<select id="newplace" class="form-control">
+					  <option style="color: #b6b6b6" disabled selected>校区</option>
+					  <option value="紫金港">紫金港</option>
+					  <option value="玉泉">玉泉</option>
+					  <option value="西溪">西溪</option>
+					</select>
+					<div class="form-group"><input id="newroom" class="form-control" placeholder="教室"></div>
+					<div class="form-group"><input id="newcapacity" class="form-control" placeholder="容量"></div>
+					<select id="newequipment" class="form-control">
+					  <option style="color: #b6b6b6" disabled selected>设备</option>
+					  <option value="none">none</option>
+					  <option value="processor">processor</option>
+					</select>
+				  <button  type="button" class="btn btn-outline-info" onclick="add();">新增</button>
+				</form>
+				
+				
 				<div id="classroom">
 					<div id="list" class="container-fluid mb-5">
 							<div id="toolbar" class="btn-group">
@@ -130,26 +135,14 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-
 	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap3.min.js"></script>
 	<script src="js/bootstrap-editable.min.js"></script>
 	<script src="js/bootstrap-table.min.js"></script>
 	<script src="js/tableExport.min.js"></script>
 	<script src="js/bootstrap-table-export.js"></script>
-
 	<script src="js/bootstrap-table-editable.js"></script>
-
-
-	<script src="js/holder.min.js"></script>
-	<script>
-		Holder.addTheme('thumb', {
-			bg: '#55595c',
-			fg: '#eceeef',
-			text: 'Thumbnail'
-		});
-	</script>
+	<script src="js/bootstrap-select.min.js"></script>
 	<!-- Icons -->
 	<script src="js/feather.min.js"></script>
 	<script>
@@ -255,8 +248,8 @@
 		
 	function add(){
 		var param = {
-    		place : $("#newplace").val().toString(),
-			roomnumber : $("#newroomnumber").val().toString(),
+			place : $("#newplace option:selected").val(),
+			roomnumber : $("#newroom").val().toString(),
 			capacity : parseInt($("#newcapacity").val()),
 			equipment : $("#newequipment").val().toString()
     	};
