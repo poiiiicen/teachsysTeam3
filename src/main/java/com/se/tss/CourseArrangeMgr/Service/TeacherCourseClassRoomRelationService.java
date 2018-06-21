@@ -20,6 +20,11 @@ public interface TeacherCourseClassRoomRelationService extends JpaRepository<Tea
     @Modifying
     void doDelete(String teacherid, String courseid, String classroomid);
 
+    @Transactional
+    @Query(value="truncate table teacher_course_class_room_relation",nativeQuery=true)
+    @Modifying
+    void DeleteAll();
+
     List<TeacherCourseClassRoomRelation> findAllByTeacherid(String teacherId);
 
     List<TeacherCourseClassRoomRelation> findAllByCourseid(String courseid);

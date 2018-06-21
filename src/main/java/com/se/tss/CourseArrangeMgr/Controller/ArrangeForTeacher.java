@@ -3,6 +3,7 @@ package com.se.tss.CourseArrangeMgr.Controller;
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
+import com.se.tss.CourseArrangeMgr.Service.TeacherCourseClassRoomRelationService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import com.se.tss.CourseArrangeMgr.logic.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class ArrangeForTeacher {
     TeacherInfoService teacherInfoService;
     @Autowired
     ClassInfoService classInfoService;
+    @Autowired
+    ArrangeClassLogic arrangeClassLogic;
+    @Autowired
+    TeacherCourseClassRoomRelationService teacherCourseClassRoomRelationService;
 
     @RequestMapping(value = "/CourseForTeacherList", method = RequestMethod.GET)
     public List<CourseForList> CourseArrangeList(String name){
@@ -83,6 +88,19 @@ public class ArrangeForTeacher {
         }
         addLogic.Add(teacherId,courseId,classRoomId,weekday,period);
         return courseForTeacherLogic.CourseArrangeList(teacherName);
+    }
+
+    @RequestMapping(value = "/ArrangeCourse", method = RequestMethod.GET)
+    public String ArrangeCourse(){
+        try{
+            teacherCourseClassRoomRelationService.DeleteAll();
+            arrangeClassLogic.Arrange();
+            return "success!";
+        }catch (Exception e){
+            return  "fail!";
+        }
+
+
     }
 
 }
