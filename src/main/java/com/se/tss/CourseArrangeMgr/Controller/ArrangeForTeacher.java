@@ -53,13 +53,13 @@ public class ArrangeForTeacher {
         int weekday=timeMap.get("weekday");
         int period=timeMap.get("timeperiod");
         String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
+        deleteLogic.Delete(teacherId,courseId,roomId);
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(name);
             list.get(list.size()-1).setStatus(result);
             return  list;
         }
-        deleteLogic.Delete(teacherId,courseId,roomId);
         addLogic.Add(teacherId,courseId,classRoomId,weekday,period);
         return courseForTeacherLogic.CourseArrangeList(name);
     }

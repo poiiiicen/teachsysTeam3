@@ -20,4 +20,8 @@ public interface ClassInfoService extends JpaRepository<ClassInfo, String> {
 
      @Query(value = "select * from class where  teacherid = ?1 ",nativeQuery=true)
      List<ClassInfo> findAllByTeacherId(String teacherId);
+
+     @Query(value = "select teacherid from class where  name = ?1 ",nativeQuery=true)
+     List<String> findAllByName(String name);
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,5 +46,17 @@ public class TableController {
     public List<ClassInfo> AllCourseByTeacherName(String name){
         String id=teacherInfoService.findIdByName(name);
         return classInfoService.findAllByTeacherId(id);
+    }
+
+    @RequestMapping(value = "/AllTeacherForOneCourse", method = RequestMethod.GET)
+    public List<String> AllTeacherForOneCourse(String courseName){
+        List<String> teacherId=classInfoService.findAllByName(courseName);
+        List<String> teacherName=new ArrayList<>();
+        for(String s:teacherId){
+            String ss=teacherInfoService.findNanme(s);
+            if(ss!=null)
+                teacherName.add(ss);
+        }
+        return  teacherName;
     }
 }
