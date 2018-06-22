@@ -604,7 +604,7 @@
 				data : param,	
 				success : function(data) {
 					alert("删除该教室的课程成功");
-					$("#listtable").bootstrapTable('refresh');
+					$('#listtable').bootstrapTable("load",data);
 					for(var i=0;i<5;i++)
 						for(var j=0;j<5;j++){
 							var tplace = "#c"+i+j;
