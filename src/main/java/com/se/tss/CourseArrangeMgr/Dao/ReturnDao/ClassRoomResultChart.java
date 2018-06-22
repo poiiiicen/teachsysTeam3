@@ -12,6 +12,15 @@ public class ClassRoomResultChart {
     private String classId;
     private String classRoomId;
     private String time;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public void setTime(String time) {
         this.time = time;
