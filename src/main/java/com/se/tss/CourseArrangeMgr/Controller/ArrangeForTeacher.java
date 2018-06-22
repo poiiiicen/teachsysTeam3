@@ -57,6 +57,9 @@ public class ArrangeForTeacher {
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(name);
+            if(list.isEmpty()){
+                list.add(new CourseForList());
+            }
             list.get(list.size()-1).setStatus(result);
             return  list;
         }
@@ -83,6 +86,9 @@ public class ArrangeForTeacher {
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(teacherName);
+            if(list.isEmpty()){
+                list.add(new CourseForList());
+            }
             list.get(list.size()-1).setStatus(result);
             return  list;
         }

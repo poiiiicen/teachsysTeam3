@@ -81,6 +81,9 @@ public class ClassRoomResultChartLogic {
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
             List<ClassRoomResultChart> list = getClassRoomResultChartList(place,roomNumber);
+            if(list.isEmpty()){
+                list.add(new ClassRoomResultChart());
+            }
             list.get(list.size()-1).setStatus(result);
             return list;
         }
@@ -104,6 +107,9 @@ public class ClassRoomResultChartLogic {
         if(!result.equals("")){
             teacherCourseClassRoomRelationService.doInsert(teacherId, courseId, roomId, teacherCourseClassRoomRelation.getWeekday(), teacherCourseClassRoomRelation.getWeekday());
             List<ClassRoomResultChart> list = getClassRoomResultChartList(place,roomNumber);
+            if(list.isEmpty()){
+                list.add(new ClassRoomResultChart());
+            }
             list.get(list.size()-1).setStatus(result);
             return list;
         }
