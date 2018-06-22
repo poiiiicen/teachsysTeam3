@@ -90,8 +90,10 @@
 
 			<div class="col-md-offset-2 main">	
 				<form class="form-inline">
-				  <div class="form-group"><input id="searchteacher" class="form-control" type="text" placeholder="教师姓名"></div>
-				  <button type="button" class="btn btn-outline-info" onclick="searchtea();">搜索</button>
+				  	<select id="searchteacher" name="searchteacher" class="selectpicker" >
+					  <option style="color: #b6b6b6" disabled selected>任课教师</option>
+					</select>
+				  <button type="button" class="btn btn-outline-info" onclick="searchtea();">查询课表</button>
 				</form>
 				
 				
@@ -300,6 +302,23 @@
 		feather.replace()
 	</script>
 	<script>
+	getteacherList();
+	function getteacherList() {
+        $.ajax({
+            url: "/AllTeacher",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+				var tea='<option style="color: #b6b6b6" disabled selected>任课教师</option>';
+                $.each(data, function (i) {
+                   tea+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#searchteacher.selectpicker').html(tea);					
+                $('#searchteacher').selectpicker('refresh');
+            },
+        })
+    }
 	function getclassList(name) {
 		var param = {
 			name: name
@@ -410,7 +429,7 @@
 			exportDataType: 'all',
 			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 			onEditableSave: function (field, row, oldValue, $el) {
-				alert('保存地点=' + row.classRoomId +'时间='+ row.time);
+				alert('保存地点=' + row.roomNumber +'时间='+ row.time);
 				//添加格式验证！！
 				//重要！！
 				var param = {
@@ -422,16 +441,38 @@
 					name : row.teacherName,
 					roomId : row.classRoomId
 				};
-				//console.log(oldValue);
+				console.log(param);
 				$.ajax({
 					type: "post",
 					url: "/CourseForTeacherUpdate",
 					data: param,
 					success: function (data) {
-						$("#listtable").bootstrapTable('load', data);
-					},
+						console.log(data);
+						if( data[data.length-1].status == ""){
+							$('#listtable').bootstrapTable("load",data);
+							for(var i=0;i<5;i++)
+								for(var j=0;j<5;j++){
+									var tplace = "#c"+i+j;
+									$(tplace).html("");
+								}
+							for (var i = 0; i < data.length; i++) {
+								//result[i]表示获得第i个json对象即JSONObject
+								//result[i]通过.字段名称即可获得指定字段的值
+								var weekday = data[i].weekday;
+								var timeperiod = data[i].timeperiod;
+								var tplace = "#c"+weekday+timeperiod;
+								var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+								console.log(tplace);
+								$(tplace).html(classdata);
+							}
+							alert("更改教师课程成功");
+						}else{
+							$('#listtable').bootstrapTable("load",data);
+							alert(data[data.length-1].status);
+						}
+					},	
 					error: function () {
-						alert("更新教师失败");
+						alert("更新教师课程失败");
 					},
 					complete: function () {
 
@@ -444,31 +485,31 @@
                 {field:"className",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
 				{field:"place",title:"校区",align:"center",valign:"middle",sortable:"true"}, 
 				{field:"roomNumber",title:"上课地点",align:"center",valign:"middle",sortable:"true", editable: {
-																								type: 'text',
+																								type: 'select',
 																								title: '上课地点',
-																								validate: function (value) {
-																									value = $.trim(value);
-																									if (!value) {
-																										return 'This field is required';
-																									}
+																								source: function () {
+																									var result = [];
 																									var data = $('#listtable').bootstrapTable('getData'),
-																										index = $(this).parents('tr').data('index');
-																									console.log(data[index]);
-																									return '';
+																									index = $(this).parents('tr').data('index');
+																									$.ajax({
+																										url: "/AllClassRoom",
+																										type: "get",
+																										async: false,
+																										data :{place:data[index]["place"]},
+																										success: function (data) {
+																											$.each(data, function (i) {
+																												result.push({ value: data[i].roomnumber, text: data[i].roomnumber });
+																											})
+																										}
+																									});
+
+																									return result;
 																								}}}, 
 				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true", editable: {
-																								type: 'text',
+																								type: 'select',
 																								title: '上课时间',
-																								validate: function (value) {
-																									value = $.trim(value);
-																									if (!value) {
-																										return 'This field is required';
-																									}
-																									var data = $('#listtable').bootstrapTable('getData'),
-																										index = $(this).parents('tr').data('index');
-																									console.log(data[index]);
-																									return '';
-																								}}},
+																								source: [{value:"周一1，2节",text:"周一1，2节"},{value:"周一3，4，5节",text:"周一3，4，5节"},{value:"周一6，7，8节",text:"周一6，7，8节"},{value:"周一9，10节",text:"周一9，10节"},{value:"周一11，12，13节",text:"周一11，12，13节"},{value:"周二1，2节",text:"周二1，2节"},{value:"周二3，4，5节",text:"周二3，4，5节"},{value:"周二6，7，8节",text:"周二6，7，8节"},{value:"周二9，10节",text:"周二9，10节"},{value:"周二11，12，13节",text:"周二11，12，13节"},{value:"周三1，2节",text:"周三1，2节"},{value:"周三3，4，5节",text:"周三3，4，5节"},{value:"周三6，7，8节",text:"周三6，7，8节"},{value:"周三9，10节",text:"周三9，10节"},{value:"周三11，12，13节",text:"周三11，12，13节"},{value:"周四1，2节",text:"周四1，2节"},{value:"周四3，4，5节",text:"周四3，4，5节"},{value:"周四6，7，8节",text:"周四6，7，8节"},{value:"周四9，10节",text:"周四9，10节"},{value:"周四11，12，13节",text:"周四11，12，13节"},{value:"周五1，2节",text:"周五1，2节"},{value:"周五3，4，5节",text:"周五3，4，5节"},{value:"周五6，7，8节",text:"周五6，7，8节"},{value:"周五9，10节",text:"周五9，10节"},{value:"周五11，12，13节",text:"周五11，12，13节"}]
+																								}},
             ],  
         });                                       
     }); 
@@ -493,6 +534,11 @@
 				//更新表格
 				//var data= result.datas;		
 				//在JS中将JSON的字符串解析成JSON数据格式，使用eval()函数
+				for(var i=0;i<5;i++)
+					for(var j=0;j<5;j++){
+						var tplace = "#c"+i+j;
+						$(tplace).html("");
+					}
 				for (var i = 0; i < data.length; i++) {
 					//result[i]表示获得第i个json对象即JSONObject
 					//result[i]通过.字段名称即可获得指定字段的值
@@ -528,6 +574,21 @@
             	console.log(data);
 				if( data[data.length-1].status == ""){
 					$('#listtable').bootstrapTable("load",data);
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timeperiod = data[i].timeperiod;
+						var tplace = "#c"+weekday+timeperiod;
+						var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						console.log(tplace);
+						$(tplace).html(classdata);
+					}
 					alert("增加教师课程成功");
 				}else{
 					alert(data[data.length-1].status);
@@ -561,6 +622,21 @@
 				type : "post",
 				data : param,	
 				success : function(data) {
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timeperiod = data[i].timeperiod;
+						var tplace = "#c"+weekday+timeperiod;
+						var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						console.log(tplace);
+						$(tplace).html(classdata);
+					}
 					$("#listtable").bootstrapTable('load', data);
 					alert("删除该教师的课程成功");
 				},

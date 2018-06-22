@@ -90,14 +90,21 @@
 
 			<div class="col-md-offset-2 main">
 				<form class="form-inline">
-				  <div class="form-group"><input id="searchplace" class="form-control" type="text" placeholder="校区"></div>
-				  <div class="form-group"><input id="searchclassroom" class="form-control" type="text" placeholder="教室名称"></div>
-				  <button  type="button" class="btn btn-outline-info" onclick="searchclass();">搜索</button>
+				  	<select id="searchplace" name="searchplace" class="selectpicker" onChange="set_building(this);">
+					  <option style="color: #b6b6b6" disabled selected>校区</option>
+					  <option value="紫金港">紫金港</option>
+					  <option value="玉泉">玉泉</option>
+					  <option value="西溪">西溪</option>
+					</select>
+				  	<select id="searchclassroom" name="searchclassroom" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>教室</option>
+					</select>
+				  <button  type="button" class="btn btn-outline-info" onclick="searchclass();">查询课表</button>
 				</form>
 				
 				
 				<form class="form-inline">
-					<select id="newclass" name="newclass" class="selectpicker" >
+					<select id="newclass" name="newclass" class="selectpicker" onChange="getteacherList(this);">
 						<option style="color: #b6b6b6" disabled selected>课程</option>
 					</select>
 					<select id="newteacher" name="newteacher" class="selectpicker" >
@@ -294,13 +301,13 @@
 		feather.replace()
 	</script>
 	<script>
-	getclassList();
 	function getclassList() {
         $.ajax({
             url: "/AllCourse",
             type: "get",
             dataType: "json",
             success: function (data) {
+				console.log("获取所有课程信息结果");
 				console.log(data);
 				var cla='<option style="color: "#b6b6b6" disabled selected>课程</option>';
                 $.each(data, function (i) {
@@ -311,23 +318,49 @@
             },
         })
     }
-	getteacherList();
-	function getteacherList() {
+
+	function getteacherList(classname) {
+		var param = {
+			courseName: classname.value
+		};
         $.ajax({
-            url: "/AllTeacher",
+            url: "/AllTeacherForOneCourse",
             type: "get",
+			data: param,
             dataType: "json",
             success: function (data) {
+				console.log("获取上该门课程的所有老师结果");
 				console.log(data);
-				var tea='<option style="color: #b6b6b6" disabled selected>任课教师</option>';
+				var cla='<option style="color: #b6b6b6" disabled selected>任课教师</option>';
                 $.each(data, function (i) {
-                   tea+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                   cla+="<option value=" + data[i] + ">" + data[i] + "</option>";
                 });    
-				$('#newteacher.selectpicker').html(tea);					
+				$('#newteacher.selectpicker').html(cla);					
                 $('#newteacher').selectpicker('refresh');
             },
         })
     }
+	function set_building(newplace){
+		var param = {
+			place : newplace.value,
+		};		
+        $.ajax({
+            url: "/AllClassRoom",
+            type: "get",
+            dataType: "json",
+			data : param,
+            success: function (data) {
+				console.log("成功获取该校区所有教室结果");
+				console.log(data);
+				var place='<option style="color: #b6b6b6" disabled selected>教室</option>';
+                $.each(data, function (i) {
+                    place+="<option value=" + data[i].roomnumber + ">" + data[i].roomnumber + "</option>";
+                });       
+				$('#searchclassroom.selectpicker').html(place);			
+                $('#searchclassroom').selectpicker('refresh');
+            },
+        })
+	}
 	</script>
 	<script type="text/javascript">
 		//页面初始化
@@ -376,7 +409,7 @@
 	
     $(function () {  
         $('#listtable').bootstrapTable({  
-			url: '/ClassRoomChart?place=&roomNumber=',
+			url: '/CourseForClassroomList?place=&roomNumber=',
             method: 'get',  
             cache: false, 
 			dataType:'json',	
@@ -402,18 +435,43 @@
 				//添加格式验证！！
 				//重要！！
 				var param = {
-					teacherName : row.teacherName,
-					time : row.time
+					roomId : row.classRoomId,
+					courseId : row.classId,
+					teacherId : row.teacherId,
+					time : row.time,
+					place : row.place,
+					roomNumber : row.roomNumber
 				};
+		
+				console.log("教室课程更新");
 				console.log(param);
 				$.ajax({
 					type: "post",
-					url: "/ResourseUpdate",
+					url: "/CourseForClassroomUpdate",
 					data: param,
 					success: function (data) {
-						if (data == "success") {
-							$('#listtable').bootstrapTable("refresh");
+						if (data[data.length-1].status == null) {
+							$('#listtable').bootstrapTable("load",data);
+							for(var i=0;i<5;i++)
+								for(var j=0;j<5;j++){
+									var tplace = "#c"+i+j;
+									$(tplace).html("");
+								}
+							for (var i = 0; i < data.length; i++) {
+								//result[i]表示获得第i个json对象即JSONObject
+								//result[i]通过.字段名称即可获得指定字段的值
+								var weekday = data[i].weekday;
+								var timePeriod = data[i].timePeriod;
+								var tplace = "#c"+weekday+timePeriod;
+								var classdata="<p>"+data[i].className+"</p>"+"<p>"+data[i].place+data[i].classRoomId+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+								//console.log(tplace);
+								$(tplace).html(classdata);
+							}
 							alert("更新教师课表成功");
+						}
+						else{
+							$('#listtable').bootstrapTable("load",data);
+							alert(data[data.length-1].status);
 						}
 					},
 					error: function () {
@@ -428,32 +486,12 @@
             [  
                 {field:"checked",checkbox:true},  
                 {field:"className",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
-				{field:"teacherName",title:"教师",align:"center",valign:"middle",sortable:"true", editable: {
-																								type: 'text',
-																								title: '教师',
-																								validate: function (value) {
-																									value = $.trim(value);
-																									if (!value) {
-																										return 'This field is required';
-																									}
-																									var data = $('#listtable').bootstrapTable('getData'),
-																										index = $(this).parents('tr').data('index');
-																									console.log(data[index]);
-																									return '';
-																								}}}, 
+				{field:"teacherName",title:"教师",align:"center",valign:"middle",sortable:"true"}, 
 				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true", editable: {
-																								type: 'text',
+																								type: 'select',
 																								title: '上课时间',
-																								validate: function (value) {
-																									value = $.trim(value);
-																									if (!value) {
-																										return 'This field is required';
-																									}
-																									var data = $('#listtable').bootstrapTable('getData'),
-																										index = $(this).parents('tr').data('index');
-																									console.log(data[index]);
-																									return '';
-																								}}},
+																								source: [{value:"周一1，2节",text:"周一1，2节"},{value:"周一3，4，5节",text:"周一3，4，5节"},{value:"周一6，7，8节",text:"周一6，7，8节"},{value:"周一9，10节",text:"周一9，10节"},{value:"周一11，12，13节",text:"周一11，12，13节"},{value:"周二1，2节",text:"周二1，2节"},{value:"周二3，4，5节",text:"周二3，4，5节"},{value:"周二6，7，8节",text:"周二6，7，8节"},{value:"周二9，10节",text:"周二9，10节"},{value:"周二11，12，13节",text:"周二11，12，13节"},{value:"周三1，2节",text:"周三1，2节"},{value:"周三3，4，5节",text:"周三3，4，5节"},{value:"周三6，7，8节",text:"周三6，7，8节"},{value:"周三9，10节",text:"周三9，10节"},{value:"周三11，12，13节",text:"周三11，12，13节"},{value:"周四1，2节",text:"周四1，2节"},{value:"周四3，4，5节",text:"周四3，4，5节"},{value:"周四6，7，8节",text:"周四6，7，8节"},{value:"周四9，10节",text:"周四9，10节"},{value:"周四11，12，13节",text:"周四11，12，13节"},{value:"周五1，2节",text:"周五1，2节"},{value:"周五3，4，5节",text:"周五3，4，5节"},{value:"周五6，7，8节",text:"周五6，7，8节"},{value:"周五9，10节",text:"周五9，10节"},{value:"周五11，12，13节",text:"周五11，12，13节"}]
+																								}},
             ],  
         });                                       
     }); 
@@ -467,15 +505,23 @@
 
 		$.ajax({
 			 type: "get",
-			 url: "/ClassRoomChart",
+			 url: "/CourseForClassroomList",
 			 data: {place: place, roomNumber : roomNumber }, 
 			 dataType:"json",
 			 success : function(data) {
+			 	getclassList();
 				//更新列表
+				console.log("查找教室显示数据");
+				console.log(data);
 				$("#listtable").bootstrapTable('load', data);
 				//更新表格
 				//var data= result.datas;		
 				//在JS中将JSON的字符串解析成JSON数据格式，使用eval()函数
+				for(var i=0;i<5;i++)
+					for(var j=0;j<5;j++){
+						var tplace = "#c"+i+j;
+						$(tplace).html("");
+					}
 				for (var i = 0; i < data.length; i++) {
 					//result[i]表示获得第i个json对象即JSONObject
 					//result[i]通过.字段名称即可获得指定字段的值
@@ -483,7 +529,7 @@
 					var timePeriod = data[i].timePeriod;
 					var tplace = "#c"+weekday+timePeriod;
 					var classdata="<p>"+data[i].className+"</p>"+"<p>"+data[i].place+data[i].classRoomId+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
-					console.log(tplace);
+					//console.log(tplace);
 					$(tplace).html(classdata);
 				}
 			}
@@ -495,21 +541,38 @@
 			place : document.getElementById("aaplace").innerHTML,
 			roomNumber : document.getElementById("aaroomNumber").innerHTML,
     		courseName : $("#newclass").val().toString(),
-			teacher : $("#newteacher").val().toString(),
+			teacherName : $("#newteacher").val().toString(),
 			time : $("#newday").val().toString()+$("#newtime").val().toString()
-    	};
+    	};	
+		console.log("增加教室课程信息");
 		console.log(param);
 		$.ajax({
-            url: "",
+            url: "/CourseForClassroomAdd",
             type: "POST",
             data: param,
             success: function(data){
+				console.log("增加教室课程信息成功返回信息");
             	console.log(data);
-				if( data == "success"){
-					$('#listtable').bootstrapTable("refresh");
+				if(data[data.length-1].status == null){
+					$('#listtable').bootstrapTable("load",data);
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timePeriod = data[i].timePeriod;
+						var tplace = "#c"+weekday+timePeriod;
+						var classdata="<p>"+data[i].className+"</p>"+"<p>"+data[i].place+data[i].classRoomId+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						//console.log(tplace);
+						$(tplace).html(classdata);
+					}
 					alert("增加教室的课程成功");
-				}else if( data == "fail"){
-					alert("增加教室的课程失败");
+				}else{
+					alert(data[data.length-1].status);
 				}
             },
 			error: function () {
@@ -527,16 +590,36 @@
 			//var b = JSON.stringify(arrselectedData);
 			var param = {
 				place : arrselectedData[0].place,
-				roomnumber : arrselectedData[0].roomnumber,
+				roomNumber : arrselectedData[0].roomNumber,
+				roomId : arrselectedData[0].classRoomId,
+				courseId : arrselectedData[0].classId,
+				teacherId : arrselectedData[0].teacherId
 			};
+
+			console.log("删除教室课程信息");
 			console.log(param);
 			$.ajax({
-				url : "/ResourseDelete",
+				url : "/CourseForClassroomDelete",
 				type : "post",
 				data : param,	
-				success : function(data,status) {
+				success : function(data) {
 					alert("删除该教室的课程成功");
 					$("#listtable").bootstrapTable('refresh');
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timePeriod = data[i].timePeriod;
+						var tplace = "#c"+weekday+timePeriod;
+						var classdata="<p>"+data[i].className+"</p>"+"<p>"+data[i].place+data[i].classRoomId+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						console.log(tplace);
+						$(tplace).html(classdata);
+					}
 				},
 				error: function(status) {
 					alert("删除该教室的课程失败");
