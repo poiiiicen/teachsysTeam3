@@ -84,6 +84,7 @@ public class ClassRoomResultChartLogic {
             list.get(list.size()-1).setStatus(result);
             return list;
         }
+        teacherCourseClassRoomRelationService.doInsert(teacherId, courseId, classRoomId, weekday, period);
         return getClassRoomResultChartList(place, roomNumber);
     }
 
