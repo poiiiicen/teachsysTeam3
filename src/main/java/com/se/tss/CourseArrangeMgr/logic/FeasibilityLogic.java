@@ -43,9 +43,10 @@ public class FeasibilityLogic {
         for(TeacherCourseClassRoomRelation relation : relations){
             if(relation.getWeekday().equals(weekday) && relation.getTimeperiod().equals(timePeriod)){
                 return "教师时间冲突";
+            } else if(relation.getCourseid().equals(courseId)){
+                return "已经存在这门课了";
             }
         }
-
         relations = teacherCourseClassRoomRelationService.findAllByCourseid(courseId);
         for(TeacherCourseClassRoomRelation relation : relations){
             if(relation.getWeekday().equals(weekday) && relation.getTimeperiod().equals(timePeriod)){
