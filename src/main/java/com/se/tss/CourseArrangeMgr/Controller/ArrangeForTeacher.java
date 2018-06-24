@@ -1,6 +1,7 @@
 package com.se.tss.CourseArrangeMgr.Controller;
 
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
+import com.se.tss.CourseArrangeMgr.Dao.TeacherCourseClassRoomRelation;
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherCourseClassRoomRelationService;
@@ -53,9 +54,11 @@ public class ArrangeForTeacher {
         int weekday=timeMap.get("weekday");
         int period=timeMap.get("timeperiod");
         String classRoomId=classRoomInfoService.getIdByPlaceAndRoomNumber(place,roomNumber);
+        TeacherCourseClassRoomRelation old =teacherCourseClassRoomRelationService.findOneByClassroomidAndTeacheridAndCourseid(classRoomId,teacherId,courseId);
         deleteLogic.Delete(teacherId,courseId,roomId);
         String result=feasibilityLogic.Feasibility(teacherId,courseId,classRoomId,weekday,period);
         if(!result.equals("")){
+            teacherCourseClassRoomRelationService.doInsert(teacherId, courseId, roomId, old.getWeekday(), old.getWeekday());
             List<CourseForList> list=courseForTeacherLogic.CourseArrangeList(name);
             if(list.isEmpty()){
                 list.add(new CourseForList());
