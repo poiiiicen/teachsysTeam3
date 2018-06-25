@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="renderer" content="webkit">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+	<title>System</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap3.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/bootstrap-table.css">
+	<link href="css/bootstrap-editable.css" rel="stylesheet">
+	<link href="css/dashboard.css" rel="stylesheet">
+	<link href="css/sweetalert.min.css" rel="stylesheet">
+</head>
+
+
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html"><span data-feather="home"></span> 首页</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="show_classroom_schedule.html"><span data-feather="file"></span> 查看教室课表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="show_teacher_schedule.html"><span data-feather="file"></span> 查看教师课表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="classroom_manage.html"><span data-feather="layers"></span> 教室资源管理</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link  active" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="col-md-offset-2 main">
+				<button type="button" class="btn btn-light" onclick="arrange();">开始排课</button>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap3.min.js"></script>
+	<script src="js/bootstrap-editable.min.js"></script>
+	<script src="js/bootstrap-table.min.js"></script>
+	<script src="js/tableExport.min.js"></script>
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-editable.js"></script>
+
+	<!-- Icons -->
+	<script src="js/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script>
+	<script>
+	function arrange(){
+		console.log("aaa");
+		$.ajax({
+            url: "/ArrangeCourse",
+            type: "get",
+            success: function(data){
+            	console.log(data);
+				if( data == "success!"){
+					alert("排课成功");
+				}else if( data == "fail!"){
+					alert("排课失败");
+				}
+            },
+			error: function () {
+				alert("排课zaa");
+			},
+    	});
+	}	
+	</script>
+	
+	
+</body>
+
+</html>

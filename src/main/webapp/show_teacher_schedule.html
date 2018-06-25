@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="renderer" content="webkit">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+	<title>System</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap3.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/bootstrap-table.css">
+	<link href="css/bootstrap-editable.css" rel="stylesheet">
+	<link href="css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="css/dashboard.css" rel="stylesheet">
+	<link href="css/sweetalert.min.css" rel="stylesheet">
+</head>
+
+<!-- body { padding-top: 30px; padding-bottom: 20px; overflow-y: scroll;}  -->
+<style>
+	table {
+		table-layout: fixed;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
+
+	td,
+	th {
+		text-align: center;
+	}
+</style>
+
+
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html"><span data-feather="home"></span> 首页</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="show_classroom_schedule.html"><span data-feather="file"></span> 查看教室课表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="show_teacher_schedule.html"><span data-feather="file"></span> 查看教师课表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="classroom_manage.html"><span data-feather="layers"></span> 教室资源管理</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link  active" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="col-md-offset-2 main">	
+				<form class="form-inline">
+				  	<select id="searchteacher" name="searchteacher" class="selectpicker" >
+					  <option style="color: #b6b6b6" disabled selected>任课教师</option>
+					</select>
+				  <button type="button" class="btn btn-outline-info" onclick="searchtea();">查询课表</button>
+				</form>
+				
+				
+				<form class="form-inline">
+					<select id="newclass" name="newclass" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>课程</option>
+					</select>
+					<select id="newplace" name="newplace" class="selectpicker" onChange="set_building(this);">
+					  <option style="color: #b6b6b6" disabled selected>校区</option>
+					  <option value="紫金港">紫金港</option>
+					  <option value="玉泉">玉泉</option>
+					  <option value="西溪">西溪</option>
+					</select>
+					<select id="newbuilding" name="newbuilding" class="selectpicker" >
+						<option style="color: #b6b6b6" disabled selected>教室</option>
+					</select>
+					<select id="newday" name="newday" class="selectpicker">
+					  <option style="color: #b6b6b6" disabled selected>日</option>
+					  <option value="周一">周一</option>
+					  <option value="周二">周二</option>
+					  <option value="周三">周三</option>
+					  <option value="周四">周四</option>
+					  <option value="周五">周五</option>
+					</select>
+					<select id="newtime" name="newtime" class="selectpicker">
+					  <option style="color: #b6b6b6" disabled selected>节次</option>
+					  <option value="1，2节">1，2节</option>
+					  <option value="3，4，5节">3，4，5节</option>
+					  <option value="6，7，8节">6，7，8节</option>
+					  <option value="9，10节">9，10节</option>
+					  <option value="11，12，13节">11，12，13节</option>
+					</select>
+				  <!-- <div class="checkbox"><label><input type="checkbox"> Remember me</label></div>  -->
+				  <button type="button" class="btn btn-outline-info" onclick="add();">新增</button>
+				</form>		
+				
+				<!-- 切换显示方式和打印 -->
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6 input-lg">
+							<label class="radio-inline">
+							  <input type="radio" name="showmode" id="Radiolist" value="option1" checked onclick="radioShow();" > 列表显示
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="showmode" id="Radiotable" value="option2" onclick="radioShow();"> 表格显示
+							</label>
+						</div>
+						<div class="col-md-6">
+							<div class="text-right">
+								<button type="button" class="btn btn-light" onclick="printout(1);">打印</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- startprint1 -->
+				<div align="center" class="mb-4">
+					<h1>2017-2018学年 春夏 学期<span id="name"></span>教师的课表</h1>
+				</div>
+				<div id="class">
+					<!-- 课表表格显示模块 -->
+					<!-- 列表  -->
+					<div id="list" class="container-fluid mb-5">
+					        <div id="toolbar" class="btn-group">
+								<button id="btn_delete" type="button" class="btn btn-default" onclick="remove();">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+								</button>
+							</div>
+						<table id="listtable"></table> 
+					</div>
+					
+					<!-- 表格 -->
+					<div id="table" class="container-fluid table-responsive mb-5">
+						<table class="table table-bordered table-hover">
+							<colgroup>
+								<col style>
+								<col style>
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col" rowspan="2" colspan="2" class="align-middle">时间</th>
+									<th scope="col">星期一</th>
+									<th scope="col">星期二</th>
+									<th scope="col">星期三</th>
+									<th scope="col">星期四</th>
+									<th scope="col">星期五</th>
+									<th scope="col">星期六</th>
+									<th scope="col">星期日</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row" rowspan="5" class="align-middle">上午</th>
+									<th scope="row" class="align-middle">1</th>
+									<td rowspan="2" id="c00"></td>
+									<td rowspan="2" id="c10"></td>
+									<td rowspan="2" id="c20"></td>
+									<td rowspan="2" id="c30"></td>
+									<td rowspan="2" id="c40"></td>
+									<td rowspan="2" id="c50"></td>
+									<td rowspan="2" id="c60"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">2</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">3</th>
+									<td rowspan="3" id="c01"></td>
+									<td rowspan="3" id="c11"></td>
+									<td rowspan="3" id="c21"></td>
+									<td rowspan="3" id="c31"></td>
+									<td rowspan="3" id="c41"></td>
+									<td rowspan="3" id="c51"></td>
+									<td rowspan="3" id="c61"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">4</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">5</th>
+								</tr>
+								<!-- <tr><th colspan="9"></th></tr>  -->
+								<tr>
+									<th scope="row" rowspan="5" class="align-middle">下午</th>
+									<th scope="row" class="align-middle">6</th>
+									<td rowspan="3" id="c02"></td>
+									<td rowspan="3" id="c12"></td>
+									<td rowspan="3" id="c22"></td>
+									<td rowspan="3" id="c32"></td>
+									<td rowspan="3" id="c42"></td>
+									<td rowspan="3" id="c52"></td>
+									<td rowspan="3" id="c62"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">7</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">8</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">9</th>
+									<td rowspan="2" id="c03"></td>
+									<td rowspan="2" id="c13"></td>
+									<td rowspan="2" id="c23"></td>
+									<td rowspan="2" id="c33"></td>
+									<td rowspan="2" id="c43"></td>
+									<td rowspan="2" id="c53"></td>
+									<td rowspan="2" id="c63"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">10</th>
+								</tr>
+								<!-- <tr><th colspan="9"></th></tr>  -->
+								<tr>
+									<th scope="row" rowspan="3" valign="middle" class="align-middle">晚上</th>
+									<th scope="row" class="align-middle">11</th>
+									<td rowspan="3" id="c04"></td>
+									<td rowspan="3" id="c14"></td>
+									<td rowspan="3" id="c24"></td>
+									<td rowspan="3" id="c34"></td>
+									<td rowspan="3" id="c44"></td>
+									<td rowspan="3" id="c54"></td>
+									<td rowspan="3" id="c64"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">12</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">13</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- endprint1 -->
+				</div>
+
+				
+			</div>
+		</div>
+	<div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap3.min.js"></script>
+	<script src="js/bootstrap-editable.min.js"></script>
+	<script src="js/bootstrap-table.min.js"></script>
+	<script src="js/tableExport.min.js"></script>
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-editable.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
+	
+	<!-- Icons -->
+	<script src="js/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script>
+	<script>
+	getteacherList();
+	function getteacherList() {
+        $.ajax({
+            url: "/AllTeacher",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+				var tea='<option style="color: #b6b6b6" disabled selected>任课教师</option>';
+                $.each(data, function (i) {
+                   tea+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#searchteacher.selectpicker').html(tea);					
+                $('#searchteacher').selectpicker('refresh');
+            },
+        })
+    }
+	function getclassList(name) {
+		var param = {
+			name: name
+		};
+        $.ajax({
+            url: "/AllCourseByTeacherName",
+            type: "get",
+			data: param,
+            dataType: "json",
+            success: function (data) {
+				console.log(data);
+				var cla='<option style="color: #b6b6b6" disabled selected>课程</option>';
+                $.each(data, function (i) {
+                   cla+="<option value=" + data[i].name + ">" + data[i].name + "</option>";
+                });    
+				$('#newclass.selectpicker').html(cla);					
+                $('#newclass').selectpicker('refresh');
+            },
+        })
+    }
+	function set_building(newplace){
+		var param = {
+			place : newplace.value,
+		};		
+        $.ajax({
+            url: "/AllClassRoom",
+            type: "get",
+            dataType: "json",
+			data : param,
+            success: function (data) {
+				console.log(data);
+				var place='<option style="color: #b6b6b6" disabled selected>教室</option>';
+                $.each(data, function (i) {
+                    place+="<option value=" + data[i].roomnumber + ">" + data[i].roomnumber + "</option>";
+                });       
+				$('#newbuilding.selectpicker').html(place);			
+                $('#newbuilding').selectpicker('refresh');
+            },
+        })
+	}
+	</script>
+	<script type="text/javascript">
+		//页面初始化
+		window.onload = function () {
+			var table = document.getElementById("table");
+			table.style.display = "none";
+		}
+		//打印生成pdf
+		function printout(areaid) {
+			if (areaid < 10) {
+				bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+				sprnstr = "<!-- startprint" + areaid + " -->";//设置打印开始区域
+				eprnstr = "<!-- endprint" + areaid + " -->";//设置打印结束区域
+				prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 20); //从开始代码向后取html
+				prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+				window.document.body.innerHTML = prnhtml;
+				window.print();
+				window.document.body.innerHTML = bdhtml;
+			}
+			else {
+				window.print();
+			}
+		}
+		//切换显示方式
+		function radioShow() {
+			var myradio = document.getElementsByName("showmode");
+			var list = document.getElementById("list");
+			var table = document.getElementById("table");
+			if (myradio[0].checked) {
+				list.style.display = "block";
+			}
+			else {
+				list.style.display = "none";
+			}
+			if (myradio[1].checked) {
+				table.style.display = "block";
+			}
+			else {
+				table.style.display = "none";
+			}
+		}
+	</script>
+	
+	<script>
+
+	
+    $(function () {  
+        $('#listtable').bootstrapTable({  
+			url: '/CourseArrangeList?name=',
+            method: 'get',  
+            cache: false, 
+			dataType:'json',	
+			contentType: "application/x-www-form-urlencoded",
+            striped: true,  
+			toolbar: '#toolbar',
+            pagination: true,  
+            pageSize: 20, 
+			editable: true,
+            pageNumber:1,  
+            pageList: [10, 15, 20, 25],
+			sidePagination:'client',  
+            search: true,  
+            showColumns: true,  
+            showRefresh: false,  
+            search: true,  
+            clickToSelect: false,  
+			showExport: true,                    
+			exportDataType: 'all',
+			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
+			onEditableSave: function (field, row, oldValue, $el) {
+				alert('保存地点=' + row.roomNumber +'时间='+ row.time);
+				//添加格式验证！！
+				//重要！！
+				var param = {
+					teacherId : row.teacherId,
+					courseId : row.classId,
+					place : row.place,
+					roomNumber : row.roomNumber,
+					time : row.time,
+					name : row.teacherName,
+					roomId : row.classRoomId
+				};
+				console.log(param);
+				$.ajax({
+					type: "post",
+					url: "/CourseForTeacherUpdate",
+					data: param,
+					success: function (data) {
+						console.log(data);
+						if( data[data.length-1].status == ""){
+							$('#listtable').bootstrapTable("load",data);
+							for(var i=0;i<5;i++)
+								for(var j=0;j<5;j++){
+									var tplace = "#c"+i+j;
+									$(tplace).html("");
+								}
+							for (var i = 0; i < data.length; i++) {
+								//result[i]表示获得第i个json对象即JSONObject
+								//result[i]通过.字段名称即可获得指定字段的值
+								var weekday = data[i].weekday;
+								var timeperiod = data[i].timeperiod;
+								var tplace = "#c"+weekday+timeperiod;
+								var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+								console.log(tplace);
+								$(tplace).html(classdata);
+							}
+							alert("更改教师课程成功");
+						}else{
+							$('#listtable').bootstrapTable("load",data);
+							alert(data[data.length-1].status);
+						}
+					},	
+					error: function () {
+						alert("更新教师课程失败");
+					},
+					complete: function () {
+
+					}
+				});
+			},
+            columns:   
+            [  
+                {field:"checked",checkbox:true},  
+                {field:"className",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
+				{field:"place",title:"校区",align:"center",valign:"middle",sortable:"true"}, 
+				{field:"roomNumber",title:"上课地点",align:"center",valign:"middle",sortable:"true", editable: {
+																								type: 'select',
+																								title: '上课地点',
+																								source: function () {
+																									var result = [];
+																									var data = $('#listtable').bootstrapTable('getData'),
+																									index = $(this).parents('tr').data('index');
+																									$.ajax({
+																										url: "/AllClassRoom",
+																										type: "get",
+																										async: false,
+																										data :{place:data[index]["place"]},
+																										success: function (data) {
+																											$.each(data, function (i) {
+																												result.push({ value: data[i].roomnumber, text: data[i].roomnumber });
+																											})
+																										}
+																									});
+
+																									return result;
+																								}}}, 
+				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true", editable: {
+																								type: 'select',
+																								title: '上课时间',
+																								source: [{value:"周一1，2节",text:"周一1，2节"},{value:"周一3，4，5节",text:"周一3，4，5节"},{value:"周一6，7，8节",text:"周一6，7，8节"},{value:"周一9，10节",text:"周一9，10节"},{value:"周一11，12，13节",text:"周一11，12，13节"},{value:"周二1，2节",text:"周二1，2节"},{value:"周二3，4，5节",text:"周二3，4，5节"},{value:"周二6，7，8节",text:"周二6，7，8节"},{value:"周二9，10节",text:"周二9，10节"},{value:"周二11，12，13节",text:"周二11，12，13节"},{value:"周三1，2节",text:"周三1，2节"},{value:"周三3，4，5节",text:"周三3，4，5节"},{value:"周三6，7，8节",text:"周三6，7，8节"},{value:"周三9，10节",text:"周三9，10节"},{value:"周三11，12，13节",text:"周三11，12，13节"},{value:"周四1，2节",text:"周四1，2节"},{value:"周四3，4，5节",text:"周四3，4，5节"},{value:"周四6，7，8节",text:"周四6，7，8节"},{value:"周四9，10节",text:"周四9，10节"},{value:"周四11，12，13节",text:"周四11，12，13节"},{value:"周五1，2节",text:"周五1，2节"},{value:"周五3，4，5节",text:"周五3，4，5节"},{value:"周五6，7，8节",text:"周五6，7，8节"},{value:"周五9，10节",text:"周五9，10节"},{value:"周五11，12，13节",text:"周五11，12，13节"}]
+																								}},
+            ],  
+        });                                       
+    }); 
+	
+	
+	function searchtea(){
+		var name = $("#searchteacher").val().toString();
+		$("#name").html(name);
+		var param = {
+			name: name
+		};
+		console.log(param);
+		$.ajax({
+			 type: "get",
+			 url: "/CourseForTeacherList",
+			 data: param,
+			 dataType:"json",
+			 success : function(data) {
+				getclassList(document.getElementById("name").innerHTML);
+				//更新列表
+				$("#listtable").bootstrapTable('load', data);
+				//更新表格
+				//var data= result.datas;		
+				//在JS中将JSON的字符串解析成JSON数据格式，使用eval()函数
+				for(var i=0;i<5;i++)
+					for(var j=0;j<5;j++){
+						var tplace = "#c"+i+j;
+						$(tplace).html("");
+					}
+				for (var i = 0; i < data.length; i++) {
+					//result[i]表示获得第i个json对象即JSONObject
+					//result[i]通过.字段名称即可获得指定字段的值
+					var weekday = data[i].weekday;
+					var timeperiod = data[i].timeperiod;
+					var tplace = "#c"+weekday+timeperiod;
+					var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+					console.log(tplace);
+					$(tplace).html(classdata);
+				}
+			},
+			error: function(status){
+				console.log(status);
+			}
+		});
+    }
+
+											 
+	function add(){
+		var param = {
+			teacherName : document.getElementById("name").innerHTML,
+    		courseName : $("#newclass").val().toString(),
+			place : $("#newplace").val().toString(),
+			roomNumber : $("#newbuilding").val().toString(),
+			time : $("#newday").val().toString()+$("#newtime").val().toString()
+    	};
+		console.log(param);
+		$.ajax({
+            url: "/CourseForTeacherAdd",
+            type: "POST",
+            data: param,
+            success: function(data){
+            	console.log(data);
+				if( data[data.length-1].status == ""){
+					$('#listtable').bootstrapTable("load",data);
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timeperiod = data[i].timeperiod;
+						var tplace = "#c"+weekday+timeperiod;
+						var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						console.log(tplace);
+						$(tplace).html(classdata);
+					}
+					alert("增加教师课程成功");
+				}else{
+					alert(data[data.length-1].status);
+				}
+            },
+			error: function () {
+				alert("增加教师课程失败zaa");
+			},
+    	});
+	}	
+
+	function remove() {
+		var arrselectedData = $("#listtable").bootstrapTable('getSelections');
+		if (arrselectedData.length <= 0 || arrselectedData.length >= 2 ){
+			alert("请选中一行");
+		} else {
+			//var b = JSON.stringify(arrselectedData);
+			var param = {
+				teacherId : arrselectedData[0].teacherId,
+				courseId : arrselectedData[0].classId,
+				place : arrselectedData[0].place,
+				roomNumber : arrselectedData[0].roomNumber,
+				time : arrselectedData[0].time,
+				name : arrselectedData[0].teacherName,
+				roomId : arrselectedData[0].classRoomId
+			};
+			
+			console.log(param);
+			$.ajax({
+				url : "/CourseForTeacherDelete",
+				type : "post",
+				data : param,	
+				success : function(data) {
+					for(var i=0;i<5;i++)
+						for(var j=0;j<5;j++){
+							var tplace = "#c"+i+j;
+							$(tplace).html("");
+						}
+					for (var i = 0; i < data.length; i++) {
+						//result[i]表示获得第i个json对象即JSONObject
+						//result[i]通过.字段名称即可获得指定字段的值
+						var weekday = data[i].weekday;
+						var timeperiod = data[i].timeperiod;
+						var tplace = "#c"+weekday+timeperiod;
+						var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+						console.log(tplace);
+						$(tplace).html(classdata);
+					}
+					$("#listtable").bootstrapTable('load', data);
+					alert("删除该教师的课程成功");
+				},
+				error: function(status) {
+					alert("删除该教师的课程失败");
+				}
+			});
+		}
+    }		
+
+
+	</script>
+</body>
+
+</html>

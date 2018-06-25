@@ -1,37 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a104a690-83bb-428e-ae14-f255482f6b6f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_46.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_auth0_java_jwt_3_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="a104a690-83bb-428e-ae14-f255482f6b6f" name="Default" comment="Merge branch 'team2'">
       <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/AutoArrange.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/ArrangeForTeacher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/ClassRoomResultController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/ResourceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/TableController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/TeacherController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/ClassInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/ClassRoomInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/ReturnDao/ClassRoomResultChart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/ReturnDao/CourseForList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/TeacherCourseClassRoomRelation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/TeacherInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/UniqueKey/TeacherCourseClassRoomRelationKey.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Service/ClassInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Service/ClassRoomInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Service/TeacherCourseClassRoomRelationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Service/TeacherInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/AddLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/ArrangeClassLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/ClassRoomResultChartLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/CourseForTeacherLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/DeleteLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/FeasibilityLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/logic/TimeTransformLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-editable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-select.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-table.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap-table.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap3.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap3.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/jquery-ui-1.10.3.custom.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/jqueryui-editable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/sweetalert.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/clear.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/p1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/Chart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-editable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-editable.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-select.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-table-editable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-table-export.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-table-locale-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-table-locale-all.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap-table.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap3.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/docs.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/feather.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/holder.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/jquery-3.3.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/popper.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/tableExport.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/tableExport.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/vue-table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/vue-table.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/auto_arrange_wait.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/classroom_manage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/show_classroom_schedule.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/show_teacher_schedule.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/se/tss/CourseArrangeMgr/Service/ClassInfoServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/se/tss/CourseArrangeMgr/Service/TeacherCourseForListClassRoomRelationServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/se/tss/CourseArrangeMgr/Service/TeacherInfoServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/se/tss/CourseArrangeMgr/logic/ArrangeClassLogicTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/se/tss/CourseArrangeMgr/logic/FeasibilityLogicTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrange/Dao/TeacherCourseClassRoomRelation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/TeacherCourseClassRoomRelation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrange/Dao/UniqueKey/TeacherCourseClassRoomRelationKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/UniqueKey/TeacherCourseClassRoomRelationKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/Public/SelectClass/ClassInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/Public/SelectClass/ClassRoomInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Dao/ClassRoomInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Controller/SelectClass/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Controller/SelectClass/AutoArrange.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Controller/SelectClass/ResourceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Controller/ResourceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Controller/SelectClass/TeacherController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Service/ClassInfoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/forum/Service/ClassRoomInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/CourseArrangeMgr/Service/ClassRoomInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/UploadConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/UploadConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/TssApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/se/tss/TssApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/jquery-1.11.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/jquery-1.11.1.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/Adm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/MessageEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/NoticeEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/PostEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/ReplyEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/SessionEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/Public/UserEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/TssApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/InitialController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/NoticeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/PageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/PostController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/AdminService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/MessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/NoticeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/PostService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/ReplyService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/SessionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/se/tss/forum/Service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/DD_belatedPNG_0.0.8a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/ScrollPic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/Tabs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/jquery-1.4.2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/pngAlaph.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/slideBox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/subSite_ban.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/Script/tab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/css_whir.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/ie8.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/page.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Arrow_next.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Arrow_prev.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/BgContent.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/BgLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/BgRight.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Bgbody.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Current_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Experts_h2Bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Experts_h2Bg02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Experts_h4Bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Footer_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Forlogo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Forlogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_adBg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_adDot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_adIcon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_adLink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_expertBg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_expertLibg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_guide01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_h4Line.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_h4More.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/H_ksLine.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_dot.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_dot02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_down.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_flower.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_news.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_newsPage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Icon_q.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Nav_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Page_btnBg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Thumbs.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Top_bgAcur.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/Top_searchBg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/bg_login.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/bg_loginA.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_fabu_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_fabu_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_fabu_close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_fabu_other.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_fabu_page.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_left_menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_mb_xz.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_tabchu_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_tanchu_close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_wrong (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ico_wrong.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/img-hui.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/img_xc_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/img_xt.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/login_step_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/login_step_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ms-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/yzm.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/jquery-1.11.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/jquery-2.1.4.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/jquery.selectui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/modernizr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/nprogress.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/respond.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/scripts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/selectivizr-min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/webuploader/demo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/webuploader/webuploader.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/zxxFile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/topic.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/wenzhang_xinwen_fabu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/se/tss/TssApplicationTests.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tss.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tss.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tss.sql" beforeDir="false" afterPath="$PROJECT_DIR$/tss.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,6 +209,9 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/teachsysTeam3$TssApplication.ic" NAME="TssApplication Coverage Results" MODIFIED="1529931515310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -60,74 +229,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WebMvcConfigurer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/WebMvcConfigurer.java">
+      <file leaf-file-name="glyphicons-halflings-regular.svg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.svg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file leaf-file-name="show_teacher_schedule.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/show_teacher_schedule.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state relative-caret-position="212">
+              <caret line="651" selection-start-line="651" selection-end-line="651" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GlobalExceptionHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/GlobalExceptionHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthenticationInterceptor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/AuthenticationInterceptor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CurrentUserMethodArgumentResolver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/CurrentUserMethodArgumentResolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UploadConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/UploadConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/service/UserService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2350">
-              <caret line="94" selection-start-line="94" selection-end-line="94" />
             </state>
           </provider>
         </entry>
@@ -277,6 +393,17 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="tss" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
@@ -294,8 +421,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -336,22 +461,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tss" type="462c0819:PsiDirectoryNode" />
-              <item name="infomgr" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="teachsysTeam3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="teachsysTeam3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tss" type="462c0819:PsiDirectoryNode" />
-              <item name="infomgr" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="CourseArrangeMgr" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -366,6 +483,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="spring.boot" />
   </component>
@@ -477,37 +597,47 @@
       <workItem from="1529203515970" duration="8035000" />
       <workItem from="1529251099536" duration="657000" />
       <workItem from="1529251789017" duration="228000" />
+      <workItem from="1529931445419" duration="1137000" />
     </task>
+    <task id="LOCAL-00001" summary="删除老代码">
+      <created>1529931605672</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1529931605672</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120255000" />
+    <option name="totallyTimeSpent" value="121392000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1548" height="840" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50067115" side_tool="true" weight="0.32859176" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.3295302" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24966443" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39820358" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3243243" />
+      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.32290184" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.14509246" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18634424" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3295302" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24563758" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" weight="0.32859176" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24899329" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -521,37 +651,38 @@
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.14509246" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info id="Image Layers" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.37275448" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32859176" />
       <window_info id="Capture Tool" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32473445" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32290184" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.0" />
-      <window_info anchor="bottom" id="Java Enterprise" order="10" />
-      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="12" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" visible="true" weight="0.0" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24244459" />
-      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32934132" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24899329" />
+      <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32934132" />
-      <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.3295302" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39820358" />
+      <window_info anchor="right" id="Bean Validation" order="10" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,22 +693,20 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="。" />
-    <option name="LAST_COMMIT_MESSAGE" value="。" />
+    <MESSAGE value="删除老代码" />
+    <MESSAGE value="Merge branch 'team2'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'team2'" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
     </breakpoint-manager>
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.0.5.RELEASE/spring-tx-5.0.5.RELEASE.jar!/org/springframework/dao/support/PersistenceExceptionTranslationInterceptor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/Public/Session.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/Public/Post.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/360zip$Temp/360$4/BuildingEntity.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/360zip$Temp/360$5/CampusEntity.java" />
@@ -864,13 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/CurrentUserMethodArgumentResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/GlobalExceptionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -897,8 +1019,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/UploadConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="300">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -907,10 +1029,108 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="175">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/se/tss/infomgr/config/CurrentUserMethodArgumentResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/fonts/glyphicons-halflings-regular.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/show_teacher_schedule.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="651" selection-start-line="651" selection-end-line="651" />
+          <folding>
+            <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#option#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>tss</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
