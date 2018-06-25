@@ -34,6 +34,13 @@
 	th {
 		text-align: center;
 	}
+	.top5 { margin-top:5px; }
+	.top7 { margin-top:7px; }
+	.top10 { margin-top:10px; }
+	.top15 { margin-top:15px; }
+	.top17 { margin-top:17px; }
+	.top30 { margin-top:30px; }
+	
 </style>
 
 
@@ -82,7 +89,10 @@
 							<a class="nav-link" href="classroom_manage.html"><span data-feather="layers"></span> 教室资源管理</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link  active" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
+							<a class="nav-link" href="show_all_classes.html"><span data-feather="map"></span> 显示所有课程</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="auto_arrange_wait.html"><span data-feather="pie-chart"></span> 自动排课</a>
 						</li>
 					</ul>
 				</div>
@@ -90,27 +100,27 @@
 
 			<div class="col-md-offset-2 main">
 				<form class="form-inline">
-				  	<select id="searchplace" name="searchplace" class="selectpicker" onChange="set_building(this);">
+				  	<select id="searchplace" name="searchplace" class="selectpicker" data-width="auto" onChange="set_building(this);">
 					  <option style="color: #b6b6b6" disabled selected>校区</option>
 					  <option value="紫金港">紫金港</option>
 					  <option value="玉泉">玉泉</option>
 					  <option value="西溪">西溪</option>
 					</select>
-				  	<select id="searchclassroom" name="searchclassroom" class="selectpicker" >
+				  	<select id="searchclassroom" name="searchclassroom" class="selectpicker" data-width="auto">
 						<option style="color: #b6b6b6" disabled selected>教室</option>
 					</select>
 				  <button  type="button" class="btn btn-outline-info" onclick="searchclass();">查询课表</button>
 				</form>
 				
 				
-				<form class="form-inline">
-					<select id="newclass" name="newclass" class="selectpicker" onChange="getteacherList(this);">
+				<form class="form-inline top10">
+					<select id="newclass" name="newclass" class="selectpicker" data-width="auto" onChange="getteacherList(this);" >
 						<option style="color: #b6b6b6" disabled selected>课程</option>
 					</select>
-					<select id="newteacher" name="newteacher" class="selectpicker" >
+					<select id="newteacher" name="newteacher" class="selectpicker" data-width="auto">
 					  <option style="color: #b6b6b6" disabled selected>任课教师</option>
 					</select>
-				  	<select id="newday" name="newday" class="selectpicker" >
+				  	<select id="newday" name="newday" class="selectpicker" data-width="auto">
 					  <option style="color: #b6b6b6" disabled selected>日</option>
 					  <option value="周一">周一</option>
 					  <option value="周二">周二</option>
@@ -118,7 +128,7 @@
 					  <option value="周四">周四</option>
 					  <option value="周五">周五</option>
 					</select>
-					<select id="newtime" name="newtime" class="selectpicker" >
+					<select id="newtime" name="newtime" class="selectpicker" data-width="auto">
 					  <option style="color: #b6b6b6" disabled selected>节次</option>
 					  <option value="1，2节">1，2节</option>
 					  <option value="3，4，5节">3，4，5节</option>
