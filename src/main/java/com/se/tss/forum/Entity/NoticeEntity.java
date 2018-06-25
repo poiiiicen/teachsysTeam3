@@ -1,10 +1,12 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
+
+import com.se.tss.forum.Models.Notice;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "notice")
+@Table(name = "bbs_notice")
 public class NoticeEntity {
     @Id
     @GeneratedValue
@@ -80,5 +82,18 @@ public class NoticeEntity {
 
     public void setModifiedTime(Timestamp modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public Notice getNotice()
+    {
+        Notice n = new Notice();
+        n.setNid(nid);
+        n.setTopic(topic);
+        n.setContent(content);
+        n.setCreate_time(createTime);
+        n.setCreator_uid(creator.getUid());
+        n.setCreator_uname(creator.getName());
+        n.setModified_time(modifiedTime);
+        return n;
     }
 }

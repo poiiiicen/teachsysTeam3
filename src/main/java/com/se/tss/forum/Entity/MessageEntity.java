@@ -1,10 +1,12 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
+
+import com.se.tss.forum.Models.Message;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "message")
+@Table(name = "bbs_message")
 public class MessageEntity {
     @Id
     @GeneratedValue
@@ -16,22 +18,18 @@ public class MessageEntity {
     @ManyToOne(optional = false)
     private UserEntity receiver;
 
-    @Column(length = 128, nullable = false)
-    private String topic;
-
     @Column(length = 512, nullable = false)
-    private String content;
+    private String message;
 
     @Column()
     private Timestamp sendTime;
 
     public MessageEntity(){}
-    public MessageEntity(UserEntity sender, UserEntity receiver, String topic, String content, Timestamp sendTime) {
 
+    public MessageEntity(UserEntity sender, UserEntity receiver, String message, Timestamp sendTime) {
         this.sender = sender;
         this.receiver = receiver;
-        this.topic = topic;
-        this.content = content;
+        this.message = message;
         this.sendTime = sendTime;
     }
 
@@ -59,20 +57,12 @@ public class MessageEntity {
         this.receiver = receiver;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getMessage() {
+        return message;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Timestamp getSendTime() {
@@ -81,5 +71,17 @@ public class MessageEntity {
 
     public void setSendTime(Timestamp sendTime) {
         this.sendTime = sendTime;
+    }
+    public Message getMessageInfo()
+    {
+        Message m = new Message();
+        m.setMid(mid);
+        m.setSender_id(sender.getUid());
+        m.setSender_name(sender.getName());
+        m.setReceiver_id(receiver.getUid());
+        m.setReceiver_name(receiver.getName());
+        m.setMessage(message);
+        m.setSendTime(sendTime);
+        return m;
     }
 }

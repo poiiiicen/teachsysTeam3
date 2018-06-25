@@ -1,12 +1,13 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.se.tss.forum.Models.Reply;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "reply")
+@Table(name = "bbs_reply")
 @JsonIgnoreProperties(value = { "post", "creator"})
 public class ReplyEntity {
     @Id
@@ -70,5 +71,19 @@ public class ReplyEntity {
 
     public void setReplyTime(Timestamp replyTime) {
         this.replyTime = replyTime;
+    }
+
+    public Reply getReply()
+    {
+        Reply reply = new Reply();
+        reply.setRid(rid);
+        reply.setPid(post.getPid());
+        reply.setReply_content(content);
+        reply.setTopic(post.getTopic());
+        reply.setUid(creator.getUid());
+        reply.setUname(creator.getName());
+        reply.setSid(post.getSession().getSid());
+        reply.setReply_time(replyTime);
+        return reply;
     }
 }

@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Configuration
@@ -25,7 +27,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         argumentResolvers.add(currentUserMethodArgumentResolver());
         super.addArgumentResolvers(argumentResolvers);
     }
-
+/*
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(fastJsonHttpMessageConverterEx());
@@ -36,7 +38,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     public FastJsonHttpMessageConverterEx fastJsonHttpMessageConverterEx() {
         return new FastJsonHttpMessageConverterEx();
     }
-
+*/
     @Bean
     public CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver() {
         return new CurrentUserMethodArgumentResolver();
@@ -52,6 +54,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:///" + uploadConfig.getUploadPath());
+        registry.addResourceHandler("/avatar/**").addResourceLocations("file:///" + uploadConfig.getUploadPath());
     }
 }

@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html class=" js csstransforms3d"><head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>检索结果</title>
+    <!--link rel="stylesheet" href="css/base.css"-->
+    <!--link rel="stylesheet" href="css/page.css"-->
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css" />
+    <!--[if lte IE 8]>
+    <link href="css/ie8.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        /**
+         * 获取参数的键值对对象。
+         * @returns {Object}
+         */
+        var param;
+        var myObj;
+        var thisurl = window.location.href;
+        var getParam = function () {
+            try{
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var keyValue = result.split("&");
+                var obj = {};
+                for (var i = 0; i < keyValue.length; i++) {
+                    var item = keyValue[i].split("=");
+                    obj[item[0]] = item[1];
+                }
+                return obj;}catch(e){
+                console.warn("There has no param value!");
+            }
+        };
+        var switchTime = function (fortime) {
+            var newdate = fortime.split("T")[0];
+            var newtime1 = fortime.split("T")[1];
+            var newtime2 = newtime1.split(".")[0];
+            var newtime = newdate+" "+newtime2;
+            return newtime;
+
+        };
+        /**
+         * 页面加载完毕打印键值对对象
+         */
+        window.onload = function () {
+            param = getParam();
+            console.log(param);
+            var url = "/bbs/post/search/" + param.keyword;
+            var id = "topiclist";
+            var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request.open("GET",url);/*设置XHR对象的请求方法与路径*/
+            request.send(null);/*设置XHR对象不发送数据到服务器*/
+            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x = "";
+                    myObj = eval('('+ request.responseText +')');
+
+                    for (i in myObj) {
+                        x += "<tr>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"t_1\">" + myObj[i].creator_uname + "</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"t_2\"><a href=\"topic.html?uid="+param.uid+"&pid="+myObj[i].pid+"\">"+myObj[i].topic+"</a></td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"t_3\">"+switchTime(myObj[i].last_reply_time)+"</td>\n" +
+                            "\t\t\t\t\t\t\t</tr>";
+
+                    }
+                    document.getElementById(id).innerHTML = x;
+                }
+
+            }
+            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            document.getElementById("headtoolbar").innerHTML=headbar;
+            var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+            document.getElementById("indexlink").innerHTML = indexalink;
+
+        }
+
+        function addsearchKey()
+        {
+
+            var objA=document.getElementById("searchbtn");
+            objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+        }
+
+    </script>
+
+</head>
+
+<body>
+<!--top-->
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
+        <a href="#">教务管理系统</a>
+        <!--a href="#">耳鼻咽喉头颈外科</a-->
+        <!--a href="#">广州市职业卫生信息网</a-->
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+
+<div class="Content_home">
+    <div class="space25"></div>
+
+    <div>
+        <h2>搜索结果</h2>
+    </div>
+    <div class="Mian-cont-wrap" style="min-height:380px">
+        <div class="defaultTab-T">
+            <table border="0" cellspacing="0" cellpadding="0" class="defaultTable">
+                <tbody><tr><th class="t_1">发帖人</th><th class="t_2">帖子标题</th><th class="t_3">最后回复时间</th></tr>
+                </tbody></table>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
+            <tbody id="topiclist">
+            <tr>
+                <td class="t_1">发帖人</td>
+                <td class="t_2"><a href="topic.html">帖子1</a></td>
+                <td class="t_3">时间</td>
+            </tr>
+            <tr>
+                <td class="t_1">发帖人5</td>
+                <td class="t_2"><a href="topic.html">帖子5</a></td>
+                <td class="t_3">时间5</td>
+            </tr>
+            <tr>
+                <td class="t_1">发帖人6</td>
+                <td class="t_2"><a href="topic.html">帖子6</a></td>
+                <td class="t_3">时间6</td>
+            </tr>
+            <tr>
+                <td class="t_1">发帖人7</td>
+                <td class="t_2"><a href="topic.html">帖子7</a></td>
+                <td class="t_3">时间7</td>
+            </tr>
+            <tr>
+                <td class="t_1">发帖人8</td>
+                <td class="t_2"><a href="topic.html">帖子8</a></td>
+                <td class="t_3">时间8</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--pages S-->
+        <!--pages E-->
+    </div>
+
+</div>
+<div class="space25"></div>
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统</div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+
+
+</body>
+</html>

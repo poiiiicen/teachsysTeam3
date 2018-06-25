@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta name="Author" content="">
+    <title>私信</title>
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css" />
+    <script src="Script/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <!--[if IE 6]>
+    <script src="Script/pngAlaph.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <script type="text/javascript">
+        var myObj;
+        var param;
+        var thisUrl = window.location.href;
+        var getParam = function () {
+            try{
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var keyValue = result.split("&");
+                var obj = {};
+                for (var i = 0; i<keyValue.length; i++) {
+                    var item = keyValue[i].split("=");
+                    obj[item[0]] = item[1];
+                }
+                return obj;}catch(e){
+                console.warn("There has no param value!");
+            }
+        };
+        var switchTime = function (fortime) {
+            var newdate = fortime.split("T")[0];
+            var newtime1 = fortime.split("T")[1];
+            var newtime2 = newtime1.split(".")[0];
+            var newtime = newdate+" "+newtime2;
+            return newtime;
+
+        };
+
+        window.onload = function () {
+            param = getParam();
+            console.log(param);
+            console.log(param.tuserid);
+            var url = "/bbs/message/all/"+param.tuserid+"/"+param.uid;
+            var id = "Chat";
+            var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request.open("GET",url);/*设置XHR对象的请求方法与路径*/
+            request.send(null);/*设置XHR对象不发送数据到服务器*/
+            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x = "", x1="";
+                    var path = "";
+                    var bubbleclass="";
+                    var msgname="";
+                    myObj = eval('('+ request.responseText +')');
+                    if(myObj[0].sender_id == param.tuserid)
+                        msgname = myObj[0].sender_name;
+                    else
+                        msgname = myObj[0].receiver_name;
+                    x1="与"+msgname+"的私信";
+                    document.getElementById("msgname").innerHTML = x1;
+                    console.log(myObj);
+                    for (i in myObj) {
+                        if(myObj[i].sender_id == param.tuserid)
+                            bubbleclass = "fl";
+                        else
+                            bubbleclass = "fr";
+                        x+= "<div class=\"msg "+bubbleclass+"\">\n" +
+                            "    <div class=\"article\">"+myObj[i].message+"</div>\n" +
+                            "</div>";
+                    }
+                    document.getElementById(id).innerHTML=x;
+                }
+            }
+            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            document.getElementById("headtoolbar").innerHTML=headbar;
+            var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+            document.getElementById("indexlink").innerHTML = indexalink;
+
+        }
+
+
+        function addsearchKey()
+        {
+
+            var objA=document.getElementById("searchbtn");
+            objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+        }
+
+
+    </script>
+</head>
+<body>
+<!-- <div id="demo"></div> -->
+<!--top-->
+
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <a href="#">教务管理系统</a><div id = "S1"></div>
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+<div class="Content2">
+    <div class="space10"></div>
+    <h2 style="padding:10px" id="msgname">与XX的私信</h2>
+    <div class="space10"></div>
+</div>
+<div class = "Content1" style="min-height: 300px">
+    <div class="col-l-t">
+        <div class="content">
+            <div class="bubble" id="Chat">
+                <div class="msg fl">
+                    <div class="article">您好，我是小粤。</div>
+                </div>
+                <div class="msg fr">
+                    <div class="article">ss</div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-l-b">
+        <div class="faq-input-content">
+            <textarea name="textfield" class="input" id="msgInput" placeholder="请提出问题" autocomplete="off"></textarea>
+            <input type="button" class="btn" value="发送" id="sendmessage">
+            <div class="input-count"><span id="textCount"></span></div>
+        </div>
+    </div>
+</div>
+
+<div class="space25"></div>
+<!--Bottom-->
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统<!--br />医院电话： 020-12345678 传真： 020-12345678 粤ICP备00000000号--></div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var $msg = $("#msgInput");
+        $("#sendmessage").click(function(){
+            var url = "http://localhost:8080/bbs/message/create",
+                data = {};
+            data.sender_id = param.uid;
+            data.receiver_id = param.tuserid;
+            data.message = $msg.val();
+            data = JSON.stringify(data);
+            console.log("success")
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                async: false,
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success:function(redata) {
+                    console.log(redata)
+                    //alert($.trim(data.response));
+                    if(redata.mid > 0) {
+                        alert('发送私信成功!');
+                        $(location).attr('href', thisUrl);
+                    } else {
+                        alert('失败，请重试!');
+                    }
+                }
+            });
+        })
+    })
+</script>
+<!--Bottom End-->
+
+</body>
+</html>

@@ -1,15 +1,14 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "session")
+@Table(name = "bbs_session")
 public class SessionEntity {
     @Id
-    @GeneratedValue
-    private Integer sid;
+    private String sid;
 
     @Column(length = 64, unique = true, nullable = false)
     private String name;
@@ -27,26 +26,12 @@ public class SessionEntity {
     private List<PostEntity> postEntities = new ArrayList<>();
 
     public SessionEntity(){}
-    public SessionEntity(String name, String profile, Integer topicCount, Integer clickCount) {
-        this.name = name;
-        this.profile = profile;
-        this.topicCount = topicCount;
-        this.clickCount = clickCount;
-    }
 
-    public List<PostEntity> getPostEntities() {
-        return postEntities;
-    }
-
-    public void setPostEntities(List<PostEntity> postEntities) {
-        this.postEntities = postEntities;
-    }
-
-    public Integer getSid() {
+    public String getSid() {
         return sid;
     }
 
-    public void setSid(Integer sid) {
+    public void setSid(String sid) {
         this.sid = sid;
     }
 
@@ -80,5 +65,22 @@ public class SessionEntity {
 
     public void setClickCount(Integer clickCount) {
         this.clickCount = clickCount;
+    }
+
+    public List<PostEntity> getPostEntities() {
+        return postEntities;
+    }
+
+    public void setPostEntities(List<PostEntity> postEntities) {
+        this.postEntities = postEntities;
+    }
+
+    public SessionEntity(String sid, String name, String profile, Integer topicCount, Integer clickCount, List<PostEntity> postEntities) {
+        this.sid = sid;
+        this.name = name;
+        this.profile = profile;
+        this.topicCount = topicCount;
+        this.clickCount = clickCount;
+        this.postEntities = postEntities;
     }
 }

@@ -1,6 +1,5 @@
 package com.se.tss.infomgr.model;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,6 +13,7 @@ import java.util.Date;
 //personService.save(new Person("Jhon", Gender.male));
 @Data
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "USER")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Authority", discriminatorType = DiscriminatorType.STRING)
@@ -27,9 +27,9 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String password;
-    private int age;
+    private Integer age;
     private String phone;
-    private String studentID;  // 学号/工号
+    private String studentID;   // 学号/工号
 //    private String image;       // 头像路径
 
     @Column
@@ -45,4 +45,16 @@ public class User implements Serializable {
 
     @LastModifiedDate
     private Date updateTime;
+
+    public User() {
+    }
+
+    public User(User user) {
+        this.name = user.name;
+        this.password = user.password;
+        this.age = user.age;
+        this.phone = user.phone;
+        this.studentID = user.studentID;
+        this.gender = user.gender;
+    }
 }

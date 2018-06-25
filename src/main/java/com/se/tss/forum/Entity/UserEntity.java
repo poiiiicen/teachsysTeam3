@@ -1,21 +1,22 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
+
+import com.se.tss.forum.Models.ForumUser;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "bbs_user")
 public class UserEntity {
     @Id
-    @GeneratedValue
     private Integer uid;
 
     @Column(length = 32, unique = true, nullable = false)
     private String name;
 
-    @Column(length = 64, nullable = false)
-    private String password;
+    @Column(length = 32, nullable = false)
+    private String authority;
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostEntity> createdPost = new ArrayList<>();
@@ -35,9 +36,11 @@ public class UserEntity {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NoticeEntity> noticeEntities = new ArrayList<>();
     public UserEntity(){}
-    public UserEntity(String name, String password, List<PostEntity> createdPost, List<PostEntity> lastRepliedPost, List<ReplyEntity> repliedPost, List<MessageEntity> sentMessage, List<MessageEntity> receivedMessage, List<NoticeEntity> noticeEntities) {
+
+    public UserEntity(Integer uid, String name, String authority, List<PostEntity> createdPost, List<PostEntity> lastRepliedPost, List<ReplyEntity> repliedPost, List<MessageEntity> sentMessage, List<MessageEntity> receivedMessage, List<NoticeEntity> noticeEntities) {
+        this.uid = uid;
         this.name = name;
-        this.password = password;
+        this.authority = authority;
         this.createdPost = createdPost;
         this.lastRepliedPost = lastRepliedPost;
         this.repliedPost = repliedPost;
@@ -62,12 +65,12 @@ public class UserEntity {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public List<PostEntity> getCreatedPost() {
@@ -116,5 +119,10 @@ public class UserEntity {
 
     public void setNoticeEntities(List<NoticeEntity> noticeEntities) {
         this.noticeEntities = noticeEntities;
+    }
+    public ForumUser getUser()
+    {
+        ForumUser u = new ForumUser(uid, name, authority);
+        return u;
     }
 }

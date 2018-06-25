@@ -1,8 +1,9 @@
-package com.se.tss.Public;
+package com.se.tss.forum.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.se.tss.forum.Models.Post;
+import com.se.tss.forum.Models.Reply;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "post")
+@Table(name = "bbs_post")
 @JsonIgnoreProperties(value = { "session", "creator","lastReplier"})
 public class PostEntity {
     @Id
@@ -146,5 +147,41 @@ public class PostEntity {
 
     public void setLastReplyTime(Timestamp lastReplyTime) {
         this.lastReplyTime = lastReplyTime;
+    }
+
+    public Post getPost()
+    {
+        Post p = new Post();
+        p.setPid(pid);
+        p.setTopic(topic);
+        p.setContent(content);
+        p.setCreate_time(createTime);
+        p.setClick_count(clickCount);
+        p.setCreator_uid(creator.getUid());
+        p.setCreator_uname(creator.getName());
+        p.setSession_sid(session.getSid());
+        p.setSession_sname(session.getName());
+        p.setLast_reply_time(lastReplyTime);
+        p.setReply_count(replyCount);
+        return p;
+    }
+    public List<Reply> getReply()
+    {
+        Reply head = new Reply();
+        List<Reply> replies = new ArrayList<>();
+        head.setReply_content(content);
+        head.setTopic(topic);
+        head.setPid(pid);
+        head.setUid(creator.getUid());
+        head.setUname(creator.getName());
+        head.setSid(session.getSid());
+        head.setReply_time(createTime);
+        replies.add(head);
+        for(ReplyEntity r: replyEntities)
+        {
+            Reply reply = r.getReply();
+            replies.add(reply);
+        }
+        return replies;
     }
 }

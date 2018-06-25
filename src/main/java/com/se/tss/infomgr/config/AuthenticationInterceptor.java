@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.se.tss.infomgr.annotation.AdminRequired;
 import com.se.tss.infomgr.annotation.LoginRequired;
 import com.se.tss.infomgr.model.User;
 import com.se.tss.infomgr.model.UserRepository;
@@ -32,9 +33,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
 
         // 判断接口是否需要登录
-        LoginRequired methodAnnotation = method.getAnnotation(LoginRequired.class);
-        // 有 @LoginRequired 注解，需要认证
-        if (methodAnnotation != null) {
+        LoginRequired loginMethodAnnotation = method.getAnnotation(LoginRequired.class);
+        AdminRequired adminMethodAnnotation = method.getAnnotation(AdminRequired.class);
+        // 有 @LoginRequired 或 @AdminRequired 注解，需要认证
+        if (loginMethodAnnotation != null || adminMethodAnnotation != null) {
             // 执行认证
             String token = request.getHeader("token");  // 从 http 请求头中取出 token
             if (token == null) {
@@ -50,7 +52,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             if (!userRepository.existsById(userId)) {
                 throw new RuntimeException("用户不存在，请重新登录");
             }
-            User user = userRepository.getOne(userId);
+            User user = userRepository.getFullOneById(userId);
             // 验证 token
             try {
                 JWTVerifier verifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
@@ -62,6 +64,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             } catch (UnsupportedEncodingException ignore) {
             }
             request.setAttribute("currentUser", user);
+            if (adminMethodAnnotation != null) {
+                if (!userRepository.findAuthorityById(userId).equals("Admin")) {
+                    throw new RuntimeException("需要Admin权限！");
+                }
+            }
             return true;
         }
         return true;

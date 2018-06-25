@@ -72,6 +72,7 @@ a:hover {
 .H_health ul{}
 .H_health ul li{ background:url(../images/Icon_dot.jpg) no-repeat 5px center; padding-left:15px; line-height:26px;}
 .H_health ul li a{ color:#666;}
+.H_health ul li span{ float:right; color:#999;}
 
 .H_patient{ width:295px; height:310px; float:left; overflow:hidden; background:#FFF; padding:0 15px; margin-left:15px;}
 .H_patient dl{ display:block; padding:8px 0 15px;}
@@ -79,6 +80,7 @@ a:hover {
 .H_patient ul{}
 .H_patient ul li{ background:url(../images/Icon_dot.jpg) no-repeat 5px center; padding-left:15px; line-height:26px;}
 .H_patient ul li a{ color:#666;}
+.H_patient ul li span{ float:right; color:#999;}
 
 .H_interact{ width:295px; height:310px; float:right; overflow:hidden; background:#FFF; padding:0 15px;}
 .H_interact dl{ display:block; padding:8px 0 15px;}
@@ -86,6 +88,7 @@ a:hover {
 .H_interact ul{}
 .H_interact ul li{ background:url(../images/Icon_dot.jpg) no-repeat 5px center; padding-left:15px; line-height:26px;}
 .H_interact ul li a{ color:#666;}
+.H_interact ul li span{ float:right; color:#999;}
 
 .H_adLink{ height:80px; background:url(../images/H_adLink.jpg) no-repeat left top; position:relative;}
 .H_adLink a{ display:block; height:80px; width:140px; position:absolute;}
@@ -350,3 +353,145 @@ a:hover {
 .pageSelect1 .pageWrap a.cur ,.pageSelect1 .pageWrap a:hover { background: #81848b; color: #fff; border-radius: 1px; -moz-border-radius: 1px; -webkit-border-radius: 1px;}
 .pageSelect1 .pageWrap a i.ico-pre { display: block; width: 8px; height: 33px; background: url(../images/ico_fabu_page.png) no-repeat 0 10px; margin: 0 auto; }
 .pageSelect1 .pageWrap a i.ico-next { display: block; width: 8px; height: 33px; background: url(../images/ico_fabu_page.png) no-repeat 0 -29px; margin: 0 auto;}
+
+.operateBtn { height: 49px; padding: 0 0 0 2%;}
+.operateBtn a { display: block; float: left; height: 31px; line-height: 31px; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; color: #fff; margin-right:1.8%;}
+.operateBtn a.greenbtn { background: #00843e; width: 109px; background-repeat: no-repeat; text-indent: 36px;}
+.operateBtn a.publish { background-image: url(../images/ico_fabu_1.png); background-position: 13px 9px;}
+.operateBtn a.add { background-image: url(../images/ico_fabu_2.png); background-position: 13px 8px; position: relative;}
+.operateBtn a.greenbtn:hover { background-color: #30981a;}
+.Mian-cont-wrap { margin: 0 2%; background: #fff; border: 1px solid #dbd9e1;}
+.defaultTab-T {background: #fdfdfd; border-bottom: 1px solid #f1eff6;}
+.defaultTable { width: 98%; margin: 0 auto;}
+.defaultTable tr { position: relative;}
+.defaultTable th { height: 48px; background: #fdfdfd; font-weight: normal; font-size: 16px; color: #363636; }
+.defaultTable2 { width: 98%; margin: 5px auto;}
+.defaultTable td { color: #545454; padding: 15px 0; border-bottom: 1px solid #f6f5fa;}
+.defaultTable .t_1 { width: 10%; text-align: left; padding-left: 1%; position: relative;}
+.defaultTable .t_2 { width: 55%; text-align: left;}
+.defaultTable .t_3 { width: 15%; text-align: center;}
+.defaultTable .t_4 { width: 30%; text-align: center;}
+.defaultTable .t_5 { width: 14%; text-align: left;}
+.defaultTable .t_6 { width: 25%; text-align: left; padding-left: 1%; position: relative;}
+.defaultTable .t_7 { width: 35%; text-align: left;}
+.defaultTable .t_8 { width: 20%; text-align: left;}
+.defaultTable .t_9 { width: 20%; text-align: center;}
+.defaultTable .t_10 { width: 60%; text-align: left;}
+.defaultTable .t_11 { width: 50%; text-align: left;}
+.defaultTable .t_2_1 { width: 30%; text-align: left;}
+.defaultTable tr:hover { background: #fafafa;}
+.defaultTable .btn a { display: inline-block; padding: 0 9px; height: 21px; line-height: 21px; color: #fff; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; margin: 0 2%;}
+.defaultTable .btn a.Top ,.defaultTable .btn a.look { color: #00843e; border: 1px solid #00843e; cursor: pointer;}
+.defaultTable .btn a.modify { color: #fe990b; border: 1px solid #fe990b;}
+.defaultTable .btn a.delete { color: #f23e47; border: 1px solid #f23e47;}
+.defaultTable .btn a.Top:hover ,.defaultTable .btn a.look:hover { background: #00843e; color: #fff;}
+.defaultTable .btn a.modify:hover { background: #fe990b; color: #fff;}
+.defaultTable .btn a.delete:hover { background: #f23e47; color: #fff;}
+.defaultTable .btn a.Top.toping { background: #00843e; color: #fff;}
+
+.col-l-t {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+    background: -ms-linear-gradient(top, #cae0e1 0%, #e2faee 100%);
+    background: -moz-linear-gradient(top, #cae0e1 0%, #e2faee 100%);
+    background: -webkit-linear-gradient(top, #cae0e1 0%, #e2faee 100%);
+    *background: #d6d6d6;
+}
+.col-l-b {
+    border-top: 1px solid #ccc;
+    position: relative;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 199px;
+}
+.col-l-t .content {
+    padding: 2%;
+}
+
+.bubble {
+    position: relative;
+}
+.msg {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    overflow: hidden;
+    min-height: 60px;
+}
+
+.msg .article {
+    float: left;
+    display: inline-block;
+    *display:inline;
+    zoom: 1;
+    padding: 12px;
+    border-radius: 12px;
+    min-width: 50px;
+    min-height: 20px;
+    background: #fff;
+    max-width: 80%;
+    margin-top: 8px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.fr .article {
+    margin-top: auto;
+    margin-bottom: 8px;
+    color: #fff;
+    background: #479a97;
+    float: right;
+    margin-right: 0px;
+}
+
+.fl .article {
+    float: left;
+    margin-left: 0px;
+}
+.faq-input {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #ececec;
+    border-top: 1px solid #ccc;
+    padding: 20px;
+}
+.faq-input-content {
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+.faq-input-content .input {
+    border-style: none;
+    font-size: 18px;
+    width: 98%;
+    overflow: hidden;
+    padding: 1%;
+    height: 100px;
+    line-height: 20px;
+}
+.faq-input-content .btn {
+    line-height: 35px;
+    width: 120px;
+    position: relative;
+    right: 10px;
+    border-style: none;
+    font-size: 16px;
+    color: #fff;
+    bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #34999a;
+}
