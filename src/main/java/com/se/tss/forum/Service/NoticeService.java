@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NoticeService extends JpaRepository<NoticeEntity, String> {
     NoticeEntity findByNid(Integer nid);
+
 }

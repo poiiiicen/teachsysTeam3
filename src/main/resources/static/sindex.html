@@ -139,11 +139,16 @@
             console.log(url);
             request.open("GET",url);/*设置XHR对象的请求方法与路径*/
             request.send(null);/*设置XHR对象不发送数据到服务器*/
-            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+            request.onload = function(data) {/*设置当获XHR对象获取到返回信息后执行以下代码*/
                 if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
-
-                    alert(request.responseText);
-                    window.location.href = thisUrl;
+                    var myObj = eval('('+ request.responseText +')');
+                    if(myObj.pid > 0)
+                    {
+                        alert(request.responseText);
+                        window.location.href = thisUrl;
+                    }
+                    else
+                        alert("删除失败，您的权限不足！");
                 }
                 else{
                     alert("删除失败，网络错误！");
@@ -158,10 +163,16 @@
             console.log(url);
             request.open("GET",url);/*设置XHR对象的请求方法与路径*/
             request.send(null);/*设置XHR对象不发送数据到服务器*/
-            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+            request.onload = function(data) {/*设置当获XHR对象获取到返回信息后执行以下代码*/
                 if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
-                    alert(request.responseText);
-                    window.location.href = thisUrl;
+                    var myObj = eval('('+ request.responseText +')');
+                    if(myObj.nid > 0)
+                    {
+                        alert(request.responseText);
+                        window.location.href = thisUrl;
+                    }
+                    else
+                        alert("删除失败，您的权限不足！");
                 }
                 else{
                     alert("删除失败，网络错误！");

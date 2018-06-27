@@ -1,6 +1,7 @@
 package com.se.tss.forum.Controller;
 
 import com.se.tss.forum.Entity.NoticeEntity;
+import com.se.tss.forum.Entity.UserEntity;
 import com.se.tss.forum.Models.Notice;
 import com.se.tss.forum.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,19 @@ public class NoticeController {
     @RequestMapping(value = "bbs/notice/create")
     public Notice createNotice(@RequestBody Notice n)
     {
-        NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setTopic(n.getTopic());
-        noticeEntity.setContent(n.getContent());
-        noticeEntity.setCreateTime(getBeijingTime());
-        noticeEntity.setCreator(userService.findByUid(n.getCreator_uid()));
-        noticeEntity.setModifiedTime(getBeijingTime());
-        noticeService.save(noticeEntity);
-        n.setNid(noticeEntity.getNid());
+        UserEntity creator = userService.findByUid(n.getCreator_uid());
+        if(creator.getAuthority().equals("Teacher")) {
+            NoticeEntity noticeEntity = new NoticeEntity();
+            noticeEntity.setTopic(n.getTopic());
+            noticeEntity.setContent(n.getContent());
+            noticeEntity.setCreateTime(getBeijingTime());
+            noticeEntity.setCreator(creator);
+            noticeEntity.setModifiedTime(getBeijingTime());
+            noticeService.save(noticeEntity);
+            n.setNid(noticeEntity.getNid());
+        }
+        else
+            n.setNid(0);
         return n;
     }
 
@@ -65,13 +71,14 @@ public class NoticeController {
     //删除公告
     //公告ID，删除者ID
     @RequestMapping(value = "/bbs/notice/delete/{nid}/{uid}")
-    public String deletePost(@PathVariable Integer nid, @PathVariable Integer uid){
+    public Notice deletePost(@PathVariable Integer nid, @PathVariable Integer uid){
+        UserEntity deleter = userService.findByUid(uid);
         NoticeEntity ne = noticeService.findByNid(nid);
-        if(uid == ne.getCreator().getUid())
-        {
+        Notice n = ne.getNotice();
+        //if(deleter.getAuthority().equals("Admin") || uid == ne.getCreator().getUid())
             noticeService.delete(ne);
-            return "Delete succeed";
-        }
-        return "Delete failed, you don't have authority";
+        //else
+          //  n.setNid(0);
+        return n;
     }
 }

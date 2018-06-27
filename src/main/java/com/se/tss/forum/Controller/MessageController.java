@@ -51,6 +51,14 @@ public class MessageController {
             Message m = me.getMessageInfo();
             messages.add(m);
         }
+        if(messages.size() == 0)
+        {
+           MessageEntity me = new MessageEntity();
+           me.setSender(u2);
+           me.setReceiver(u1);
+           Message m = me.setEmptyMessage();
+           messages.add(m);
+        }
         return messages;
     }
 

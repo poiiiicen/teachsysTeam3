@@ -55,6 +55,7 @@
                     var msgname="";
                     myObj = eval('('+ request.responseText +')');
                     console.log(myObj);
+                    msgname = myObj[0].receiver_name;
                     //if(myObj[0].sender_id == param.tuserid)
                     //    msgname = myObj[0].sender_name;
                     //else
@@ -63,7 +64,9 @@
                     document.getElementById("msgname").innerHTML = x1;
                     console.log(myObj);
                     for (i in myObj) {
-                        if(myObj[i].sender_id == param.tuserid)
+                        if(myObj[i].mid == 0)
+                            break;
+                        else if(myObj[i].sender_id == param.tuserid)
                             bubbleclass = "fl";
                         else
                             bubbleclass = "fr";

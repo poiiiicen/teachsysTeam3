@@ -84,4 +84,14 @@ public class MessageEntity {
         m.setSendTime(sendTime);
         return m;
     }
+    public Message setEmptyMessage()
+    {
+        Message m = new Message();
+        m.setMid(0);
+        m.setSender_id(sender.getUid());
+        m.setSender_name(sender.getName());
+        m.setReceiver_id(receiver.getUid());
+        m.setReceiver_name(receiver.getName());
+        return m;
+    }
 }

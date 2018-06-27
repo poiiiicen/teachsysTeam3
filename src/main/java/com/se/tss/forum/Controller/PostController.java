@@ -1,6 +1,7 @@
 package com.se.tss.forum.Controller;
 import com.se.tss.forum.Entity.PostEntity;
 import com.se.tss.forum.Entity.SessionEntity;
+import com.se.tss.forum.Entity.UserEntity;
 import com.se.tss.forum.Models.Post;
 import com.se.tss.forum.Models.Reply;
 import com.se.tss.forum.Service.ForumUserService;
@@ -85,14 +86,17 @@ public class PostController {
     //删除帖子
     //帖子ID，删除者ID
     @RequestMapping(value = "/bbs/post/delete/{pid}/{uid}")
-    public String deletePost(@PathVariable Integer pid, @PathVariable Integer uid){
+    public Post deletePost(@PathVariable Integer pid, @PathVariable Integer uid){
+        UserEntity deleter = userService.findByUid(uid);
         PostEntity pe = postService.findByPid(pid);
-        if(uid == pe.getCreator().getUid())
+        Post p = pe.getPost();
+        if(deleter.getAuthority().equals("Admin") || uid == pe.getCreator().getUid())
         {
             postService.delete(pe);
-            return "Delete succeed";
         }
-        return "Delete failed, you don't have authority";
+        else
+            p.setPid(0);
+        return p;
     }
     //搜索帖子
     @RequestMapping(value = "/bbs/post/search/{key}")
