@@ -59,30 +59,35 @@
             var id = "topiclist";
             var type = "";
             var tablehead = "";
+            var str1 = "",
+                str2 = "",
+                str3 = "",
+                str4 = "";
             if(param.sid == "1") {
                 tablehead = "<th class=\"t_1\">发帖人</th><th class=\"t_2\">帖子标题</th><th class=\"t_3\">最后回复时间</th><th class=\"t_4\">操作</th>";
                 url += "post/session/S001";
                 type = "topic";
                 jQuery("#nav1").attr("class","onnav");
+                str1="class=\"onnav\""
                 //console.log(url);
             }
             else if(param.sid == "2") {
                 tablehead = "<th class=\"t_1\">发帖人</th><th class=\"t_2\">帖子标题</th><th class=\"t_3\">最后回复时间</th><th class=\"t_4\">操作</th>";
                 url += "post/session/S002";
                 type = "topic";
-                jQuery("#nav2").attr("class","onnav");
+                str2="class=\"onnav\""
             }
             else if(param.sid == "3") {
                 tablehead = "<th class=\"t_1\">发帖人</th><th class=\"t_2\">帖子标题</th><th class=\"t_3\">最后回复时间</th><th class=\"t_4\">操作</th>";
                 url += "post/session/S003";
                 type = "topic";
-                jQuery("#nav3").attr("class","onnav");
+                str3="class=\"onnav\""
             }
             else if(param.sid == 4){
                 tablehead = "<th class=\"t_1\">发布人</th><th class=\"t_2\">公告标题</th><th class=\"t_3\">发布时间</th><th class=\"t_4\">操作</th>";
                 url += "notice/all";
                 type = "notice";
-                jQuery("#nav4").attr("class","onnav");
+                str4="class=\"onnav\""
             }
             document.getElementById("tablehead").innerHTML = tablehead;
             var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
@@ -115,17 +120,16 @@
                 }
 
             }
-            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
-                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
-                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
-                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            var headbar="<li id=\"nav1\" "+str1+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\" "+str2+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\" "+str3+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\" "+str4+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
             document.getElementById("headtoolbar").innerHTML=headbar;
             var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
             document.getElementById("indexlink").innerHTML = indexalink;
             var postalink = "<a href=\"topic_post.html?uid="+param.uid+"\" class=\"greenbtn publish\">发布帖子</a>\n" +
                 "        <a href=\"notice_post.html?uid="+param.uid+"\" class=\"greenbtn publish\">发布公告</a>\n";
-            document.getElementById("postlink").innerHTML = postalink;
-
+            document.getElementById("postlink").innerHTML = postalink
         }
 
         function deletetopic(listid){
@@ -183,7 +187,7 @@
     <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
     <div class="frCont">
         <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
-        <a href="#">教务管理系统</a>
+        <a href="index.html">教务管理系统</a>
         <!--a href="#">耳鼻咽喉头颈外科</a-->
         <!--a href="#">广州市职业卫生信息网</a-->
     </div>

@@ -49,6 +49,9 @@
             var id1 = "topiccontent";
             var id2 = "navibar";
             var id3 = "topicname";
+            var str1 = "",
+                str2 = "",
+                str3 = "";
             var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
             request.open("GET",url);/*设置XHR对象的请求方法与路径*/
             request.send(null);/*设置XHR对象不发送数据到服务器*/
@@ -61,15 +64,15 @@
                     console.log(myObj[0]);
                     if(myObj[0].sid == 'S001') {
                         path = "首页 > 教师答疑 > " + myObj[0].topic;
-                        jQuery("#nav1").attr("class","onnav");
+                        str1="class=\"onnav\"";
                     }
                     else if(myObj[0].sid == 'S002') {
                         path = "首页 > 心灵之约 > " + myObj[0].topic;
-                        jQuery("#nav2").attr("class","onnav");
+                        str2="class=\"onnav\"";
                     }
                     else if(myObj[0].sid == 'S003') {
                         path = "首页 > 开怀一笑 > " + myObj[0].topic;
-                        jQuery("#nav3").attr("class","onnav");
+                        str3="class=\"onnav\"";
                     }
                     for (i in myObj) {
                         x+= "<div class=\"space10\"></div>"+
@@ -94,9 +97,9 @@
                 }
 
             }
-            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
-                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
-                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+            var headbar="<li id=\"nav1\" "+str1+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\" "+str2+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\" "+str3+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
                 "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
             document.getElementById("headtoolbar").innerHTML=headbar;
             var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
@@ -119,7 +122,7 @@
     <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
     <div class="frCont">
         <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
-        <a href="#">教务管理系统</a>
+        <a href="index.html">教务管理系统</a>
         <!--a href="#">耳鼻咽喉头颈外科</a-->
         <!--a href="#">广州市职业卫生信息网</a-->
     </div>

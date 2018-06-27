@@ -75,7 +75,7 @@ public class PostController {
         Sort sort = new Sort(Sort.Direction.DESC, "clickCount");
         List<PostEntity> pe = postService.findAll(sort);
         List<Post> posts = new ArrayList<>();
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<6; i++)
         {
             Post p = pe.get(i).getPost();
             posts.add(p);

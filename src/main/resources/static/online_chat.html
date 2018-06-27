@@ -54,10 +54,11 @@
                     var bubbleclass="";
                     var msgname="";
                     myObj = eval('('+ request.responseText +')');
-                    if(myObj[0].sender_id == param.tuserid)
-                        msgname = myObj[0].sender_name;
-                    else
-                        msgname = myObj[0].receiver_name;
+                    console.log(myObj);
+                    //if(myObj[0].sender_id == param.tuserid)
+                    //    msgname = myObj[0].sender_name;
+                    //else
+                    //    msgname = myObj[0].receiver_name;
                     x1="与"+msgname+"的私信";
                     document.getElementById("msgname").innerHTML = x1;
                     console.log(myObj);
@@ -101,7 +102,7 @@
 <div class="header">
     <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
     <div class="frCont">
-        <a href="#">教务管理系统</a><div id = "S1"></div>
+        <a href="index.html">教务管理系统</a><div id = "S1"></div>
     </div>
     <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
     <div class="mainnav">
@@ -128,7 +129,7 @@
 <div class = "Content1" style="min-height: 300px">
     <div class="col-l-t">
         <div class="content">
-            <div class="bubble" id="Chat">
+            <div class="bubble" id="Chat" style="min-height: 300px">
                 <div class="msg fl">
                     <div class="article">您好，我是小粤。</div>
                 </div>

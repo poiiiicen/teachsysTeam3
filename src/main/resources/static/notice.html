@@ -74,7 +74,7 @@
             var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
                 "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
                 "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
-                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+                "            <li id=\"nav4\" class=\"onnav\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
             document.getElementById("headtoolbar").innerHTML=headbar;
             var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
             document.getElementById("indexlink").innerHTML = indexalink;
@@ -97,7 +97,7 @@
     <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
     <div class="frCont">
         <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
-        <a href="#">教务管理系统</a>
+        <a href="index.html">教务管理系统</a>
         <!--a href="#">耳鼻咽喉头颈外科</a-->
         <!--a href="#">广州市职业卫生信息网</a-->
     </div>
@@ -183,11 +183,6 @@
         <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
     </div>
 </div>
-
-<script type="text/javascript" language="javascript">
-    jQuery("#nav4").attr("class","onnav");
-    jQuery("#menu1").attr("class","acur");
-</script>
 <!--引入JS-->
 
 </body>
