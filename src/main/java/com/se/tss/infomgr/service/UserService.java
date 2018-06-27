@@ -48,7 +48,7 @@ public class UserService {
             student.setMajor(jsonObject.getString("major"));
             studentRepository.save(student);
         } else if (jsonObject.getString("title") != null) {
-            Teacher teacher = (Teacher) user;
+            Teacher teacher = new Teacher(user);
             teacher.setDepartment(jsonObject.getString("department"));
             teacher.setTitle(jsonObject.getString("title"));
             teacherRepository.save(teacher);
