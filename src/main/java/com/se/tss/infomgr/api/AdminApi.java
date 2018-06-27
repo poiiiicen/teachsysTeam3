@@ -64,6 +64,7 @@ public class AdminApi {
         return jsonObject;
     }
 
+    @AdminRequired
     @PostMapping("/add")
     public Object add(@RequestParam(value = "userInfo") MultipartFile file) {
         JSONObject ret = new JSONObject();
