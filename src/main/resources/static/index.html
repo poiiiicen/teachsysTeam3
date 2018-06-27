@@ -79,7 +79,8 @@
           </article>
           <article class="tile is-child notification is-warning">
             <p class="title">论坛系统</p>
-            <a id="forumlink" href="forumindex.html" class="button is-danger is-outlined" onclick="return function(){this.href='forumindex.html?uid='+currentUser.id;console.log(this.href);return true}">点击查看</a>
+            <a :href="'forumindex.html?uid='+currentUser.id" class="button is-danger is-outlined">点击查看</a>
+            <!--a id="forumlink" href="forumindex.html" class="button is-danger is-outlined" onclick=getuid()>点击查看</a-->
           </article>
         </div>
         <div class="tile is-parent">
@@ -484,9 +485,13 @@
   </script>
 
   <script>
-    var forumurl="forumindex.html?uid="+currentUser.id;
-    console.log(forumurl)
-    document.getElementById("forumlink").href = forumurl;
+    getuid()
+    {
+        var forumurl = "forumindex.html?uid=" + currentUser.id;
+        console.log(forumurl)
+        document.getElementById("forumlink").href = forumurl;
+    }
+
   </script>>
   <!-- alert template-->
   <script id="alert" type="text/x-template">
