@@ -79,7 +79,7 @@
           </article>
           <article class="tile is-child notification is-warning">
             <p class="title">论坛系统</p>
-            <a :href="'forumindex.html?uid='+currentUser.id" class="button is-danger is-outlined">点击查看</a>
+            <a :href="'forumindex.html?uid=' + currentUser.id" class="button is-danger is-outlined">点击查看</a>
             <!--a id="forumlink" href="forumindex.html" class="button is-danger is-outlined" onclick=getuid()>点击查看</a-->
           </article>
         </div>
@@ -172,7 +172,7 @@
             <th></th>
             <th>
               <div class="field">
-                <div class="file is-centered is-small is-success">
+                <div class="file is-success">
                   <label class="file-label">
                     <input ref="files" class="file-input" type="file" name="userInfo" v-on:change="upload">
                     <span class="file-cta">
@@ -185,6 +185,18 @@
                     </span>
                   </label>
                 </div>
+              </div>
+              <div class="field">
+                <a :href="'forumindex.html?uid=' + adminId">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <span class="file-label">
+                      管理论坛
+                    </span>
+                  </span>
+                </a>
               </div>
             </th>
           </tr>
@@ -463,23 +475,6 @@
       <br>
       <p class="control">
         <input class="button is-primary is-12" type="submit" value="注册">
-      </p>
-    </form>
-  </script>
-
-  <!--new post template-->
-  <script id="new-post" type="text/x-template">
-    <form @submit.prevent="handleSubmit">
-      <label for="title">标题</label>
-      <p class="control">
-        <input type="text" v-model="title" id="title" class="input">
-      </p>
-      <label for="content">内容</label>
-      <p class="control">
-        <textarea id="content" v-model="content" class="textarea"></textarea>
-      </p>
-      <p class="control">
-        <input type="submit" class="button is-primary" value="提交">
       </p>
     </form>
   </script>

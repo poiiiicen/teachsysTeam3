@@ -260,6 +260,7 @@ var Admin = {
         return {
             infoAll: [],
             searchText: '',
+            adminId: JSON.parse(sessionStorage.getItem('currentUser')).id,
         }
     },
     computed: {
