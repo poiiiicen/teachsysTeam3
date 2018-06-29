@@ -75,10 +75,10 @@ public class NoticeController {
         UserEntity deleter = userService.findByUid(uid);
         NoticeEntity ne = noticeService.findByNid(nid);
         Notice n = ne.getNotice();
-        //if(deleter.getAuthority().equals("Admin") || uid == ne.getCreator().getUid())
+        if(deleter.getAuthority().equals("Admin") || uid == ne.getCreator().getUid())
             noticeService.delete(ne);
-        //else
-          //  n.setNid(0);
+        else
+            n.setNid(0);
         return n;
     }
 }
