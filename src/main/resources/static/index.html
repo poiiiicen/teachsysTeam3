@@ -73,9 +73,7 @@
           </article>
           <article class="tile is-child notification is-warning">
             <p class="title">查看课程</p>
-            <router-link style="text-decoration: none" to="/course">
-              <button class="button is-danger is-outlined">点击查看</button>
-            </router-link>
+            <a :href="'show_my_schedule.html?id=' + currentUser.id" class="button is-danger is-outlined">点击查看</a>
           </article>
           <article class="tile is-child notification is-warning">
             <p class="title">论坛系统</p>
@@ -191,6 +189,18 @@
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-user"></i>
+                    </span>
+                    <span class="file-label">
+                      管理论坛
+                    </span>
+                  </span>
+                </a>
+              </div>
+              <div class="field">
+                <a :href="'course_arrange_index.html?id=' + adminId">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-table"></i>
                     </span>
                     <span class="file-label">
                       管理论坛

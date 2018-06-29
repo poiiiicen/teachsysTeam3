@@ -267,7 +267,7 @@ var Admin = {
         filteredInfoAll: function () {
             var searchText = this.searchText;
             var infoAll = this.infoAll;
-            if (searchText == '') {
+            if (searchText === '') {
                 return infoAll
             }
             return infoAll.filter(function (item) {
