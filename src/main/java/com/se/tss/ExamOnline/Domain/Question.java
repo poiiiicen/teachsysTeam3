@@ -1,5 +1,9 @@
 package com.se.tss.ExamOnline.Domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 
@@ -15,9 +19,52 @@ public class Question {
     private Integer answer;
     private Boolean visible;
 
-    public Integer getAnswer() { return answer; }
+    public Integer getId() {
+        return id;
+    }
 
-    public void setAnswer(Integer answer) { this.answer = answer; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public void setVisible(Boolean visible) { this.visible = visible; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public ArrayList<String> getChoice() {
+        return choice;
+    }
+
+    public void setChoice(ArrayList<String> choice) {
+        this.choice = choice;
+    }
+
+    public Integer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
 }
