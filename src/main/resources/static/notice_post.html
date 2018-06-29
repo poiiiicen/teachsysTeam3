@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class=" js csstransforms3d">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>发布公告</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css">
+    <!--[if lte IE 8]>
+    <link href="css/ie8.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <script type="text/javascript" src="js/jquery.selectui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
+        <a href="index.html">教务管理系统</a>
+        <!--a href="#">耳鼻咽喉头颈外科</a-->
+        <!--a href="#">广州市职业卫生信息网</a-->
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+<!--side S-->
+<!--div class="super-side-menu">
+    <iframe src="public_left.html" width="205" height="100%" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+</--div>
+<!--side E-->
+<!--content S-->
+<div class="Content_home">
+
+    <!--div class="super-header super-header2">
+        <iframe src="public_header.html" id="Pubheader" name="Pubheader" width="100%"  marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <!--header-->
+    <div class="superCtab superCtabBot" style="height: 695px;">
+        <!--content S-->
+        <div class="super-content">
+
+            <div class="superCtab">
+                <div class="publishArt">
+                    <h4>发布公告</h4>
+                    <div id="realtopic" class="pubMain">
+                        <a href="javascript:history.go(-1)" class="backlistBtn"><i class="ico-back"></i>返回列表</a>
+                        <!--<form id="uploadForm" action="" method="post">
+                            <h5 class="pubtitle">公告分类</h5>
+                            <div class="pubselect">
+							<span class="select_ui"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b>
+								<select id="sname">
+								<option value="教师答疑">教师答疑</option>
+								<option value="心灵之约">心灵之约</option>
+								<option value="开怀一笑">开怀一笑</option>
+								</select>
+							</span>
+                            </div>-->
+                            <h5 class="pubtitle">公告标题</h5>
+                            <div class="pub-txt-bar">
+                                <input id="noticename" type="text" class="shuruTxt">
+                            </div>
+                            <h5 class="pubtitle">公告内容</h5>
+                            <div class="pub-txt-bar">
+                                <input id="noticecont" type="text" class="shuruTxt1">
+                            </div>
+                            <div class="pub-btn">
+                                <input type="button" value="发布" class="saveBtn" id="submit">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <!--main-->
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var param;
+    var getParam = function () {
+        try{
+            var url = window.location.href;
+            var result = url.split("?")[1];
+            console.log(result);
+            console.log(url.split("?"));
+            var keyValue = result.split("&");
+            var obj = {};
+            for (var i = 0; i<keyValue.length; i++) {
+                var item = keyValue[i].split("=");
+                obj[item[0]] = item[1];
+            }
+            return obj;}catch(e){
+            console.warn("There has no param value!");
+        }
+    };
+    window.onload = function(){
+        param = getParam();
+        var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+            "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+            "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+            "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+        document.getElementById("headtoolbar").innerHTML=headbar;
+        var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+        document.getElementById("indexlink").innerHTML = indexalink;
+    }
+
+    function addsearchKey()
+    {
+
+        var objA=document.getElementById("searchbtn");
+        objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+    }
+
+    $(document).ready(function() {
+        var $notice = $("#noticename"),
+            $content = $("#noticecont");
+        $("#submit").click(function(){
+            var url = "http://localhost:8080/bbs/notice/create",
+                data = {};
+            data.topic = $notice.val();
+            data.content = $content.val();
+            data.creator_uid = param.uid;
+            console.log("success");
+            console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: JSON.stringify(data),
+                async: false,
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success:function(data) {
+                    console.log(data);
+                    //alert($.trim(data.response));
+                    if(data.nid > 0) {
+                        alert('发布公告成功!');
+                        $(location).attr('href', 'http://localhost:8080/sindex.html?uid='+param.uid+'&sid=4');
+                    } else {
+                        alert('失败，您的权限不足!');
+                    }
+                }
+            });
+        })
+    })
+</script>
+
+<!--content E-->
+<!--点击修改弹出层-->
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统<!--br />医院电话： 020-12345678 传真： 020-12345678 粤ICP备00000000号--></div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // 添加全局站点信息
+    var BASE_URL = '/webuploader';
+</script>
+
+</body></html>

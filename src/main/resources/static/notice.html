@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta name="Author" content="">
+    <title>公告</title>
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css" />
+    <link href="css/page.css" rel="stylesheet" type="text/css" />
+    <script src="Script/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <!--[if IE 6]>
+    <script src="Script/pngAlaph.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <script type="text/javascript" src="js/jquery.selectui.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="js/utf8-jsp/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/utf8-jsp/ueditor.all.min.js"> </script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <script>
+        var myObj;
+        var param;
+        var switchTime = function (fortime) {
+            var newdate = fortime.split("T")[0];
+            var newtime1 = fortime.split("T")[1];
+            var newtime2 = newtime1.split(".")[0];
+            var newtime = newdate+" "+newtime2;
+            return newtime;
+
+        };
+        var getParam = function () {
+            try{
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                console.log(result);
+                console.log(url.split("?"));
+                var keyValue = result.split("&");
+                var obj = {};
+                for (var i = 0; i<keyValue.length; i++) {
+                    var item = keyValue[i].split("=");
+                    obj[item[0]] = item[1];
+                }
+                return obj;}catch(e){
+                console.warn("There has no param value!");
+            }
+        };
+
+        window.onload = function () {
+            param = getParam();
+            console.log(param);
+            console.log(param.pid);
+            var url = "/bbs/notice/find/"+param.pid;
+            var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request.open("GET",url);/*设置XHR对象的请求方法与路径*/
+            request.send(null);/*设置XHR对象不发送数据到服务器*/
+            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x = "";
+                    var path = "";
+                    var ctime = ""
+                    myObj = eval('('+ request.responseText +')');
+                    console.log(myObj);
+                    console.log(myObj.create_time);
+                    ctime = myObj.create_time;
+                    document.getElementById("noticename").innerHTML = myObj.topic;
+                    document.getElementById("noticetopic").innerHTML = myObj.topic;
+                    document.getElementById("noticecreator").innerHTML = "<a href=\"person_topic.html?uid="+param.uid+"&uid="+param.uid+"&tuserid="+myObj.creator_uid+"\">"+myObj.creator_uname+"</a>";
+                    document.getElementById("noticecontent").innerHTML = myObj.content;
+                    document.getElementById("createtime").innerHTML = switchTime(ctime);
+                }
+
+            }
+            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\" class=\"onnav\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            document.getElementById("headtoolbar").innerHTML=headbar;
+            var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+            document.getElementById("indexlink").innerHTML = indexalink;
+
+        }
+
+
+        function addsearchKey()
+        {
+
+            var objA=document.getElementById("searchbtn");
+            objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+        }
+    </script>
+
+</head>
+<body>
+<!--top-->
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
+        <a href="index.html">教务管理系统</a>
+        <!--a href="#">耳鼻咽喉头颈外科</a-->
+        <!--a href="#">广州市职业卫生信息网</a-->
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+<!--top End-->
+<!--top End-->
+
+<!--Star-->
+<!--div style="background:url(images/temp/Ban_about.jpg) no-repeat center top">
+<div class="H193"><span class="leftBg"></span><span class="rightBg"></span></div-->
+<div class="space35"></div>
+<div class = "Content1">
+    <dl class="TopicPath">首页 > 论坛公告 > <span id="noticename">公告1</span></dl>
+</div>
+<div class="space25"></div>
+
+<div class="Content2">
+    <div class="space10"></div>
+    <h2 style="padding:10px" id="noticetopic">公告标题</h2>
+    <div class="space10"></div>
+</div>
+<div>
+    <div class="space10"></div>
+    <div class="Content" style="min-height:500px">
+
+        <!--左边-->
+        <div class="Sidebar">
+            <p align="center"><img src="images/temp/Pic06.jpg" /></p>
+            <h3 align="center" id="noticecreator"><a href="person_topic.html">教师1</a></h3>
+            <h3 align="center" id="createtime">2018/06/21 22:00</h3>
+            <div class="clear"></div>
+
+        </div>
+        <!--左边 End-->
+        <!--右边-->
+        <div class="RightSidebar">
+            <div class="mianContent" style="padding:30px 20px">
+                <!--Star-->
+                <!--<p align="center"><img src="images/temp/Pic06.jpg" /></p>-->
+                <p id="noticecontent">内容一啦请了一批具有权威的、有丰富临床经验的教授为主任导师。改革
+                    开放以来，医院一直与国外进行科技合作，多项成果受奖，多次被评为广州市卫生系统最佳服务单位、文明单位。
+                    内容一啦请了一批具有权威的、有丰富临床经验的教授为主任导师。改革
+                    开放以来，医院一直与国外进行科技合作，多项成果受奖，多次被评为广州市卫生系统最佳服务单位、文明单位。
+                    内容一啦请了一批具有权威的、有丰富临床经验的教授为主任导师。改革
+                    开放以来，医院一直与国外进行科技合作，多项成果受奖，多次被评为广州市卫生系统最佳服务单位、文明单位。
+                    </p>
+                <!--End-->
+
+
+                <div class="clear"></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <!--右边 End-->
+        <div class="clear"></div>
+    </div>
+
+    <div class="space25"></div>
+</div>
+
+
+<!--Bottom-->
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统<!--br />医院电话： 020-12345678 传真： 020-12345678 粤ICP备00000000号--></div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+<!--引入JS-->
+
+</body>
+</html>

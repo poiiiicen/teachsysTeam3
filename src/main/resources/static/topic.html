@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    <meta name="Author" content="">
+    <title>帖子</title>
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css" />
+    <link href="css/page.css" rel="stylesheet" type="text/css" />
+    <script src="Script/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <!--[if IE 6]>
+    <script src="Script/pngAlaph.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <script type="text/javascript" src="js/jquery.selectui.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="js/utf8-jsp/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/utf8-jsp/ueditor.all.min.js"> </script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <script type="text/javascript">
+        /**
+         * 获取参数的键值对对象。
+         * @returns {Object}
+         */
+        var myObj;
+        var param;
+        var thisUrl = window.location.href;
+        var getParam = function () {
+            try{
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var keyValue = result.split("&");
+                var obj = {};
+                for (var i = 0; i<keyValue.length; i++) {
+                    var item = keyValue[i].split("=");
+                    obj[item[0]] = item[1];
+                }
+                return obj;}catch(e){
+                console.warn("There has no param value!");
+            }
+        };
+
+        window.onload = function () {
+            param = getParam();
+            console.log(param);
+            console.log(param.pid);
+            var url = "/bbs/post/find/"+param.pid;
+            var id1 = "topiccontent";
+            var id2 = "navibar";
+            var id3 = "topicname";
+            var str1 = "",
+                str2 = "",
+                str3 = "";
+            var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request.open("GET",url);/*设置XHR对象的请求方法与路径*/
+            request.send(null);/*设置XHR对象不发送数据到服务器*/
+            request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x = "";
+                    var path = "";
+                    myObj = eval('('+ request.responseText +')');
+                    console.log(myObj);
+                    console.log(myObj[0]);
+                    if(myObj[0].sid == 'S001') {
+                        path = "首页 > 教师答疑 > " + myObj[0].topic;
+                        str1="class=\"onnav\"";
+                    }
+                    else if(myObj[0].sid == 'S002') {
+                        path = "首页 > 心灵之约 > " + myObj[0].topic;
+                        str2="class=\"onnav\"";
+                    }
+                    else if(myObj[0].sid == 'S003') {
+                        path = "首页 > 开怀一笑 > " + myObj[0].topic;
+                        str3="class=\"onnav\"";
+                    }
+                    for (i in myObj) {
+                        x+= "<div class=\"space10\"></div>"+
+                            "<div class=\"Content\" style=\"min-height:130px\">\n" +
+                            "    <div class=\"Sidebar\">\n" +
+                            "        <h3 align=\"center\"><a href=\"person_topic.html?uid="+param.uid+"&tuserid="+myObj[i].uid+"\">"+myObj[i].uname+"</a></h3>\n" +
+                            "        <div class=\"clear\"></div>\n" +
+                            "    </div>\n" +
+                            "    <div class=\"RightSidebar\">\n" +
+                            "        <div class=\"mianContent\">\n" +
+                            "            <p>"+myObj[i].reply_content+"</p>\n" +
+                            "            <div class=\"clear\"></div>\n" +
+                            "        </div>\n" +
+                            "        <div class=\"clear\"></div>\n" +
+                            "    </div>\n" +
+                            "    <div class=\"clear\"></div>\n" +
+                            "</div>";
+                    }
+                    document.getElementById(id1).innerHTML = x;
+                    document.getElementById(id2).innerHTML = path;
+                    document.getElementById(id3).innerHTML = myObj[0].topic;
+                }
+
+            }
+            var headbar="<li id=\"nav1\" "+str1+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\" "+str2+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\" "+str3+"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            document.getElementById("headtoolbar").innerHTML=headbar;
+            var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+            document.getElementById("indexlink").innerHTML = indexalink;
+
+        }
+
+        function addsearchKey()
+        {
+
+            var objA=document.getElementById("searchbtn");
+            objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+        }
+    </script>
+
+</head>
+<body>
+<!--top-->
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
+        <a href="index.html">教务管理系统</a>
+        <!--a href="#">耳鼻咽喉头颈外科</a-->
+        <!--a href="#">广州市职业卫生信息网</a-->
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+<!--top End-->
+<!--top End-->
+
+<!--Star-->
+<!--div style="background:url(images/temp/Ban_about.jpg) no-repeat center top">
+<div class="H193"><span class="leftBg"></span><span class="rightBg"></span></div-->
+<div class="space35"></div>
+<div class = "Content1">
+    <dl class="TopicPath" id="navibar">首页 > 版块1 > 帖子1 </dl>
+</div>
+<div class="space25"></div>
+
+<div class="Content2">
+    <div class="space10"></div>
+    <h2 style="padding:10px" id="topicname">帖子1</h2>
+    <div class="space10"></div>
+</div>
+<div id="topiccontent" style="min-height:300px">
+    <div class="space10"></div>
+    <div class="Content" style="min-height:130px">
+
+        <!--左边-->
+        <div class="Sidebar">
+            <h3 align="center">用户1</h3>
+            <div class="clear"></div>
+
+        </div>
+        <!--左边 End-->
+        <!--右边-->
+        <div class="RightSidebar">
+            <div class="mianContent">
+                <!--Star-->
+                <p>内容一啦请了一批具有权威的、有丰富临床经验的教授为主任导师。改革
+                    开放以来，医院一直与国外进行科技合作，多项成果受奖，多次被评为广州市卫生系统最佳服务单位、文明单位。</p>
+                <!--End-->
+
+
+                <div class="clear"></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <!--右边 End-->
+        <div class="clear"></div>
+    </div>
+    <div class="space10"></div>
+    <div class="Content" style="min-height:130px">
+
+        <!--左边-->
+        <div class="Sidebar">
+            <h3 align="center">用户1</h3>
+            <div class="clear"></div>
+
+        </div>
+        <!--左边 End-->
+        <!--右边-->
+        <div class="RightSidebar">
+            <div class="mianContent">
+                <!--Star-->
+                <p>内容一啦请了一批具有权威的、有丰富临床经验的教授为主任导师。改革
+                    开放以来，医院一直与国外进行科技合作，多项成果受奖，多次被评为广州市卫生系统最佳服务单位、文明单位。</p>
+                <!--End-->
+
+
+                <div class="clear"></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <!--右边 End-->
+        <div class="clear"></div>
+    </div>
+    <div class="space10"></div>
+    <div class="space35"></div>
+    <!--main-->
+
+    <!--/div-->
+</div>
+
+<div class="Content1">
+    <!--div class="pubMain"-->
+    <form action="" method="post">
+        <h5 class="pubtitle">发表回复</h5>
+        <div class="pub-txt-bar">
+            <input id="replycont" type="text" class="shuruTxt2">
+        </div>
+        <div class="pub-btn">
+            <input type="button" id="reply" value="回复" class="saveBtn" >
+        </div>
+
+
+    </form>
+    <!--main-->
+
+    <!--/div-->
+</div>
+
+<!--Bottom-->
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统<!--br />医院电话： 020-12345678 传真： 020-12345678 粤ICP备00000000号--></div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var $content = $("#replycont");
+    $("#reply").click(function(){
+        console.log('enter');
+        var url = "http://localhost:8080/bbs/reply/create",
+            data = {};
+        //data.topic = myObj[1].topic;
+        data.reply_content = $content.val();
+        data.pid = param.pid;
+        data.uid = param.uid;
+        console.log("success");
+        console.log(data);
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(data),
+            async: false,
+            dataType: 'json',
+            contentType:'application/json;charset=UTF-8',
+            success:function(data) {
+                console.log(data);
+                //alert($.trim(data.response));
+                if(data.rid > 0) {
+                    alert('回复成功!');
+                    $(location).attr('href', thisUrl);
+                } else {
+                    alert('失败，请重试!');
+                }
+            }
+        });
+    })
+</script>
+<!--引入JS-->
+
+</body>
+</html>

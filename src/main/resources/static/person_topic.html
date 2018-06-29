@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html class=" js csstransforms3d"><head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>个人帖子统计</title>
+    <!--link rel="stylesheet" href="css/base.css"-->
+    <!--link rel="stylesheet" href="css/page.css"-->
+    <link href="css/css_whir.css" rel="stylesheet" type="text/css" />
+    <!--[if lte IE 8]>
+    <link href="css/ie8.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        /**
+         * 获取参数的键值对对象。
+         * @returns {Object}
+         */
+        var param;
+        var myObj1, myObj2;
+        var thisurl = window.location.href;
+        var getParam = function () {
+            try{
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var keyValue = result.split("&");
+                var obj = {};
+                for (var i = 0; i < keyValue.length; i++) {
+                    var item = keyValue[i].split("=");
+                    obj[item[0]] = item[1];
+                }
+                return obj;}catch(e){
+                console.warn("There has no param value!");
+            }
+        };
+        var switchTime = function (fortime) {
+            var newdate = fortime.split("T")[0];
+            var newtime1 = fortime.split("T")[1];
+            var newtime2 = newtime1.split(".")[0];
+            var newtime = newdate+" "+newtime2;
+            return newtime;
+
+        };
+        /**
+         * 页面加载完毕打印键值对对象
+         */
+        window.onload = function () {
+            param = getParam();
+            console.log(param);
+            var url1 = "/bbs/post/user/" + param.tuserid;
+            var url2 = "/bbs/reply/user/" + param.tuserid;
+            var id1 = "topiclists";
+            var id2 = "replylists";
+            var id3 = "msglink";
+            document.getElementById(id3).innerHTML="<a href=\"online_chat.html?uid="+param.uid+"&tuserid="+param.tuserid+"\" class=\"greenbtn publish\">私信TA</a>";
+            var request1 = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request1.open("GET",url1);/*设置XHR对象的请求方法与路径*/
+            request1.send(null);/*设置XHR对象不发送数据到服务器*/
+            request1.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request1.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x1 = "";
+                    myObj1 = eval('('+ request1.responseText +')');
+                    console.log(myObj1);
+                    for (i in myObj1) {
+                        x1 += "<tr>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"t_10\"><a href=\"topic.html?uid="+param.uid+"&pid="+myObj1[i].pid+"\">"+myObj1[i].topic+"</a></td>\n" +
+                            "                <td class=\"t_9\">"+switchTime(myObj1[i].create_time)+"</td>\n" +
+                            "                <td class=\"t_9\">"+switchTime(myObj1[i].last_reply_time)+"</td>\n" +
+                            "\t\t\t\t\t\t\t</tr>";
+
+                    }
+
+                    document.getElementById(id1).innerHTML = x1;
+                }
+
+            }
+            var request2 = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            request2.open("GET",url2);/*设置XHR对象的请求方法与路径*/
+            request2.send(null);/*设置XHR对象不发送数据到服务器*/
+            request2.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(request2.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var i, x2 = "";
+                    myObj2 = eval('('+ request2.responseText +')');
+                    console.log(myObj2);
+                    for (i in myObj2) {
+                        x2 += "<tr>\n" +
+                            "          <td class=\"t_7\"><a href=\"topic.html?uid="+param.uid+"&pid="+myObj2[i].pid+"\">"+myObj2[i].topic+"</a></td>\n" +
+                            "          <td class=\"t_11\">"+myObj2[i].reply_content+"</td>\n" +
+                            "          <td class=\"t_3\">"+switchTime(myObj2[i].reply_time)+"</td>\n" +
+                            "  </tr>"
+
+                    }
+                    document.getElementById(id2).innerHTML = x2;
+                }
+
+            }
+            var headbar="<li id=\"nav1\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=1\">教师答疑</a></span></li>\n" +
+                "            <li id=\"nav2\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=2\">心灵之约</a></span></li>\n" +
+                "            <li id=\"nav3\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=3\">开怀一笑</a></span></li>\n" +
+                "            <li id=\"nav4\"><span><a href=\"sindex.html?uid="+param.uid+"&sid=4\">论坛公告</a></span></li>\n";
+            document.getElementById("headtoolbar").innerHTML=headbar;
+            var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
+            document.getElementById("indexlink").innerHTML = indexalink;
+
+        }
+
+        function addsearchKey()
+        {
+
+            var objA=document.getElementById("searchbtn");
+            objA.href="search_result.html?uid="+param.uid+"&keyword="+document.getElementById("searchtext").value;
+        }
+
+    </script>
+
+</head>
+
+<body>
+<!--top-->
+<div class="header">
+    <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
+    <div class="frCont">
+        <!--dl><a href="#">职业卫生</a><a href="#">院长信箱</a><a href="#">加入收藏</a></--dl-->
+        <a href="index.html">教务管理系统</a>
+        <!--a href="#">耳鼻咽喉头颈外科</a-->
+        <!--a href="#">广州市职业卫生信息网</a-->
+    </div>
+    <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
+    <div class="mainnav">
+        <ul id="headtoolbar">
+            <li id="nav1"><span><a href="sindex.html?sid=1">教师答疑</a></span></li>
+            <li id="nav2"><span><a href="sindex.html?sid=2">心灵之约</a></span></li>
+            <li id="nav3"><span><a href="sindex.html?sid=3">开怀一笑</a></span></li>
+            <li id="nav4"><span><a href="sindex.html?sid=4">论坛公告</a></span></li>
+            <!--li id="nav4"><span><a href="sindex.html?sid=4">版块4</a></span></li>
+            <li id="nav5"><span><a href="sindex.html">版块5</a></span></li>
+            <li id="nav6"><span><a href="sindex.html">版块6</a></span></li>
+            <li id="nav7"><span><a href="sindex.html">版块7</a></span></li>
+            <li id="nav8"><span><a href="sindex.html">版块8</a></span></li>
+            <li id="nav9"><span><a href="forumindex.html">版块9</a></span></li>
+            <li id="nav10"><span><a href="forumindex.html">版块10</a></span></li-->
+        </ul>
+    </div>
+</div>
+
+<div class="Content_home" style="min-height:380px">
+    <div class="space25"></div>
+    <div class="operateBtn" id="msglink">
+        <a href="online_chat.html?tuserid=" class="greenbtn publish">私信TA</a>
+    </div>
+    <div>
+        <h2>TA的主题帖</h2>
+    </div>
+    <div class="Mian-cont-wrap">
+        <div class="defaultTab-T">
+            <table border="0" cellspacing="0" cellpadding="0" class="defaultTable">
+                <tbody><tr><th class="t_10">帖子标题</th><th class="t_9">发布时间</th><th class="t_9">最后回复时间</th></tr>
+                </tbody></table>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
+            <tbody id="topiclists">
+            <tr>
+                <td class="t_10"><a href="topic.html">帖子标题</a></td>
+                <td class="t_9">发布时间</td>
+                <td class="t_9">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_10"><a href="topic.html">帖子标题</a></td>
+                <td class="t_9">发布时间</td>
+                <td class="t_9">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_10"><a href="topic.html">帖子标题</a></td>
+                <td class="t_9">发布时间</td>
+                <td class="t_9">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_10"><a href="topic.html">帖子标题</a></td>
+                <td class="t_9">发布时间</td>
+                <td class="t_9">回复时间</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+        <!--pages S-->
+        <!--pages E-->
+    </div>
+
+    <div class="space25"></div>
+
+    <div>
+        <h2>TA的回复帖</h2>
+    </div>
+    <div class="Mian-cont-wrap">
+        <div class="defaultTab-T">
+            <table border="0" cellspacing="0" cellpadding="0" class="defaultTable">
+                <tbody><tr><th class="t_7">帖子标题</th><th class="t_11">回复内容</th><th class="t_3">回复时间</th></tr>
+                </tbody></table>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
+            <tbody id="replylists">
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            <tr>
+                <td class="t_7"><a href="topic.html">帖子1</a></td>
+                <td class="t_11">回复内容</td>
+                <td class="t_3">回复时间</td>
+            </tr>
+            </tbody>
+        </table>
+        <!--pages S-->
+        <!--pages E-->
+    </div>
+
+</div>
+<div class="space25"></div>
+<div class="Footer">
+    <div class="box">
+        <div class="txt">教务管理系统<!--br />医院电话： 020-12345678 传真： 020-12345678 粤ICP备00000000号--></div>
+        <dl>Copyright 2018 All Rights Reserved © by SETeam3</dl>
+    </div>
+</div>
+
+
+</body>
+</html>
