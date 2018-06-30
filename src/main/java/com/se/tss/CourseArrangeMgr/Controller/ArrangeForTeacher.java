@@ -47,6 +47,18 @@ public class ArrangeForTeacher {
         return courseForTeacherLogic.CourseArrangeList(name);
     }
 
+    @RequestMapping(value = "/CourseForTeacherListById", method = RequestMethod.GET)
+    public List<CourseForList> CourseArrangeListById(String id){
+        String name=teacherInfoService.findNanme(id);
+        List<CourseForList> courseForLists= courseForTeacherLogic.CourseArrangeList(name);
+        if(courseForLists.size()==0){
+            CourseForList courseForList=new CourseForList();
+            courseForList.setTeacherName(name);
+            courseForLists.add(courseForList);
+        }
+        return  courseForLists;
+    }
+
     @RequestMapping(value = "/CourseForTeacherUpdate", method = RequestMethod.POST)
     public List<CourseForList> TeacherUpdate(String teacherId,String courseId, String place,
                                              String roomNumber,String time,String name,String roomId){
