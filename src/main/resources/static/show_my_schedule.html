@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="renderer" content="webkit">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+	<title>System</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap3.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/bootstrap-table.css">
+	<link href="css/bootstrap-editable.css" rel="stylesheet">
+	<link href="css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="css/dashboard.css" rel="stylesheet">
+	<link href="css/sweetalert.min.css" rel="stylesheet">
+</head>
+
+<!-- body { padding-top: 30px; padding-bottom: 20px; overflow-y: scroll;}  -->
+<style>
+	table {
+		table-layout: fixed;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
+
+	td,
+	th {
+		text-align: center;
+	}
+	
+	.top5 { margin-top:5px; }
+	.top7 { margin-top:7px; }
+	.top10 { margin-top:10px; }
+	.top15 { margin-top:15px; }
+	.top17 { margin-top:17px; }
+	.top30 { margin-top:30px; }
+	
+</style>
+
+
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">教师课表查看</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span id="name"></span>老师</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html"><span data-feather="home"></span> 返回首页</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href=""><span data-feather="file"></span> 查看课表</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="col-md-offset-2 main">	
+				
+				
+				<!-- 切换显示方式和打印 -->
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6 input-lg">
+							<label class="radio-inline">
+							  <input type="radio" name="showmode" id="Radiolist" value="option1" checked onclick="radioShow();" > 列表显示
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="showmode" id="Radiotable" value="option2" onclick="radioShow();"> 表格显示
+							</label>
+						</div>
+						<div class="col-md-6">
+							<div class="text-right">
+								<button type="button" class="btn btn-light" onclick="printout(1);">打印</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- startprint1 -->
+				<div align="center" class="mb-4">
+					<h1>2017-2018学年 春夏 学期课表</h1>
+				</div>
+				<div id="class">
+					<!-- 课表表格显示模块 -->
+					<!-- 列表  -->
+					<div id="list" class="container-fluid mb-5">
+						<table id="listtable"></table> 
+					</div>
+					
+					<!-- 表格 -->
+					<div id="table" class="container-fluid table-responsive mb-5">
+						<table class="table table-bordered table-hover">
+							<colgroup>
+								<col style>
+								<col style>
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col" rowspan="2" colspan="2" class="align-middle">时间</th>
+									<th scope="col">星期一</th>
+									<th scope="col">星期二</th>
+									<th scope="col">星期三</th>
+									<th scope="col">星期四</th>
+									<th scope="col">星期五</th>
+									<th scope="col">星期六</th>
+									<th scope="col">星期日</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row" rowspan="5" class="align-middle">上午</th>
+									<th scope="row" class="align-middle">1</th>
+									<td rowspan="2" id="c00"></td>
+									<td rowspan="2" id="c10"></td>
+									<td rowspan="2" id="c20"></td>
+									<td rowspan="2" id="c30"></td>
+									<td rowspan="2" id="c40"></td>
+									<td rowspan="2" id="c50"></td>
+									<td rowspan="2" id="c60"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">2</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">3</th>
+									<td rowspan="3" id="c01"></td>
+									<td rowspan="3" id="c11"></td>
+									<td rowspan="3" id="c21"></td>
+									<td rowspan="3" id="c31"></td>
+									<td rowspan="3" id="c41"></td>
+									<td rowspan="3" id="c51"></td>
+									<td rowspan="3" id="c61"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">4</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">5</th>
+								</tr>
+								<!-- <tr><th colspan="9"></th></tr>  -->
+								<tr>
+									<th scope="row" rowspan="5" class="align-middle">下午</th>
+									<th scope="row" class="align-middle">6</th>
+									<td rowspan="3" id="c02"></td>
+									<td rowspan="3" id="c12"></td>
+									<td rowspan="3" id="c22"></td>
+									<td rowspan="3" id="c32"></td>
+									<td rowspan="3" id="c42"></td>
+									<td rowspan="3" id="c52"></td>
+									<td rowspan="3" id="c62"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">7</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">8</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">9</th>
+									<td rowspan="2" id="c03"></td>
+									<td rowspan="2" id="c13"></td>
+									<td rowspan="2" id="c23"></td>
+									<td rowspan="2" id="c33"></td>
+									<td rowspan="2" id="c43"></td>
+									<td rowspan="2" id="c53"></td>
+									<td rowspan="2" id="c63"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">10</th>
+								</tr>
+								<!-- <tr><th colspan="9"></th></tr>  -->
+								<tr>
+									<th scope="row" rowspan="3" valign="middle" class="align-middle">晚上</th>
+									<th scope="row" class="align-middle">11</th>
+									<td rowspan="3" id="c04"></td>
+									<td rowspan="3" id="c14"></td>
+									<td rowspan="3" id="c24"></td>
+									<td rowspan="3" id="c34"></td>
+									<td rowspan="3" id="c44"></td>
+									<td rowspan="3" id="c54"></td>
+									<td rowspan="3" id="c64"></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">12</th>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle">13</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- endprint1 -->
+				</div>
+
+				
+			</div>
+		</div>
+	<div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap3.min.js"></script>
+	<script src="js/bootstrap-editable.min.js"></script>
+	<script src="js/bootstrap-table.min.js"></script>
+	<script src="js/tableExport.min.js"></script>
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-editable.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
+	
+	<!-- Icons -->
+	<script src="js/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script>
+	<script type="text/javascript">
+		//页面初始化
+		window.onload = function () {
+			var table = document.getElementById("table");
+			table.style.display = "none";
+			getTeacher();
+		}
+		//打印生成pdf
+		function printout(areaid) {
+			if (areaid < 10) {
+				bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+				sprnstr = "<!-- startprint" + areaid + " -->";//设置打印开始区域
+				eprnstr = "<!-- endprint" + areaid + " -->";//设置打印结束区域
+				prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 20); //从开始代码向后取html
+				prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+				window.document.body.innerHTML = prnhtml;
+				window.print();
+				window.document.body.innerHTML = bdhtml;
+			}
+			else {
+				window.print();
+			}
+		}
+		//切换显示方式
+		function radioShow() {
+			var myradio = document.getElementsByName("showmode");
+			var list = document.getElementById("list");
+			var table = document.getElementById("table");
+			if (myradio[0].checked) {
+				list.style.display = "block";
+			}
+			else {
+				list.style.display = "none";
+			}
+			if (myradio[1].checked) {
+				table.style.display = "block";
+			}
+			else {
+				table.style.display = "none";
+			}
+		}
+	</script>
+	
+	<script>
+    $(function () {
+        $('#listtable').bootstrapTable({  
+			//url: '/CourseForTeacherListById?id=',
+            //method: 'get',  
+            cache: false, 
+			dataType:'json',	
+			contentType: "application/x-www-form-urlencoded",
+            striped: true,  
+			toolbar: '#toolbar',
+            pagination: true,  
+            pageSize: 20, 
+			editable: true,
+            pageNumber:1,  
+            pageList: [10, 15, 20, 25],
+			sidePagination:'client',  
+            search: true,  
+            showColumns: true,  
+            showRefresh: false,  
+            search: true,  
+            clickToSelect: false,  
+			showExport: true,                    
+			exportDataType: 'all',
+			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
+            columns:   
+            [  
+                {field:"className",title:"课程名称",align:"center",valign:"middle",sortable:"true"},  
+				{field:"place",title:"校区",align:"center",valign:"middle",sortable:"true"}, 
+				{field:"roomNumber",title:"上课地点",align:"center",valign:"middle",sortable:"true"}, 
+				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true"},
+            ],  
+        });       
+		
+    }); 
+	
+	function getQueryString(name) {
+		var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) {
+			return unescape(r[2]);
+		}
+	}
+	
+	function getTeacher(){
+		var teacherid = getQueryString("id");
+		var param = {
+			id: teacherid
+		};
+		console.log(param);
+		$.ajax({
+			 type: "get",
+			 url: "/CourseForTeacherListById",
+			 data: param,
+			 dataType:"json",
+			 success : function(data) {
+				//显示教师名称
+				console.log(data);
+				$("#name").html(data[0].teacherName);
+				//更新列表
+				$("#listtable").bootstrapTable('load', data);
+				//更新表格
+				//var data= result.datas;		
+				//在JS中将JSON的字符串解析成JSON数据格式，使用eval()函数
+				for(var i=0;i<5;i++)
+					for(var j=0;j<5;j++){
+						var tplace = "#c"+i+j;
+						$(tplace).html("");
+					}
+				for (var i = 0; i < data.length; i++) {
+					//result[i]表示获得第i个json对象即JSONObject
+					//result[i]通过.字段名称即可获得指定字段的值
+					var weekday = data[i].weekday;
+					var timeperiod = data[i].timeperiod;
+					var tplace = "#c"+weekday+timeperiod;
+					var classdata="<p><strong>"+data[i].className+"</strong></p>"+"<p>"+data[i].place+data[i].roomNumber+"</p>"+"<p>"+data[i].teacherName+"</p>"+"<p>"+data[i].time+"</p>";
+					console.log(tplace);
+					$(tplace).html(classdata);
+				}
+			},
+			error: function(status){
+				console.log(status);
+			}
+		});
+    }
+	
+	</script>
+</body>
+
+</html>
