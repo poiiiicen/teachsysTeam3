@@ -17,7 +17,8 @@ public class UserController {
     @RequestMapping(value = "/bbs/user/{uid}")
     public ForumUser getUser(@PathVariable Integer uid) {
         UserEntity u = userService.findByUid(uid);
-        return u.getUser();
+        ForumUser user = u.getUser();
+        return user;
     }
 
 }
