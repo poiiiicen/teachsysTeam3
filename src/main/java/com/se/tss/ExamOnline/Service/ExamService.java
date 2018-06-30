@@ -29,11 +29,13 @@ public class ExamService {
 
     private Lock lock = new ReentrantLock();
 
-    public List<Exam> findExam(String course, String name, Date startTime, Date endTime, Boolean release, Boolean over) {
+    public List<Exam> findExam(String course, String name, Date startTime, Date endTime, Boolean publish, Boolean over) {
         return examRepository.findAll((Specification<Exam>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             list.add(criteriaBuilder.equal(root.get("visible").as(Boolean.class), true));
-            list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
+            if (course != null && !"".equals(course)) {
+                list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
+            }
             if (name != null && !"".equals(name)) {
                 list.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + name + "%"));
             }
@@ -41,10 +43,10 @@ public class ExamService {
                 list.add(criteriaBuilder.greaterThanOrEqualTo(root.get("startTime").as(Date.class), startTime));
             }
             if (endTime != null) {
-                list.add(criteriaBuilder.lessThanOrEqualTo(root.get("endTime").as(Date.class), startTime));
+                list.add(criteriaBuilder.greaterThanOrEqualTo(root.get("endTime").as(Date.class), endTime));
             }
-            if (release != null) {
-                list.add(criteriaBuilder.equal(root.get("release").as(Boolean.class), release));
+            if (publish != null) {
+                list.add(criteriaBuilder.equal(root.get("publish").as(Boolean.class), publish));
             }
             if (over != null) {
                 list.add(criteriaBuilder.equal(root.get("over").as(Boolean.class), over));
@@ -61,7 +63,7 @@ public class ExamService {
     public String findCourseById(Integer id) {
         Exam exam = examRepository.findExamById(id);
         if (exam == null) return null;
-        return "test";//exam.getCourse();
+        return exam.getCourse();
     }
 
     public List<Question> getAllQuestionsByExamId(Integer id) {

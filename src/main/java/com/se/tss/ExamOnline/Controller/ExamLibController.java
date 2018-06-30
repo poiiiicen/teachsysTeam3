@@ -44,14 +44,14 @@ public class ExamLibController {
 
     @LoginRequired
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity<?> searchResult(@CurrentUser User user, String course, String name, Date startTime, Date endTime, Boolean release, Boolean over) {
+    public ResponseEntity<?> searchResult(@CurrentUser User user, String course, String name, Date startTime, Date endTime, Boolean publish, Boolean over) {
         if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
             return ResponseEntity.badRequest().body(new ExamResponseBody("Not Teacher or Admin"));
         }
         if (course == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course)) {
             return ResponseEntity.badRequest().body(new ExamResponseBody(course == null ? "Need Course" : "No Such Course"));
         }
-        List<Exam> exams = examService.findExam(course, name, startTime, endTime, release, over);
+        List<Exam> exams = examService.findExam(course, name, startTime, endTime, publish, over);
         return ResponseEntity.ok(new ExamResponseBody(exams.isEmpty() ? "No Result" : "Success", exams));
     }
 
