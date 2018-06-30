@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value = "questionQueryService")
+@Service(value = "questionService")
 public class QuestionService {
     @Resource
     private QuestionLibRepository questionLibRepository;
