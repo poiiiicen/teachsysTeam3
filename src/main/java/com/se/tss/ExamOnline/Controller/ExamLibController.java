@@ -68,15 +68,6 @@ public class ExamLibController {
             return ResponseEntity.badRequest().body(new ExamResponseBody("No permission"));
         }
 
-        List<Question> questions = examService.getAllQuestionsByExamId(eid);
-        if (userRepository.findAuthorityById(user.getId()).equals("Student")) {
-            Date date = new Date();
-            if (date.getTime() < exam.getEndTime().getTime() && date.getTime() > exam.getStartTime().getTime()) {
-                for (Question question : questions) {
-                    question.setAnswer(0);
-                }
-            }
-        }
         return ResponseEntity.ok(new QuestionResponseBody("Success", examService.getAllQuestionsByExamId(eid)));
     }
 

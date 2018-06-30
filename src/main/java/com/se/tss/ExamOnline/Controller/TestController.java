@@ -4,6 +4,7 @@ import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import com.se.tss.ExamOnline.Domain.Exam;
 import com.se.tss.ExamOnline.Domain.ExamResponseBody;
+import com.se.tss.ExamOnline.Domain.QuestionResponseBody;
 import com.se.tss.ExamOnline.Service.ExamService;
 import com.se.tss.ExamOnline.Service.TestService;
 import com.se.tss.ExamOnline.Service.TestStudentCourseService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -60,5 +62,25 @@ public class TestController {
         }
         List<Exam> exams = testService.findExamByCoursesAndPublishTrue(courses);
         return ResponseEntity.ok(new ExamResponseBody(exams.isEmpty() ? "No result" : "Success", exams));
+    }
+
+    @LoginRequired
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ResponseEntity<?> getTest(@CurrentUser User user, Integer id) {
+        if (!userRepository.findAuthorityById(user.getId()).equals("Student")) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("No permission"));
+        }
+        Exam exam = examService.findExamById(id);
+        if (exam == null) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("No such exam"));
+        }
+        if (!testStudentCourseService.findCoursesByStudentId(user.getId()).contains(exam.getCourse())) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("No permission"));
+        }
+        Date date = new Date();
+        if (date.getTime() < exam.getStartTime().getTime() || date.getTime() > exam.getEndTime().getTime() || !exam.getPublish()) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Cannot take"));
+        }
+        return ResponseEntity.ok(new QuestionResponseBody("Success", testService.findQuestionByExamId(id)));
     }
 }

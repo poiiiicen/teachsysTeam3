@@ -11,5 +11,4 @@ import java.util.List;
 public interface TestStudentCourseRepository extends JpaRepository<TestStudentCourse, Integer> {
     @Query(value = " select course from test_student_course where student_id = ?1 ", nativeQuery = true)
     List<String> findCourseByStudentId(Integer id);
-    //List<String> findCourseByStudentId(Integer id);
 }

@@ -1,6 +1,7 @@
 package com.se.tss.ExamOnline.Service;
 
 import com.se.tss.ExamOnline.Domain.Exam;
+import com.se.tss.ExamOnline.Domain.Question;
 import com.se.tss.ExamOnline.Repository.ExamRepository;
 import com.se.tss.ExamOnline.Repository.TestGradeRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,14 @@ public class TestService {
             exams.addAll(examService.findExam(course, null, null, new Date(), true, null));
         }
         return exams;
+    }
+
+    public List<Question> findQuestionByExamId(Integer id) {
+        List<Question> questions = examService.getAllQuestionsByExamId(id);
+        for (Question question : questions) {
+            question.setAnswer(0);
+        }
+        return questions;
     }
 
 }
