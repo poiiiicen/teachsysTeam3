@@ -64,9 +64,7 @@ public class ExamLibController {
         if (course == null) return ResponseEntity.badRequest().body(new ExamResponseBody("No such exam"));
         if (!userRepository.findAuthorityById(user.getId()).equals("Admin")
                 && !(userRepository.findAuthorityById(user.getId()).equals("Teacher")
-                && classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course))
-                && !(userRepository.findAuthorityById(user.getId()).equals("Student")
-                && true)) {// TODO : using student class info
+                && classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course))) {
             return ResponseEntity.badRequest().body(new ExamResponseBody("No permission"));
         }
 
