@@ -14,6 +14,16 @@ public class Message {
     public Message() {
     }
 
+    public Message(Integer mid, Integer sender_id, String sender_name, Integer receiver_id, String receiver_name, String message, Timestamp sendTime) {
+        this.mid = mid;
+        this.sender_id = sender_id;
+        this.sender_name = sender_name;
+        this.receiver_id = receiver_id;
+        this.receiver_name = receiver_name;
+        this.message = message;
+        this.sendTime = sendTime;
+    }
+
     public Integer getMid() {
         return mid;
     }

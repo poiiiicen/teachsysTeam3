@@ -29,27 +29,30 @@ public class MessageController {
     //创建私信
     //传入：sender_id receiver_id message
     @RequestMapping(value = "bbs/message/create")
-    public Message createNotice(@RequestBody Message m) {
+    public Message createMessage(@RequestBody Message m) {
         MessageEntity messageEntity = new MessageEntity();
         messageEntity.setSender(userService.findByUid(m.getSender_id()));
         messageEntity.setReceiver(userService.findByUid(m.getReceiver_id()));
         messageEntity.setMessage(m.getMessage());
         messageEntity.setSendTime(getBeijingTime());
+        messageEntity.setSendView(true);
+        messageEntity.setRecvView(true);
         messageService.save(messageEntity);
         m.setMid(messageEntity.getMid());
         return m;
     }
     //得到某用户相关私信
-    @RequestMapping(value = "/bbs/message/all/{uid1}/{uid2}")
-    public List<Message> searchPost(@PathVariable Integer uid1, @PathVariable Integer uid2){
-        UserEntity u1 = userService.findByUid(uid1);
-        UserEntity u2 = userService.findByUid(uid2);
+    @RequestMapping(value = "/bbs/message/all/{rid}/{sid}")
+    public List<Message> searchMessage(@PathVariable Integer rid, @PathVariable Integer sid){
+        UserEntity u1 = userService.findByUid(rid);
+        UserEntity u2 = userService.findByUid(sid);
         List<MessageEntity> messageEntities = messageService.findBySenderAndReceiverOrSenderAndReceiverOrderBySendTime(u1, u2, u2, u1);
         List<Message> messages = new ArrayList<>();
         for(MessageEntity me: messageEntities)
         {
-            Message m = me.getMessageInfo();
-            messages.add(m);
+            Message m = me.getMessageInfo(sid);
+            if(m != null)
+                messages.add(m);
         }
         if(messages.size() == 0)
         {
@@ -60,6 +63,32 @@ public class MessageController {
            messages.add(m);
         }
         return messages;
+    }
+    //查看所有私信
+    @RequestMapping(value = "/bbs/message/all")
+    public List<Message> getMessage(){
+        List<MessageEntity> messageEntities = messageService.findAll();
+        List<Message> messages = new ArrayList<>();
+        for(MessageEntity me: messageEntities)
+        {
+            Message m = me.getMessageInfo();
+            messages.add(m);
+        }
+        return messages;
+    }
+    //删除某条私信
+    @RequestMapping(value = "/bbs/message/delete/{mid}/{uid}")
+    public Message deleteMessage(@PathVariable Integer mid, @PathVariable Integer uid){
+        UserEntity u1 = userService.findByUid(uid);
+        MessageEntity messageEntity = messageService.findByMid(mid);
+        Message message = messageEntity.getMessageInfo(uid);
+        if(messageEntity.getSender().getUid() == uid)
+            messageEntity.setSendView(false);
+        else if(messageEntity.getReceiver().getUid() == uid)
+            messageEntity.setRecvView(false);
+        if(!messageEntity.isSendView() && !messageEntity.isRecvView())
+            messageService.delete(messageEntity);
+        return message;
     }
 
 }
