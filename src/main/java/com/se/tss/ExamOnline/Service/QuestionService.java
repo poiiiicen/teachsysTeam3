@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.validation.constraints.NotNull;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class QuestionService {
         return questionLibRepository.findQuestionById(id).getCourse();
     }
 
+    public void addQuestion(Question question) {
+        questionLibRepository.save(question);
+    }
+
     public boolean deleteQuestionById(Integer id) {
         @NotNull
         Question question = questionLibRepository.findQuestionById(id);
@@ -46,5 +51,9 @@ public class QuestionService {
         question.setVisible(false);
         questionLibRepository.save(question);
         return true;
+    }
+
+    public Integer queryMaxId() {
+        return questionLibRepository.maxId();
     }
 }

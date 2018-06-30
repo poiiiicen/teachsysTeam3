@@ -12,12 +12,19 @@ import java.util.ArrayList;
 public class Question {
     @Id
     @GeneratedValue
+    @Column(nullable = false)
     private Integer id;
+    @Column(nullable = false)
     private String course;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private Integer type;
+    @Column(nullable = true)
     private ArrayList<String> choice;
+    @Column(nullable = false)
     private Integer answer;
+    @Column(nullable = false)
     private Boolean visible;
 
     public Integer getId() {

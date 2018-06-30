@@ -11,14 +11,16 @@ import com.se.tss.infomgr.model.Gender;
 import com.se.tss.infomgr.model.User;
 import com.se.tss.infomgr.model.UserRepository;
 import com.se.tss.infomgr.service.UserService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping("/exam/questions")
@@ -31,6 +33,9 @@ public class QuestionLibController {
 
     private final String[] authorityUser = {"Teacher", "Admin"};
 
+    private Integer maxId;
+    private Lock lock = new ReentrantLock();
+
     @Autowired
     public QuestionLibController(QuestionService questionService,
                                  ClassInfoService classInfoService,
@@ -42,6 +47,7 @@ public class QuestionLibController {
         this.teacherInfoService = teacherInfoService;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.maxId = questionService.queryMaxId();
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -60,6 +66,31 @@ public class QuestionLibController {
         }
         List<Question> questions = questionService.findQuestion(type, description, tag == null ? null : tag.split(" "));
         return ResponseEntity.ok(new QuestionResponseBody(questions.isEmpty() ? "No Result" : "Success", questions));
+    }
+
+    @LoginRequired
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity<?> addQuestion(@CurrentUser User user, @RequestBody Question question) {
+        if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
+        }
+        if (!classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(question.getCourse())) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("No permission"));
+        }
+        lock.lock();
+        question.setId(maxId + 1);
+        question.setVisible(true);
+        try {
+            questionService.addQuestion(question);
+            maxId += 1;
+        }
+        catch (DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Cannot have null value except id or visible"));
+        }
+        finally {
+            lock.unlock();
+        }
+        return ResponseEntity.ok(new QuestionResponseBody("Success"));
     }
 
     @LoginRequired
