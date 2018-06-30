@@ -1,10 +1,11 @@
 package com.se.tss.ExamOnline.Domain;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Answer {
     private Integer examId;
-    private List<Integer> answer;
+    private ArrayList<Integer> answer;
+    private Boolean commit;
 
     public Integer getExamId() {
         return examId;
@@ -14,11 +15,19 @@ public class Answer {
         this.examId = examId;
     }
 
-    public List<Integer> getAnswer() {
+    public ArrayList<Integer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(List<Integer> answer) {
+    public void setAnswer(ArrayList<Integer> answer) {
         this.answer = answer;
+    }
+
+    public Boolean getCommit() {
+        return commit;
+    }
+
+    public void setCommit(Boolean commit) {
+        this.commit = commit;
     }
 }

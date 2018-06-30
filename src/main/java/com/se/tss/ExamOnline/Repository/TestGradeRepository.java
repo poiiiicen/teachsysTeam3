@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("testGradeRepository")
 public interface TestGradeRepository extends JpaRepository<TestGrade, Integer>, JpaSpecificationExecutor<TestGrade> {
+    TestGrade findFirstByExamIdAndAndStudentId(Integer eid, Integer sid);
 }

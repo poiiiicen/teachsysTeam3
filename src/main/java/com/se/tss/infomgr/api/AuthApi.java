@@ -6,12 +6,12 @@ import com.se.tss.infomgr.model.UserRepository;
 import com.se.tss.infomgr.service.AuthService;
 import com.se.tss.infomgr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/authentication")
 public class AuthApi {
     private AuthService authService;

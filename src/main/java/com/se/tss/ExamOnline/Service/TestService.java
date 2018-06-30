@@ -1,7 +1,6 @@
 package com.se.tss.ExamOnline.Service;
 
-import com.se.tss.ExamOnline.Domain.Exam;
-import com.se.tss.ExamOnline.Domain.Question;
+import com.se.tss.ExamOnline.Domain.*;
 import com.se.tss.ExamOnline.Repository.ExamRepository;
 import com.se.tss.ExamOnline.Repository.TestGradeRepository;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,39 @@ public class TestService {
             question.setAnswer(0);
         }
         return questions;
+    }
+
+    public TestGrade findTestGradeByExamIdAndStudentId(Integer eid, Integer sid) {
+        return testGradeRepository.findFirstByExamIdAndAndStudentId(eid, sid);
+    }
+
+    public void storeSheet(Answer answer, Integer sid) {
+        TestGrade testGrade = findTestGradeByExamIdAndStudentId(answer.getExamId(), sid);
+        if (testGrade == null) {
+            testGrade = new TestGrade();
+            testGrade.setExamId(answer.getExamId());
+            testGrade.setStudentId(sid);
+            testGrade.setGrade(null);
+        }
+        if (testGrade.getGrade() != null) return;
+        Date date = new Date();
+        Exam exam = examService.findExamById(answer.getExamId());
+        if (date.getTime() > exam.getEndTime().getTime() || answer.getCommit()) {
+            testGrade.setGrade(calcGrade(answer, exam.getSelectionGrade(), exam.getJudgementGrade()));
+        }
+        testGrade.setAnswer(answer.getAnswer());
+        testGradeRepository.save(testGrade);
+    }
+
+    private Double calcGrade(Answer answer, Double selectionGrade, Double judegementGrade) {
+        List<Question> questions = examService.getAllQuestionsByExamId(answer.getExamId());
+        Double grade = 0.0;
+        for (Integer i = 0; i < questions.size(); ++i) {
+            if (answer.getAnswer().get(i).equals(questions.get(i).getAnswer())) {
+                grade += questions.get(i).getType() == QuestionType.SELECTION ? selectionGrade : judegementGrade;
+            }
+        }
+        return grade;
     }
 
 }

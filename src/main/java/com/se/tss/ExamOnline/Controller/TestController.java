@@ -2,9 +2,7 @@ package com.se.tss.ExamOnline.Controller;
 
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
-import com.se.tss.ExamOnline.Domain.Exam;
-import com.se.tss.ExamOnline.Domain.ExamResponseBody;
-import com.se.tss.ExamOnline.Domain.QuestionResponseBody;
+import com.se.tss.ExamOnline.Domain.*;
 import com.se.tss.ExamOnline.Service.ExamService;
 import com.se.tss.ExamOnline.Service.TestService;
 import com.se.tss.ExamOnline.Service.TestStudentCourseService;
@@ -14,6 +12,7 @@ import com.se.tss.infomgr.model.User;
 import com.se.tss.infomgr.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,5 +81,23 @@ public class TestController {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Cannot take"));
         }
         return ResponseEntity.ok(new QuestionResponseBody("Success", testService.findQuestionByExamId(id)));
+    }
+
+    @LoginRequired
+    @RequestMapping(value = "/commit", method = RequestMethod.POST)
+    public ResponseEntity<?> commitSheet(@CurrentUser User user, @RequestBody Answer answer) {
+        if (!userRepository.findAuthorityById(user.getId()).equals("Student")) {
+            return ResponseEntity.badRequest().body(new GradeResponseBody("No permission"));
+        }
+        TestGrade testGrade = testService.findTestGradeByExamIdAndStudentId(answer.getExamId(), user.getId());
+        if (testGrade.getGrade() != null) {
+            return ResponseEntity.badRequest().body(new GradeResponseBody("Already commit the exam"));
+        }
+        testService.storeSheet(answer, user.getId());
+        testGrade = testService.findTestGradeByExamIdAndStudentId(answer.getExamId(), user.getId());
+        if (testGrade.getGrade() != null) {
+            return ResponseEntity.ok(new GradeResponseBody("Grade", testGrade.getGrade()));
+        }
+        return ResponseEntity.ok(new GradeResponseBody("Success"));
     }
 }
