@@ -75,7 +75,4 @@ public class QuestionService {
         return true;
     }
 
-    public Integer queryMaxId() {
-        return questionLibRepository.maxId();
-    }
 }
