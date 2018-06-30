@@ -1,10 +1,11 @@
 package com.se.tss.ExamOnline.Domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ExamGrade")
+@Table(name = "testGrade")
 public class TestGrade {
     @Id
     @GeneratedValue
@@ -15,7 +16,8 @@ public class TestGrade {
     @Column(nullable = false)
     private Integer studentId;
     @Column(nullable = false)
-    private List<Integer> answer;
+    private ArrayList<Integer> answer;
+    @Column(nullable = true)
     private Double grade;
 
     public Integer getId() {
@@ -50,11 +52,11 @@ public class TestGrade {
         this.studentId = studentId;
     }
 
-    public List<Integer> getAnswer() {
+    public ArrayList<Integer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(List<Integer> answer) {
+    public void setAnswer(ArrayList<Integer> answer) {
         this.answer = answer;
     }
 }

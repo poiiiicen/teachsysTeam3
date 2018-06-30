@@ -3,7 +3,7 @@ package com.se.tss.ExamOnline.Domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "testStudentCourse")
+@Table(name = "TestStudentCourse")
 public class TestStudentCourse {
     @Id
     @GeneratedValue
