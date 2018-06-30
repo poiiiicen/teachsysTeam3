@@ -2,6 +2,7 @@ package com.se.tss.ExamOnline.Service;
 
 import com.se.tss.ExamOnline.Domain.Question;
 import com.se.tss.ExamOnline.Repository.QuestionLibRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,30 @@ public class QuestionService {
         return questionLibRepository.findQuestionById(id).getCourse();
     }
 
-    public void addQuestion(Question question) {
+    public void addQuestion(Question question, Integer id) {
+        question.setId(id);
+        question.setVisible(true);
+        questionLibRepository.save(question);
+    }
+
+    public Integer modifyQuestion(Question question, Integer id) {
+        if (deleteQuestionById(question.getId())) {
+            try {
+                addQuestion(question, id);
+            } catch (DataIntegrityViolationException e) {
+                recoverQuestionById(question.getId());
+                return 2;
+            }
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    private void recoverQuestionById(Integer id) {
+        @NotNull
+        Question question = questionLibRepository.findQuestionById(id);
+        question.setVisible(true);
         questionLibRepository.save(question);
     }
 

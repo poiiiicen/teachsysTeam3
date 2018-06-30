@@ -74,20 +74,16 @@ public class QuestionLibController {
         if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
         }
-        if (!classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(question.getCourse())) {
-            return ResponseEntity.badRequest().body(new QuestionResponseBody("No permission"));
+        if (question.getCourse() == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(question.getCourse())) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody(question.getCourse() == null ? "Course cannot be null" : "No permission"));
         }
         lock.lock();
-        question.setId(maxId + 1);
-        question.setVisible(true);
         try {
-            questionService.addQuestion(question);
+            questionService.addQuestion(question, maxId + 1);
             maxId += 1;
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Cannot have null value except id or visible"));
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
         return ResponseEntity.ok(new QuestionResponseBody("Success"));
@@ -95,10 +91,38 @@ public class QuestionLibController {
 
     @LoginRequired
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    public String modifyQuestion(Integer id) {
+    public ResponseEntity<?> modifyQuestion(@CurrentUser User user, @RequestBody Question question) {
         // TODO
-
-        return "Success";
+        if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
+        }
+        if (question.getId() == null
+                || questionService.findCourseById(question.getId()) == null
+                || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(questionService.findCourseById(question.getId()))) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody(question.getId() == null ? "Need question" : questionService.findCourseById(question.getId()) == null ? "No such question" : "No permission"));
+        }
+        if (question.getCourse() == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(question.getCourse())) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody(question.getCourse() == null ? "Course cannot be null" : "No permission"));
+        }
+        lock.lock();
+        switch (questionService.modifyQuestion(question, maxId + 1)) {
+            case 0: {
+                maxId += 1;
+                lock.unlock();
+                return ResponseEntity.ok(new QuestionResponseBody("Success"));
+            }
+            case 1: {
+                lock.unlock();
+                return ResponseEntity.badRequest().body(new QuestionResponseBody("Already been deleted"));
+            }
+            case 2: {
+                lock.unlock();
+                return ResponseEntity.badRequest().body("Cannot have null value except id or visible");
+            }
+            default: {
+                return ResponseEntity.ok(new QuestionResponseBody("Success"));
+            }
+        }
     }
 
     @LoginRequired
