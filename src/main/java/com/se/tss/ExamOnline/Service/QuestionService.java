@@ -67,7 +67,7 @@ public class QuestionService {
         questionLibRepository.save(question);
     }
 
-    public boolean deleteQuestionById(Integer id) {
+    public Boolean deleteQuestionById(Integer id) {
         @NotNull
         Question question = questionLibRepository.findQuestionById(id);
         if (!question.isVisible()) return false;

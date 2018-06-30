@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import com.se.tss.ExamOnline.Domain.Question;
+import com.se.tss.ExamOnline.Domain.QuestionResponseBody;
 import com.se.tss.ExamOnline.Service.QuestionService;
 import com.se.tss.infomgr.annotation.CurrentUser;
 import com.se.tss.infomgr.annotation.LoginRequired;
@@ -29,7 +30,7 @@ public class QuestionLibController {
     private final ClassInfoService classInfoService;
     private final TeacherInfoService teacherInfoService;
     private final UserService userService; // TODO: Only used for add testing user, should be dropped.
-    private final UserRepository userRepository; // TODO: Only used for add testing user, should be dropped.
+    private final UserRepository userRepository;
 
     private final String[] authorityUser = {"Teacher", "Admin"};
 
@@ -155,26 +156,4 @@ public class QuestionLibController {
         userService.add(jsonObject);
     }
 
-    private class QuestionResponseBody {
-        private String msg;
-        private List<Question> questions;
-
-        QuestionResponseBody(String msg) {
-            this.msg = msg;
-            this.questions = new ArrayList<>();
-        }
-
-        QuestionResponseBody(String msg, List<Question> questions) {
-            this.msg = msg;
-            this.questions = questions;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public List<Question> getQuestions() {
-            return questions;
-        }
-    }
 }
