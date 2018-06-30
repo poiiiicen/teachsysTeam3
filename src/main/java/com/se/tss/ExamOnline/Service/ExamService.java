@@ -29,6 +29,33 @@ public class ExamService {
 
     private Lock lock = new ReentrantLock();
 
+    public List<Exam> findExamBefore(String course, String name, Date startTime, Date endTime, Boolean publish, Boolean over) {
+        return examRepository.findAll((Specification<Exam>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> list = new ArrayList<>();
+            list.add(criteriaBuilder.equal(root.get("visible").as(Boolean.class), true));
+            if (course != null && !"".equals(course)) {
+                list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
+            }
+            if (name != null && !"".equals(name)) {
+                list.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + name + "%"));
+            }
+            if (startTime != null) {
+                list.add(criteriaBuilder.greaterThanOrEqualTo(root.get("startTime").as(Date.class), startTime));
+            }
+            if (endTime != null) {
+                list.add(criteriaBuilder.lessThanOrEqualTo(root.get("endTime").as(Date.class), endTime));
+            }
+            if (publish != null) {
+                list.add(criteriaBuilder.equal(root.get("publish").as(Boolean.class), publish));
+            }
+            if (over != null) {
+                list.add(criteriaBuilder.equal(root.get("over").as(Boolean.class), over));
+            }
+            Predicate[] p = new Predicate[list.size()];
+            return criteriaBuilder.and(list.toArray(p));
+        });
+    }
+
     public List<Exam> findExam(String course, String name, Date startTime, Date endTime, Boolean publish, Boolean over) {
         return examRepository.findAll((Specification<Exam>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
