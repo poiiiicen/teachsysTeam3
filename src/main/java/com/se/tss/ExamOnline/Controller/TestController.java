@@ -85,17 +85,17 @@ public class TestController {
     @RequestMapping(value = "/commit", method = RequestMethod.POST)
     public ResponseEntity<?> commitSheet(@CurrentUser User user, @RequestBody Answer answer) {
         if (!userRepository.findAuthorityById(user.getId()).equals("Student")) {
-            return ResponseEntity.badRequest().body(new GradeResponseBody("No permission"));
+            return ResponseEntity.badRequest().body(new TestResponseBody("No permission"));
         }
         TestGrade testGrade = testService.findTestGradeByExamIdAndStudentId(answer.getExamId(), user.getId());
         if (testGrade.getGrade() != null) {
-            return ResponseEntity.badRequest().body(new GradeResponseBody("Already commit the exam"));
+            return ResponseEntity.badRequest().body(new TestResponseBody("Already commit the exam"));
         }
         testService.storeSheet(answer, user.getId());
         testGrade = testService.findTestGradeByExamIdAndStudentId(answer.getExamId(), user.getId());
         if (testGrade.getGrade() != null) {
-            return ResponseEntity.ok(new GradeResponseBody("Grade", testGrade.getGrade()));
+            return ResponseEntity.ok(new TestResponseBody("Grade", testGrade.getGrade()));
         }
-        return ResponseEntity.ok(new GradeResponseBody("Success"));
+        return ResponseEntity.ok(new TestResponseBody("Success"));
     }
 }
