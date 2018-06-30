@@ -28,6 +28,7 @@ public class CourseForTeacherLogic {
     @Autowired
     ClassInfoService classInfoService;
 
+
     public List<CourseForList> CourseArrangeList(String name){
         List<CourseForList> courseList = new ArrayList<CourseForList>();
         String teacherId=teacherInfoService.findIdByName(name);
