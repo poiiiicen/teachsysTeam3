@@ -37,19 +37,18 @@ public class QuestionService {
     public String findCourseById(Integer id) {
         Question question = questionLibRepository.findQuestionById(id);
         if (question == null) return null;
-        return questionLibRepository.findQuestionById(id).getCourse();
+        return question.getCourse();
     }
 
-    public void addQuestion(Question question, Integer id) {
-        question.setId(id);
+    public void addQuestion(Question question) {
         question.setVisible(true);
         questionLibRepository.save(question);
     }
 
-    public Integer modifyQuestion(Question question, Integer id) {
+    public Integer modifyQuestion(Question question) {
         if (deleteQuestionById(question.getId())) {
             try {
-                addQuestion(question, id);
+                addQuestion(question);
             } catch (DataIntegrityViolationException e) {
                 recoverQuestionById(question.getId());
                 return 2;

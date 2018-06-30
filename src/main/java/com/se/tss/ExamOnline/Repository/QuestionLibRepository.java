@@ -11,6 +11,9 @@ import java.util.List;
 @Repository("questionLibRepository")
 public interface QuestionLibRepository extends JpaRepository<Question, Integer>, JpaSpecificationExecutor<Question> {
     Question findQuestionById(Integer id);
-    @Query(" select max(id) from Question ")
+
+    @Query(value = " select max(id) from question ", nativeQuery = true)
     Integer maxId();
+
+    List<Question> findAllByVisibleTrueAndIdIn(List<Integer> questionIds);
 }

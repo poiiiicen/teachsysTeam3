@@ -34,7 +34,6 @@ public class QuestionLibController {
 
     private final String[] authorityUser = {"Teacher", "Admin"};
 
-    private Integer maxId;
     private Lock lock = new ReentrantLock();
 
     @Autowired
@@ -48,7 +47,6 @@ public class QuestionLibController {
         this.teacherInfoService = teacherInfoService;
         this.userService = userService;
         this.userRepository = userRepository;
-        this.maxId = questionService.queryMaxId();
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -80,8 +78,7 @@ public class QuestionLibController {
         }
         lock.lock();
         try {
-            questionService.addQuestion(question, maxId + 1);
-            maxId += 1;
+            questionService.addQuestion(question);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Cannot have null value except id or visible"));
         } finally {
@@ -106,9 +103,8 @@ public class QuestionLibController {
             return ResponseEntity.badRequest().body(new QuestionResponseBody(question.getCourse() == null ? "Course cannot be null" : "No permission"));
         }
         lock.lock();
-        switch (questionService.modifyQuestion(question, maxId + 1)) {
+        switch (questionService.modifyQuestion(question)) {
             case 0: {
-                maxId += 1;
                 lock.unlock();
                 return ResponseEntity.ok(new QuestionResponseBody("Success"));
             }

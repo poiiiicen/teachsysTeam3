@@ -20,7 +20,7 @@ public class Question {
     private String description;
     @Column(nullable = false)
     private Integer type;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private ArrayList<String> choice;
     @Column(nullable = false)
     private Integer answer;
