@@ -12,10 +12,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.sql.Time;
@@ -25,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/exam/exams")
 public class ExamLibController {
     private final ExamService examService;

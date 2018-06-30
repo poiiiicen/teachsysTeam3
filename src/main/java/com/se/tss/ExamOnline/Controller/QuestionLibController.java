@@ -24,6 +24,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/exam/questions")
 public class QuestionLibController {
     private final QuestionService questionService;
