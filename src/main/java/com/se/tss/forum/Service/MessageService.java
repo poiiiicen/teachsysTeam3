@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MessageService extends JpaRepository<MessageEntity, String> {
     List<MessageEntity> findBySenderAndReceiverOrSenderAndReceiverOrderBySendTime(UserEntity u1, UserEntity u2, UserEntity u3, UserEntity u4);
+    MessageEntity findByMid(int mid);
 }

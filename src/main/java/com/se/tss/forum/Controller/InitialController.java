@@ -107,10 +107,10 @@ public class InitialController {
         noticeService.save(new NoticeEntity(user1, "notice 3", "test content of notice 3", now, now));
         calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 1);
         now = new Timestamp(calendar.getTimeInMillis());
-        messageService.save(new MessageEntity(user1, userService.findByName("zz"),  "一个来自小明的问候 给zz", now));
+        messageService.save(new MessageEntity(user1, userService.findByName("zz"),  "一个来自小明的问候 给zz", now, true, true));
         calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 1);
         now = new Timestamp(calendar.getTimeInMillis());
-        messageService.save(new MessageEntity(userService.findByName("陈大头"), user1,  "一个来自陈大头的问候 给小刚", now));
+        messageService.save(new MessageEntity(userService.findByName("陈大头"), user1,  "一个来自陈大头的问候 给小刚", now, true, true));
         return "initial successfully";
     }
     @RequestMapping(value = "/clear")
