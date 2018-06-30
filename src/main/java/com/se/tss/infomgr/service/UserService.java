@@ -15,13 +15,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
+    private final AdminRepository adminRepository;
 
 
     @Autowired
-    public UserService(UserRepository userRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public UserService(UserRepository userRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.adminRepository = adminRepository;
     }
 
     public User add(User user) {
@@ -53,7 +55,8 @@ public class UserService {
             teacher.setTitle(jsonObject.getString("title"));
             teacherRepository.save(teacher);
         } else {
-            userRepository.save(user);
+            Admin admin = new Admin(user);
+            adminRepository.save(admin);
         }
     }
 
