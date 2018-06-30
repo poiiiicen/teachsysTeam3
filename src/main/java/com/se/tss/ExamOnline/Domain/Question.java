@@ -75,7 +75,7 @@ public class Question {
         this.answer = answer;
     }
 
-    public Boolean getVisible() {
+    public Boolean isVisible() {
         return visible;
     }
 

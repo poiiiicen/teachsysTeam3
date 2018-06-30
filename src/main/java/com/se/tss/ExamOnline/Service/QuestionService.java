@@ -7,10 +7,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.validation.constraints.NotNull;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +17,11 @@ public class QuestionService {
     @Resource
     private QuestionLibRepository questionLibRepository;
 
-    public List<Question> findQuestion(Integer type, String description, String[] tags) {
+    public List<Question> findQuestion(String course, Integer type, String description, String[] tags) {
         return questionLibRepository.findAll((Specification<Question>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             list.add(criteriaBuilder.equal(root.get("visible").as(Boolean.class), true));
+            list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
             if (type != null) {
                 list.add(criteriaBuilder.equal(root.get("type").as(Integer.class), type));
             }
@@ -71,7 +70,7 @@ public class QuestionService {
     public boolean deleteQuestionById(Integer id) {
         @NotNull
         Question question = questionLibRepository.findQuestionById(id);
-        if (!question.getVisible()) return false;
+        if (!question.isVisible()) return false;
         question.setVisible(false);
         questionLibRepository.save(question);
         return true;

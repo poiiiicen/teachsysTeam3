@@ -64,7 +64,7 @@ public class QuestionLibController {
         if (course == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course)) {
             return ResponseEntity.badRequest().body(new QuestionResponseBody(course == null ? "Need Course" : "No Such Course"));
         }
-        List<Question> questions = questionService.findQuestion(type, description, tag == null ? null : tag.split(" "));
+        List<Question> questions = questionService.findQuestion(course, type, description, tag == null ? null : tag.split(" "));
         return ResponseEntity.ok(new QuestionResponseBody(questions.isEmpty() ? "No Result" : "Success", questions));
     }
 
@@ -144,7 +144,7 @@ public class QuestionLibController {
     }
 
     @Deprecated
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add_user", method = RequestMethod.GET)
     public void add() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "exam");
