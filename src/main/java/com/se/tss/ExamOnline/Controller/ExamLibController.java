@@ -115,4 +115,19 @@ public class ExamLibController {
         }
         return ResponseEntity.ok(new ExamResponseBody("Success"));
     }
+
+    @LoginRequired
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteExam(@CurrentUser User user, @RequestBody Integer id) {
+        if (!userRepository.findAuthorityById(user.getId()).equals("Admin")
+                && !(userRepository.findAuthorityById(user.getId()).equals("Teacher")
+                && classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(examService.findExamById(id).getCourse()))) {
+            return ResponseEntity.badRequest().body(new ExamResponseBody("No permission"));
+        }
+        if (!examService.deleteExam(id)) {
+            return ResponseEntity.badRequest().body(new ExamResponseBody("No permission"));
+        } else {
+            return ResponseEntity.ok(new ExamResponseBody("Success"));
+        }
+    }
 }

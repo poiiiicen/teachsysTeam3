@@ -116,8 +116,15 @@ public class ExamService {
         Exam exam = examRepository.findExamById(examRequestBody.getExam().getId());
         exam.setVisible(false);
         examRepository.save(exam);
-        exam = examRequestBody.getExam();
         addExamWithQuestions(examRequestBody);
+    }
+
+    public Boolean deleteExam(Integer id) {
+        Exam exam = examRepository.findExamById(id);
+        if (!exam.getVisible()) {
+            return false;
+        } else exam.setVisible(false);
+        return true;
     }
 
 }
