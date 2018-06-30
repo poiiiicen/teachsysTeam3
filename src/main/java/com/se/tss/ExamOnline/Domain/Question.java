@@ -13,6 +13,7 @@ public class Question {
     @Id
     @GeneratedValue
     private Integer id;
+    private String course;
     private String description;
     private Integer type;
     private ArrayList<String> choice;
@@ -25,6 +26,14 @@ public class Question {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getDescription() {
