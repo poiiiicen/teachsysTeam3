@@ -86,6 +86,7 @@ public class MessageController {
             messageEntity.setSendView(false);
         else if(messageEntity.getReceiver().getUid() == uid)
             messageEntity.setRecvView(false);
+        messageService.save(messageEntity);
         if(!messageEntity.isSendView() && !messageEntity.isRecvView())
             messageService.delete(messageEntity);
         return message;
