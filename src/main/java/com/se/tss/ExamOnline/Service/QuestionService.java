@@ -6,12 +6,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "questionQueryService")
-public class QuestionQueryService {
+public class QuestionService {
     @Resource
     private QuestionLibRepository questionLibRepository;
 
@@ -29,5 +31,20 @@ public class QuestionQueryService {
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         });
+    }
+
+    public String findCourseById(Integer id) {
+        Question question = questionLibRepository.findQuestionById(id);
+        if (question == null) return null;
+        return questionLibRepository.findQuestionById(id).getCourse();
+    }
+
+    public boolean deleteQuestionById(Integer id) {
+        @NotNull
+        Question question = questionLibRepository.findQuestionById(id);
+        if (!question.getVisible()) return false;
+        question.setVisible(false);
+        questionLibRepository.save(question);
+        return true;
     }
 }

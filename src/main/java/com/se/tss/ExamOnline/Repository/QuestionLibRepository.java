@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository("questionLibRepository")
 public interface QuestionLibRepository extends JpaRepository<Question, Integer>, JpaSpecificationExecutor<Question> {
+    Question findQuestionById(Integer id);
 }

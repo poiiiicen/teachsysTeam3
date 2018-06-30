@@ -4,14 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import com.se.tss.ExamOnline.Domain.Question;
-import com.se.tss.ExamOnline.Service.QuestionQueryService;
+import com.se.tss.ExamOnline.Service.QuestionService;
 import com.se.tss.infomgr.annotation.CurrentUser;
 import com.se.tss.infomgr.annotation.LoginRequired;
 import com.se.tss.infomgr.model.Gender;
-import com.se.tss.infomgr.model.Teacher;
 import com.se.tss.infomgr.model.User;
 import com.se.tss.infomgr.model.UserRepository;
 import com.se.tss.infomgr.service.UserService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/exam/questions")
 public class QuestionLibController {
-    private final QuestionQueryService questionQueryService;
+    private final QuestionService questionService;
     private final ClassInfoService classInfoService;
     private final TeacherInfoService teacherInfoService;
     private final UserService userService; // TODO: Only used for add testing user, should be dropped.
@@ -32,12 +32,12 @@ public class QuestionLibController {
     private final String[] authorityUser = {"Teacher", "Admin"};
 
     @Autowired
-    public QuestionLibController(QuestionQueryService questionQueryService,
+    public QuestionLibController(QuestionService questionService,
                                  ClassInfoService classInfoService,
                                  TeacherInfoService teacherInfoService,
                                  UserService userService,
                                  UserRepository userRepository) {
-        this.questionQueryService = questionQueryService;
+        this.questionService = questionService;
         this.classInfoService = classInfoService;
         this.teacherInfoService = teacherInfoService;
         this.userService = userService;
@@ -56,9 +56,9 @@ public class QuestionLibController {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
         }
         if (course == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course)) {
-            return ResponseEntity.badRequest().body(new QuestionResponseBody(course == null ? "Need Course": "No Such Course"));
+            return ResponseEntity.badRequest().body(new QuestionResponseBody(course == null ? "Need Course" : "No Such Course"));
         }
-        List<Question> questions = questionQueryService.findQuestion(type, description, tag == null ? null : tag.split(" "));
+        List<Question> questions = questionService.findQuestion(type, description, tag == null ? null : tag.split(" "));
         return ResponseEntity.ok(new QuestionResponseBody(questions.isEmpty() ? "No Result" : "Success", questions));
     }
 
@@ -66,14 +66,26 @@ public class QuestionLibController {
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     public String modifyQuestion(Integer id) {
         // TODO
+
         return "Success";
     }
 
     @LoginRequired
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteQuestion(Integer id) {
+    public ResponseEntity<?> deleteQuestion(@CurrentUser User user, @RequestBody Integer id) {
         // TODO
-        return "Success";
+        if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
+        }
+        if (id == null
+                || questionService.findCourseById(id) == null
+                || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(questionService.findCourseById(id))) {
+            return ResponseEntity.badRequest().body(new QuestionResponseBody(id == null ? "Need question" : questionService.findCourseById(id) == null ? "No such question" : "No permission"));
+        }
+        if (questionService.deleteQuestionById(id))
+            return ResponseEntity.ok(new QuestionResponseBody("Success"));
+        else
+            return ResponseEntity.badRequest().body(new QuestionResponseBody("Failed: Already been deleted"));
     }
 
     @Deprecated
