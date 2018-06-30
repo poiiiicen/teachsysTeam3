@@ -40,7 +40,7 @@ a:hover {
 .header .frCont{ height:34px; line-height:30px;}
 .header .frCont a{ color:#fff; padding:0 15px; display:inline-block; height:34px;}
 .header .frCont a:hover,.header .frCont a.acur{ background:url(../images/Top_bgAcur.jpg) no-repeat center top; color:#FFF; text-decoration:none;}
-.header .frCont dl{ float:right;}
+.header .frCont dl{ color:#fff; padding:0 15px; display:inline-block; height:34px; float:right;}
 
 .mainnav{ position:absolute; right:0px; top:130px; width:1002px; height:34px; z-index:1;}
 .mainnav ul li{ float:left; font-size:14px; padding:0 22px;}
