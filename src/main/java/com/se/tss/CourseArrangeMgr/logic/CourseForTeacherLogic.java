@@ -1,6 +1,7 @@
 package com.se.tss.CourseArrangeMgr.logic;
 
 
+import com.se.tss.CourseArrangeMgr.Dao.ClassInfo;
 import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
 import com.se.tss.CourseArrangeMgr.Dao.TeacherCourseClassRoomRelation;
@@ -28,6 +29,7 @@ public class CourseForTeacherLogic {
     @Autowired
     ClassInfoService classInfoService;
 
+
     public List<CourseForList> CourseArrangeList(String name){
         List<CourseForList> courseList = new ArrayList<CourseForList>();
         String teacherId=teacherInfoService.findIdByName(name);
@@ -35,7 +37,9 @@ public class CourseForTeacherLogic {
         List<TeacherCourseClassRoomRelation> teacherCourseClassRoomRelations = teacherCourseClassRoomRelationService.findAllByTeacherid(teacherId);
         for(TeacherCourseClassRoomRelation teacherCourseClassRoomRelation:teacherCourseClassRoomRelations){
             String classId=teacherCourseClassRoomRelation.getCourseid();
-            String className = classInfoService.getNameById(classId);
+            ClassInfo classInfo=classInfoService.findOneById(classId);
+            String className = classInfo.getName();
+            int len=classInfo.getLength();
             String classRoomId=teacherCourseClassRoomRelation.getClassroomid();
             int timePerid=teacherCourseClassRoomRelation.getTimeperiod();
             int weekday=teacherCourseClassRoomRelation.getWeekday();
@@ -43,7 +47,7 @@ public class CourseForTeacherLogic {
             ClassRoomInfo classRoomInfo=classRoomInfoService.findOneById(classRoomId);
             String place=classRoomInfo.getPlace();
             String roomNumber=classRoomInfo.getRoomnumber();
-            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className);
+            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className,len);
             courseList.add(courseForList);
         }
         return courseList;

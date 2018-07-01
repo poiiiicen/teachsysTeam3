@@ -32,4 +32,6 @@ public interface TeacherCourseClassRoomRelationService extends JpaRepository<Tea
     List<TeacherCourseClassRoomRelation> findAllByClassroomid(String classroomid);
 
     TeacherCourseClassRoomRelation findOneByClassroomidAndTeacheridAndCourseid(String classroomid, String teacherid, String courseid);
+
+    List<TeacherCourseClassRoomRelation> findAllByClassroomidAndWeekdayAndTimeperiod(String classroomId,Integer weekday,Integer timeperiod);
 }

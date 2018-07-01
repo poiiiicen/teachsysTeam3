@@ -44,7 +44,7 @@ public class TeacherCourseForListClassRoomRelationServiceTest {
             System.out.println(place);
             String roomNumber=classRoomInfo.getRoomnumber();
             System.out.println(roomNumber);
-            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className);
+            CourseForList courseForList =new CourseForList(teacherId,classId,classRoomId,weekday,timePerid,teacherName,place,roomNumber,className,2);
            System.out.println(teacherId+classId+classRoomId+weekday+timePerid+teacherName+place+roomNumber);
         }
     }

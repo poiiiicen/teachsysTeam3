@@ -51,14 +51,19 @@ public class ArrangeClassLogic {
             //排课成功标记
             boolean flag=false;
             //遍历
+            String result="";
             for(ClassRoomInfo classRoomInfo: classRoomInfos){
                 //从周一到周五 每天六个时间段遍历
+
                 for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
                         //试图插入课程
-                        String result=addLogic.Add(teacherId,classInfo.getId(),classRoomInfo.getId(),i,j);
-                        if(result==""){  //插入成功退出循环
+                        result=addLogic.Add(teacherId,classInfo.getId(),classRoomInfo.getId(),i,j);
+                        if(result.equals("")){  //插入成功退出循环
                             flag=true;
+                            break;
+                        }
+                        if(result.equals("教室的设备无法满足课程需求")){
                             break;
                         }
                         else{
@@ -66,7 +71,9 @@ public class ArrangeClassLogic {
                         }
                     }
                     if(flag){  //插入成功退出循环
-                        i--;
+                        break;
+                    }
+                    if(result.equals("教室的设备无法满足课程需求")){
                         break;
                     }
                 }

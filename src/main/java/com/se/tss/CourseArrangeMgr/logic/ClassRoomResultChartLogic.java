@@ -1,8 +1,10 @@
 package com.se.tss.CourseArrangeMgr.logic;
 
-import com.se.tss.CourseArrangeMgr.Dao.*;
+import com.se.tss.CourseArrangeMgr.Dao.ClassInfo;
+import com.se.tss.CourseArrangeMgr.Dao.ClassRoomInfo;
 import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.ClassRoomResultChart;
-import com.se.tss.CourseArrangeMgr.Dao.ReturnDao.CourseForList;
+import com.se.tss.CourseArrangeMgr.Dao.TeacherCourseClassRoomRelation;
+import com.se.tss.CourseArrangeMgr.Dao.TeacherInfo;
 import com.se.tss.CourseArrangeMgr.Service.ClassInfoService;
 import com.se.tss.CourseArrangeMgr.Service.ClassRoomInfoService;
 import com.se.tss.CourseArrangeMgr.Service.TeacherCourseClassRoomRelationService;
@@ -10,7 +12,6 @@ import com.se.tss.CourseArrangeMgr.Service.TeacherInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,6 +51,7 @@ public class ClassRoomResultChartLogic {
                 = teacherCourseClassRoomRelationService.findAllByClassroomid(classRoomInfo.getId());
         for(TeacherCourseClassRoomRelation relation : teacherCourseClassRoomRelations){
             ClassInfo classInfo = classInfoService.findOneById(relation.getCourseid());
+            int len=classInfo.getLength();
             TeacherInfo teacherInfo = teacherInfoService.findTeacherInfoById(relation.getTeacherid());
             if(classInfo == null || teacherInfo == null){
                 continue;
@@ -65,7 +67,7 @@ public class ClassRoomResultChartLogic {
             cell.setClassId(classInfo.getId());
             cell.setTeacherId(teacherInfo.getId());
             cell.setClassRoomId(classRoomInfo.getId());
-            cell.setTime(cell.format());
+            cell.setTime(cell.format(len));
             classRoomResultChartList.add(cell);
         }
         return classRoomResultChartList;
