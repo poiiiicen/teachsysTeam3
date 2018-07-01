@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "bbs_post")
-@JsonIgnoreProperties(value = { "session", "creator","lastReplier"})
+//@JsonIgnoreProperties(value = { "session", "creator","lastReplier"})
 public class PostEntity {
     @Id
     @GeneratedValue
