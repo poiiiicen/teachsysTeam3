@@ -121,9 +121,12 @@
 					<select id="newtime" name="newtime" class="selectpicker" data-width="auto">
 					  <option style="color: #b6b6b6" disabled selected>节次</option>
 					  <option value="1，2节">1，2节</option>
+					  <option value="3，4节">3，4节</option>
 					  <option value="3，4，5节">3，4，5节</option>
+					  <option value="7，8节">7，8节</option>
 					  <option value="6，7，8节">6，7，8节</option>
 					  <option value="9，10节">9，10节</option>
+					  <option value="11，12节">11，12节</option>
 					  <option value="11，12，13节">11，12，13节</option>
 					</select>
 				  <!-- <div class="checkbox"><label><input type="checkbox"> Remember me</label></div>  -->
@@ -429,7 +432,7 @@
 			exportDataType: 'all',
 			exportTypes:[ 'csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 			onEditableSave: function (field, row, oldValue, $el) {
-				alert('保存地点=' + row.roomNumber +'时间='+ row.time);
+				//alert('保存地点=' + row.roomNumber +'时间='+ row.time);
 				//添加格式验证！！
 				//重要！！
 				var param = {
@@ -508,7 +511,7 @@
 				{field:"time",title:"上课时间",align:"center",valign:"middle",sortable:"true", editable: {
 																								type: 'select',
 																								title: '上课时间',
-																								source: [{value:"周一1，2节",text:"周一1，2节"},{value:"周一3，4，5节",text:"周一3，4，5节"},{value:"周一6，7，8节",text:"周一6，7，8节"},{value:"周一9，10节",text:"周一9，10节"},{value:"周一11，12，13节",text:"周一11，12，13节"},{value:"周二1，2节",text:"周二1，2节"},{value:"周二3，4，5节",text:"周二3，4，5节"},{value:"周二6，7，8节",text:"周二6，7，8节"},{value:"周二9，10节",text:"周二9，10节"},{value:"周二11，12，13节",text:"周二11，12，13节"},{value:"周三1，2节",text:"周三1，2节"},{value:"周三3，4，5节",text:"周三3，4，5节"},{value:"周三6，7，8节",text:"周三6，7，8节"},{value:"周三9，10节",text:"周三9，10节"},{value:"周三11，12，13节",text:"周三11，12，13节"},{value:"周四1，2节",text:"周四1，2节"},{value:"周四3，4，5节",text:"周四3，4，5节"},{value:"周四6，7，8节",text:"周四6，7，8节"},{value:"周四9，10节",text:"周四9，10节"},{value:"周四11，12，13节",text:"周四11，12，13节"},{value:"周五1，2节",text:"周五1，2节"},{value:"周五3，4，5节",text:"周五3，4，5节"},{value:"周五6，7，8节",text:"周五6，7，8节"},{value:"周五9，10节",text:"周五9，10节"},{value:"周五11，12，13节",text:"周五11，12，13节"}]
+																								source: [{value:"周一1，2节",text:"周一1，2节"},{value:"周一3，4节",text:"周一3，4节"},{value:"周一3，4，5节",text:"周一3，4，5节"},{value:"周一7，8节",text:"周一7，8节"},{value:"周一6，7，8节",text:"周一6，7，8节"},{value:"周一9，10节",text:"周一9，10节"},{value:"周一11，12节",text:"周一11，12节"},{value:"周一11，12，13节",text:"周一11，12，13节"},{value:"周二1，2节",text:"周二1，2节"},{value:"周二3，4节",text:"周二3，4节"},{value:"周二3，4，5节",text:"周二3，4，5节"},{value:"周二7，8节",text:"周二7，8节"},{value:"周二6，7，8节",text:"周二6，7，8节"},{value:"周二9，10节",text:"周二9，10节"},{value:"周二11，12节",text:"周二11，12节"},{value:"周二11，12，13节",text:"周二11，12，13节"},{value:"周三1，2节",text:"周三1，2节"},{value:"周三3，4节",text:"周三3，4节"},{value:"周三3，4，5节",text:"周三3，4，5节"},{value:"周三7，8节",text:"周三7，8节"},{value:"周三6，7，8节",text:"周三6，7，8节"},{value:"周三9，10节",text:"周三9，10节"},{value:"周三11，12节",text:"周三11，12节"},{value:"周三11，12，13节",text:"周三11，12，13节"},{value:"周四1，2节",text:"周四1，2节"},{value:"周四3，4节",text:"周四3，4节"},{value:"周四3，4，5节",text:"周四3，4，5节"},{value:"周四7，8节",text:"周四7，8节"},{value:"周四6，7，8节",text:"周四6，7，8节"},{value:"周四9，10节",text:"周四9，10节"},{value:"周四11，12节",text:"周四11，12节"},{value:"周四11，12，13节",text:"周四11，12，13节"},{value:"周五1，2节",text:"周五1，2节"},{value:"周五3，4节",text:"周五3，4节"},{value:"周五3，4，5节",text:"周五3，4，5节"},{value:"周五7，8节",text:"周五7，8节"},{value:"周五6，7，8节",text:"周五6，7，8节"},{value:"周五9，10节",text:"周五9，10节"},{value:"周五11，12节",text:"周五11，12节"},{value:"周五11，12，13节",text:"周五11，12，13节"}]
 																								}},
             ],  
         });                                       

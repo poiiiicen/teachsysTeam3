@@ -90,8 +90,8 @@
 					<div class="form-group"><input id="newcapacity" class="form-control" placeholder="容量"></div>
 					<select id="newequipment" class="form-control">
 					  <option style="color: #b6b6b6" disabled selected>设备</option>
-					  <option value="none">none</option>
-					  <option value="processor">processor</option>
+					  <option value="无">无</option>
+					  <option value="投影仪">投影仪</option>
 					</select>
 				  <button  type="button" class="btn btn-outline-info" onclick="add();">新增</button>
 				</form>
@@ -163,7 +163,7 @@
 				exportDataType: 'all',
 				exportTypes: ['csv', 'excel', 'xlsx', 'pdf'],  //导出文件类型
 				onEditableSave: function (field, row, oldValue, $el) {
-					alert('保存校区=' + row.place +'教室='+ row.roomnumber+ ' 容量=' + row.capacity+' 设备=' + row.equipment);
+					//alert('保存校区=' + row.place +'教室='+ row.roomnumber+ ' 容量=' + row.capacity+' 设备=' + row.equipment);
 					//添加格式验证！！
 					//重要！！
 					var param = {
@@ -202,8 +202,9 @@
 								title: '容量',
 								validate: function (value) {
 									value = $.trim(value);
-									if (!value) {
-										return 'This field is required';
+									var re = /^[1-9]+[[0-9]*]*$/;
+									if (!re.test(value)) {
+										return '请输入正整数';
 									}
 									var data = $('#listtable').bootstrapTable('getData'),
 										index = $(this).parents('tr').data('index');
@@ -213,19 +214,10 @@
 							}
 						},
 						{ field: "equipment", title: "设备", align: "center", valign: "middle", editable: {
-								type: 'text',
-								title: '设备',
-								validate: function (value) {
-									value = $.trim(value);
-									if (!value) {
-										return 'This field is required';
-									}
-									var data = $('#listtable').bootstrapTable('getData'),
-										index = $(this).parents('tr').data('index');
-									console.log(data[index]);
-									return '';
-								}
-							},
+																								type: 'select',
+																								title: '设备',
+																								source: [{value:"投影仪",text:"投影仪"},{value:"无",text:"无"},]
+																								}
 						}
 					],
 			});

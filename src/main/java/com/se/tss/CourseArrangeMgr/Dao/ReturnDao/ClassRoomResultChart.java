@@ -110,7 +110,7 @@ public class ClassRoomResultChart {
         this.roomNumber = roomNumber;
     }
 
-    public String format() {
+    public String format(int len) {
         String day="";
         String segment="";
         switch(weekday){
@@ -122,10 +122,10 @@ public class ClassRoomResultChart {
         }
         switch(timePeriod){
             case 0: segment="1，2节" ; break;
-            case 1: segment="3，4，5节" ; break;
-            case 2: segment="6，7，8节" ; break;
+            case 1: if(len==3)segment="3，4，5节" ; else segment="3，4节"; break;
+            case 2: if(len==3)segment="6，7，8节" ; else segment="7，8节";break;
             case 3: segment="9，10节" ; break;
-            case 4: segment="11，12，13节" ; break;
+            case 4: if(len==3)segment="11，12，13节" ;else segment="11，12节" ; break;
         }
         return day+segment;
     }
