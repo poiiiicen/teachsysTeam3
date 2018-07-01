@@ -35,9 +35,12 @@ public class InitialController {
         userService.save(new UserEntity( 1 , "zz", "Student", null, null, null, null, null, null));
         userService.save(new UserEntity( 2 , "kira", "Admin", null, null, null, null, null, null));
         userService.save(new UserEntity( 3 , "zzzzzzz", "Student", null, null, null, null, null, null));
+        userService.save(new UserEntity( 4 , "小明", "Student", null, null, null, null, null, null));
+        userService.save(new UserEntity( 5 , "翁凯", "Teacher", null, null, null, null, null, null));
         userService.save(new UserEntity( 13 , "陈大头", "Student", null, null, null, null, null, null));
-        userService.save(new UserEntity( 34 , "翁凯", "Teacher", null, null, null, null, null, null));
-        userService.save(new UserEntity( 35 , "小明", "Student", null, null, null, null, null, null));
+        userService.save(new UserEntity( 49 , "小花", "Student", null, null, null, null, null, null));
+        userService.save(new UserEntity( 50 , "Sam", "Student", null, null, null, null, null, null));
+
         sessionService.save(new SessionEntity("S001","教师答疑", "您在课程、作业上遇到的问题，可以在本版块向老师提问", 0, 0,null));
         sessionService.save(new SessionEntity("S002","心灵之约", "您在生活、情感上遇到的问题，可以在本版块进行吐槽", 0, 0,null));
         sessionService.save(new SessionEntity("S003","开怀一笑", "您在任何地方发现的一些欢乐，不放在本版块分享给大家", 0, 0,null));
@@ -107,10 +110,10 @@ public class InitialController {
         noticeService.save(new NoticeEntity(user1, "notice 3", "test content of notice 3", now, now));
         calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 1);
         now = new Timestamp(calendar.getTimeInMillis());
-        messageService.save(new MessageEntity(user1, userService.findByName("zz"),  "一个来自小明的问候 给zz", now));
+        messageService.save(new MessageEntity(user1, userService.findByName("zz"),  "一个来自小明的问候 给zz", now, true, true));
         calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 1);
         now = new Timestamp(calendar.getTimeInMillis());
-        messageService.save(new MessageEntity(userService.findByName("陈大头"), user1,  "一个来自陈大头的问候 给小刚", now));
+        messageService.save(new MessageEntity(userService.findByName("陈大头"), user1,  "一个来自陈大头的问候 给小刚", now, true, true));
         return "initial successfully";
     }
     @RequestMapping(value = "/clear")

@@ -122,7 +122,10 @@ public class UserEntity {
     }
     public ForumUser getUser()
     {
-        ForumUser u = new ForumUser(uid, name, authority);
+        ForumUser u = new ForumUser();
+        u.setUid(uid);
+        u.setName(name);
+        u.setAuthority(authority);
         return u;
     }
 }

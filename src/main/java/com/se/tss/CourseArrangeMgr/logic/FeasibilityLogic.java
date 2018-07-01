@@ -53,6 +53,9 @@ public class FeasibilityLogic {
                 return "教室时间冲突";
             }
         }
+        relations=teacherCourseClassRoomRelationService.findAllByClassroomidAndWeekdayAndTimeperiod(classRoomId,weekday,timePeriod);
+        if(relations.size()!=0)
+            return "该教室这个时间段已有课程";
         return ""; //可行返回空串
     }
 }

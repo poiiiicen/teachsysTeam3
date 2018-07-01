@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin
 @RestController
-@RequestMapping(value = "/users")
 public class UserController {
     @Autowired
     ForumUserService userService;
@@ -19,7 +17,8 @@ public class UserController {
     @RequestMapping(value = "/bbs/user/{uid}")
     public ForumUser getUser(@PathVariable Integer uid) {
         UserEntity u = userService.findByUid(uid);
-        return u.getUser();
+        ForumUser user = u.getUser();
+        return user;
     }
 
 }

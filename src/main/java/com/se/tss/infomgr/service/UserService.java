@@ -1,6 +1,8 @@
 package com.se.tss.infomgr.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.se.tss.forum.Entity.UserEntity;
+import com.se.tss.forum.Service.ForumUserService;
 import com.se.tss.infomgr.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +17,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
-
+    private final AdminRepository adminRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    ForumUserService forumUserService;
+
+    @Autowired
+    public UserService(UserRepository userRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.adminRepository = adminRepository;
     }
 
     public User add(User user) {
@@ -33,11 +39,13 @@ public class UserService {
 
     public void add(JSONObject jsonObject) {
         User user = new User();
+        UserEntity userEntity = new UserEntity();
         user.setName(jsonObject.getString("name"));
         user.setPassword(passwordToHash(jsonObject.getString("password")));
         user.setAge(jsonObject.getInteger("age"));
         user.setGender(Gender.valueOf(jsonObject.getString("gender")));
         user.setPhone(jsonObject.getString("phone"));
+        userEntity.setName(jsonObject.getString("name"));
 //        userRepository.save(user);
         if (jsonObject.getString("studentID") != null) {
             Student student = new Student(user);
@@ -46,14 +54,24 @@ public class UserService {
             student.setDepartment(jsonObject.getString("department"));
             student.setGrade(jsonObject.getInteger("grade"));
             student.setMajor(jsonObject.getString("major"));
-            studentRepository.save(student);
+            student = studentRepository.save(student);
+            userEntity.setUid(student.getId());
+            userEntity.setAuthority("Student");
+            forumUserService.save(userEntity);
         } else if (jsonObject.getString("title") != null) {
             Teacher teacher = new Teacher(user);
             teacher.setDepartment(jsonObject.getString("department"));
             teacher.setTitle(jsonObject.getString("title"));
-            teacherRepository.save(teacher);
+            teacher = teacherRepository.save(teacher);
+            userEntity.setUid(teacher.getId());
+            userEntity.setAuthority("Teacher");
+            forumUserService.save(userEntity);
         } else {
-            userRepository.save(user);
+            Admin admin = new Admin(user);
+            admin = adminRepository.save(admin);
+            userEntity.setUid(admin.getId());
+            userEntity.setAuthority("Admin");
+            forumUserService.save(userEntity);
         }
     }
 

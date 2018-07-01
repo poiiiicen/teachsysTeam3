@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,19 @@ public class ArrangeForTeacher {
     @RequestMapping(value = "/CourseForTeacherList", method = RequestMethod.GET)
     public List<CourseForList> CourseArrangeList(String name){
         return courseForTeacherLogic.CourseArrangeList(name);
+    }
+
+    @RequestMapping(value = "/CourseForTeacherListById", method = RequestMethod.GET)
+    public List<CourseForList> CourseArrangeListById(String id){
+        String name=teacherInfoService.findNanme(id);
+        List<CourseForList> courseForLists= courseForTeacherLogic.CourseArrangeList(name);
+        if(courseForLists==null){
+            CourseForList courseForList=new CourseForList();
+            courseForLists=new ArrayList<CourseForList>(1);
+            courseForList.setTeacherName(name);
+            courseForLists.add(courseForList);
+        }
+        return  courseForLists;
     }
 
     @RequestMapping(value = "/CourseForTeacherUpdate", method = RequestMethod.POST)

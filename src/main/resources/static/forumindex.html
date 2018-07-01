@@ -44,6 +44,18 @@
             document.getElementById("headtoolbar").innerHTML=headbar;
             var indexalink = "<a href=\"forumindex.html?uid="+param.uid+"\"><img src=\"images/Forlogo.png\" /></a>";
             document.getElementById("indexlink").innerHTML = indexalink;
+            var unamerequest = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            unamerequest.open("GET","/bbs/user/"+param.uid);/*设置XHR对象的请求方法与路径*/
+            unamerequest.send(null);/*设置XHR对象不发送数据到服务器*/
+            unamerequest.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                if(unamerequest.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                    var userinfo;
+                    userinfo = eval('('+ unamerequest.responseText +')');
+                    console.log(userinfo);
+                    document.getElementById("showuser").innerHTML = userinfo.name;
+                }
+
+            }
         }
 
         var switchTime = function (fortime) {
@@ -109,7 +121,7 @@
 <div class="header">
     <h1 class="logo" id="indexlink"><a href="forumindex.html"><img src="images/Forlogo.png" /></a></h1>
     <div class="frCont">
-        <a href="index.html">教务管理系统</a><div id = "S1"></div>
+        <a href="index.html">教务管理系统</a><dl id="showuser">用户</dl>
     </div>
     <div class="search"><input id="searchtext" name="searchtext" type="text" class="text" value=""/><a id="searchbtn" href="" class="btn" onclick="addsearchKey()"></a></div>
     <div class="mainnav">

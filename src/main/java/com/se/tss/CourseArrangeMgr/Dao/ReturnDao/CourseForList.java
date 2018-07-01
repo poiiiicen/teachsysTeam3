@@ -27,7 +27,7 @@ public class CourseForList {
     public CourseForList(){}
 
     public CourseForList(String teacherId, String classId, String classRoomId, int weekday,
-                         int timeperiod, String teacherName, String place, String roomNumber,String className) {
+                         int timeperiod, String teacherName, String place, String roomNumber,String className,int len) {
         this.teacherId = teacherId;
         this.classId = classId;
         this.classRoomId = classRoomId;
@@ -38,7 +38,7 @@ public class CourseForList {
         this.roomNumber = roomNumber;
         this.className=className;
         this.status="";
-        this.time=format();
+        this.time=format(len);
     }
 
 
@@ -131,7 +131,7 @@ public class CourseForList {
         this.status = status;
     }
 
-    public String format() {
+    public String format(int len) {
         String day="";
         String segment="";
         switch(weekday){
@@ -143,10 +143,10 @@ public class CourseForList {
         }
         switch(timeperiod){
             case 0: segment="1，2节" ; break;
-            case 1: segment="3，4，5节" ; break;
-            case 2: segment="6，7，8节" ; break;
+            case 1: if(len==3)segment="3，4，5节" ; else segment="3，4节"; break;
+            case 2: if(len==3)segment="6，7，8节" ; else segment="7，8节";break;
             case 3: segment="9，10节" ; break;
-            case 4: segment="11，12，13节" ; break;
+            case 4: if(len==3)segment="11，12，13节" ;else segment="11，12节" ; break;
         }
         return day+segment;
     }
