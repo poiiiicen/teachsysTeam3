@@ -7,7 +7,6 @@ import java.util.Date;
 @Table(name = "Exam")
 public class Exam {
     @Id
-    @GeneratedValue
     @Column(nullable = false)
     private Integer id;
     @Column(nullable = false)

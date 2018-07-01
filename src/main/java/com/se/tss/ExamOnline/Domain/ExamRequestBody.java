@@ -6,7 +6,7 @@ public class ExamRequestBody {
     private Exam exam;
     private List<Integer> questionIds;
     private Integer selectionNum;
-    private Integer jugementNum;
+    private Integer judgementNum;
 
     public Exam getExam() {
         return exam;
@@ -24,12 +24,12 @@ public class ExamRequestBody {
         this.questionIds = questionIds;
     }
 
-    public Integer getJugementNum() {
-        return jugementNum;
+    public Integer getJudgementNum() {
+        return judgementNum;
     }
 
-    public void setJugementNum(Integer jugementNum) {
-        this.jugementNum = jugementNum;
+    public void setJudgementNum(Integer judgementNum) {
+        this.judgementNum = judgementNum;
     }
 
     public Integer getSelectionNum() {

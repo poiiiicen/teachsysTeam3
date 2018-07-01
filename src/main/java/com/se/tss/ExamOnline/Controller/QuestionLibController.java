@@ -139,10 +139,10 @@ public class QuestionLibController {
     }
 
     @Deprecated
-    @RequestMapping(value = "/add_user", method = RequestMethod.GET)
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
     public void add() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "exam");
+        jsonObject.put("name", "test");
         jsonObject.put("password", "123456");
         jsonObject.put("age", 11);
         jsonObject.put("gender", Gender.male);

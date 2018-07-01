@@ -102,43 +102,53 @@ public class ExamService {
     public void addExamWithQuestions(ExamRequestBody examRequestBody) {
         Exam exam = examRequestBody.getExam();
         lock.lock();
-        exam.setId(examRepository.maxId() + 1);
-        exam.setVisible(true);
-        examRepository.save(exam);
-        for (Integer questionId :
-                examRequestBody.getQuestionIds()) {
-            ExamQuestion examQuestion = new ExamQuestion();
-            examQuestion.setExamId(exam.getId());
-            examQuestion.setId(questionId);
-            examQuestionRepository.save(examQuestion);
+        try {
+            exam.setId(examRepository.maxId() + 1);
+            exam.setVisible(true);
+            examRepository.save(exam);
+            for (Integer questionId :
+                    examRequestBody.getQuestionIds()) {
+                ExamQuestion examQuestion = new ExamQuestion();
+                examQuestion.setExamId(exam.getId());
+                examQuestion.setQuestionId(questionId);
+                examQuestionRepository.save(examQuestion);
+            }
+        } catch (Exception ignore) {
+
+        } finally {
+            lock.unlock();
         }
-        lock.unlock();
     }
 
     public void addExamWithoutQuestion(ExamRequestBody examRequestBody) {
         Exam exam = examRequestBody.getExam();
         lock.lock();
-        exam.setId(examRepository.maxId() + 1);
-        exam.setVisible(true);
-        examRepository.save(exam);
-        List<Question> selection = questionService.findQuestion(exam.getCourse(), QuestionType.SELECTION, null, null);
-        List<Question> judgement = questionService.findQuestion(exam.getCourse(), QuestionType.JUDGEMENT, null, null);
-        List<Integer> questionIds = new ArrayList<>();
-        Random random = new Random();
-        for (Integer i = 0; i < examRequestBody.getSelectionNum(); i++) {
-            questionIds.add(selection.get(random.nextInt(selection.size())).getId());
+        try {
+            exam.setId(examRepository.maxId() + 1);
+            exam.setVisible(true);
+            examRepository.save(exam);
+            List<Question> selection = questionService.findQuestion(exam.getCourse(), QuestionType.SELECTION, null, null);
+            List<Question> judgement = questionService.findQuestion(exam.getCourse(), QuestionType.JUDGEMENT, null, null);
+            List<Integer> questionIds = new ArrayList<>();
+            Random random = new Random();
+            for (Integer i = 0; i < examRequestBody.getSelectionNum(); i++) {
+                questionIds.add(selection.get(random.nextInt(selection.size())).getId());
+            }
+            for (Integer i = 0; i < examRequestBody.getJudgementNum(); i++) {
+                questionIds.add(judgement.get(random.nextInt(judgement.size())).getId());
+            }
+            for (Integer questionId :
+                    questionIds) {
+                ExamQuestion examQuestion = new ExamQuestion();
+                examQuestion.setExamId(exam.getId());
+                examQuestion.setQuestionId(questionId);
+                examQuestionRepository.save(examQuestion);
+            }
+        } catch (Exception ignored) {
+
+        } finally {
+            lock.unlock();
         }
-        for (Integer i = 0; i < examRequestBody.getJugementNum(); i++) {
-            questionIds.add(judgement.get(random.nextInt(judgement.size())).getId());
-        }
-        for (Integer questionId :
-                questionIds) {
-            ExamQuestion examQuestion = new ExamQuestion();
-            examQuestion.setExamId(exam.getId());
-            examQuestion.setId(questionId);
-            examQuestionRepository.save(examQuestion);
-        }
-        lock.unlock();
     }
 
     public void modifyExam(ExamRequestBody examRequestBody) {
