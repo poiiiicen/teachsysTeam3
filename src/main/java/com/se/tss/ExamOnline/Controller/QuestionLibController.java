@@ -61,9 +61,6 @@ public class QuestionLibController {
         if (!Arrays.asList(authorityUser).contains(userRepository.findAuthorityById(user.getId()))) {
             return ResponseEntity.badRequest().body(new QuestionResponseBody("Not Teacher or Admin"));
         }
-        if (course == null || !classInfoService.getIdByTeacherid(teacherInfoService.findIdByName(user.getName())).contains(course)) {
-            return ResponseEntity.badRequest().body(new QuestionResponseBody(course == null ? "Need Course" : "No Such Course"));
-        }
         List<Question> questions = questionService.findQuestion(course, type, description, tag == null ? null : tag.split(" "));
         return ResponseEntity.ok(new QuestionResponseBody(questions.isEmpty() ? "No Result" : "Success", questions));
     }

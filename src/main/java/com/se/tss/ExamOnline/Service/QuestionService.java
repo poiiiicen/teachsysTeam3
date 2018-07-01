@@ -21,7 +21,9 @@ public class QuestionService {
         return questionLibRepository.findAll((Specification<Question>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             list.add(criteriaBuilder.equal(root.get("visible").as(Boolean.class), true));
-            list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
+            if (course != null && !"".equals(course)) {
+                list.add(criteriaBuilder.equal(root.get("course").as(String.class), course));
+            }
             if (type != null) {
                 list.add(criteriaBuilder.equal(root.get("type").as(Integer.class), type));
             }
