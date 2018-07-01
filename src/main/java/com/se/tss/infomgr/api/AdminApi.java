@@ -2,6 +2,8 @@ package com.se.tss.infomgr.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.se.tss.forum.Entity.UserEntity;
+import com.se.tss.forum.Service.ForumUserService;
 import com.se.tss.infomgr.annotation.AdminRequired;
 import com.se.tss.infomgr.annotation.CurrentUser;
 import com.se.tss.infomgr.model.User;
@@ -19,7 +21,8 @@ import java.io.IOException;
 public class AdminApi {
     private final UserRepository userRepository;
     private final UserService userService;
-
+    @Autowired
+    ForumUserService forumUserService;
     @Autowired
     public AdminApi(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
@@ -60,6 +63,8 @@ public class AdminApi {
     public Object deleteUser(@PathVariable int id) {
         JSONObject jsonObject = new JSONObject();
         userRepository.deleteById(id);
+        UserEntity bbsUser = forumUserService.findByUid(id);
+        forumUserService.delete(bbsUser);
         jsonObject.put("message", "success");
         return jsonObject;
     }
