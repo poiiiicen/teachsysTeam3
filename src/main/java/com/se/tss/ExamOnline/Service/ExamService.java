@@ -163,6 +163,7 @@ public class ExamService {
         if (!exam.getVisible()) {
             return false;
         } else exam.setVisible(false);
+        examRepository.save(exam);
         return true;
     }
 
